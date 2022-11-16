@@ -115,7 +115,7 @@ if st.sidebar.button('LinkedIn'):
     webbrowser.open_new_tab(list(SOCIAL_MEDIA.values())[0])
 
 if st.sidebar.button('GitHub'):
-    webbrowser.open_new_tab(list(SOCIAL_MEDIA.values())[1])
+    webbrowser.open_new_tab(link)
     
 st.sidebar.download_button(
     label = "Download Resume 👈",
