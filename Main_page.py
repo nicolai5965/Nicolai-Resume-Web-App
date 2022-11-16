@@ -10,7 +10,7 @@ os.environ['NUMEXPR_MAX_THREADS'] = '12'
 ###------------------------------------------------------------------------------------------------------------###
 # --- PATH SETTINGS ---
 resume_file = "pages/CV.pdf"
-profile_pic = "pages/Images/Nicolai_image.jpg"
+profile_pic = "pages/Images/Nicolai_Image.jpg"
 
 # --- GENERAL SETTINGS ---
 PAGE_TITLE = "Digital CV | Nicolai Søderberg"
