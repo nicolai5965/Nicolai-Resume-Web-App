@@ -114,11 +114,6 @@ st.sidebar.markdown(LinkedIn_link, unsafe_allow_html=True)
 GitHub_link = '[My GitHub repo](https://github.com/nicolai5965)'
 st.sidebar.markdown(GitHub_link, unsafe_allow_html=True)
 
-st.markdown(""" div.stButton > button:first-child {
-background-color: #00cc00;color:white;font-size:20px;height:3em;width:30em;border-radius:10px 10px 10px 10px;
-}
-""", unsafe_allow_html=True)
-
 # st.markdown(f'''
 # <a href={link}><button style="background-color:Red;">Github<button/></a>
 # ''', unsafe_allow_html=True)
