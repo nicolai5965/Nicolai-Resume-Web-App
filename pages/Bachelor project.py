@@ -26,13 +26,14 @@ SOCIAL_MEDIA = {
     "GitHub": "https://github.com/nicolai5965",
 }
 ###------------------------------------------------------------------------------------------------------------###
+### Sidebar
 st.sidebar.write('\n')
 
-if st.sidebar.button('LinkedIn'):
-    webbrowser.open_new_tab(list(SOCIAL_MEDIA.values())[0])
+LinkedIn_link = '[My LinkedIn](https://www.linkedin.com/in/nicolai-s%C3%B8derberg-907680238/)'
+st.sidebar.markdown(LinkedIn_link, unsafe_allow_html=True)
 
-if st.sidebar.button('GitHub'):
-    webbrowser.open_new_tab(list(SOCIAL_MEDIA.values())[1])
+GitHub_link = '[My GitHub repo](https://github.com/nicolai5965)'
+st.sidebar.markdown(GitHub_link, unsafe_allow_html=True)
 
 with open(resume_file, "rb") as pdf_file:
     PDFbyte_CV = pdf_file.read()
@@ -44,9 +45,34 @@ st.sidebar.download_button(
     mime ="application/octet-stream",
 )
 
+st.sidebar.write("---")
 
+# if st.sidebar.button('Kaggle: TrackML Challenge'):
+#     webbrowser.open_new_tab("https://www.kaggle.com/competitions/trackml-particle-identification/overview")
+# if st.sidebar.button("Bachelor's project: Old code"):
+#     webbrowser.open_new_tab("https://github.com/nicolai5965/Bachelor-project-Nicolai-og-Simon-")
+
+# if st.sidebar.button("Bachelor's project: Remade"):
+#     webbrowser.open_new_tab("https://github.com/nicolai5965/Bachelor-project-remastered")
+
+Kaggle_link = '['Kaggle: TrackML Challenge](https://www.kaggle.com/competitions/trackml-particle-identification/overview)'
+st.sidebar.markdown(Kaggle_link, unsafe_allow_html=True)
+
+GitHub_link_old_code = '[Bachelor project: Old code](https://github.com/nicolai5965)'
+st.sidebar.markdown(GitHub_link_old_code, unsafe_allow_html=True)  
+
+
+GitHub_link_new_code = '[Bachelor project: Remade](https://github.com/nicolai5965)'
+st.sidebar.markdown(GitHub_link_new_code, unsafe_allow_html=True)  
+  
+st.sidebar.download_button(
+    label = "Download Bachelor's project",
+    data = PDFbyte_project,
+    file_name = Bachelorproject_file,
+    mime = "application/octet-stream",
+)
 ###------------------------------------------------------------------------------------------------------------###
-
+## Instroduction 
 
 st.header("Introduction:")
 
@@ -79,7 +105,6 @@ if st.sidebar.button("Bachelor's project: Old code"):
     
 if st.sidebar.button("Bachelor's project: Remade"):
     webbrowser.open_new_tab("https://github.com/nicolai5965/Bachelor-project-remastered")
-
 
 st.write('\n')
 st.write("---")
