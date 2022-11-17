@@ -112,9 +112,9 @@ link = '[GitHub](http://github.com)'
 st.markdown(link, unsafe_allow_html=True)
 
 st.sidebar.markdown(f'''
-<a href={link}><button style="background-color:GreenYellow;">Github</button></a>
-''',
-unsafe_allow_html=True)
+<a href={link}><button style="background-color:Red;">Github</button></a>
+''', unsafe_allow_html=True)
+
 if st.sidebar.button('LinkedIn'):
     webbrowser.open_new_tab(list(SOCIAL_MEDIA.values())[0])
 
