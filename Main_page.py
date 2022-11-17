@@ -109,10 +109,18 @@ st.write(
 ## Links
 
 link = '[GitHub](http://github.com)'
-st.markdown(f"""{link}<button style="background-color:Red;">""", unsafe_allow_html=True)
+st.markdown(f"""{link}<button style="background-color:Red;"></a>""", unsafe_allow_html=True)
 
 st.markdown(f'''
 <a href={link}><button style="background-color:Red;">Github<button/></a>
+''', unsafe_allow_html=True)
+
+st.markdown(f'''
+<a href={link}><button style="background-color:Red;">Github<button/></a>
+''', unsafe_allow_html=True)
+
+st.markdown(f'''
+<a{link}><button style="background-color:Red;">Github<button/></a>
 ''', unsafe_allow_html=True)
 
 if st.sidebar.button('LinkedIn'):
