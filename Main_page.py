@@ -109,9 +109,9 @@ st.write(
 ## Links
 
 link = '[GitHub](http://github.com)'
-st.markdown(link, unsafe_allow_html=True)
+st.markdown(f"""{link}<button style="background-color:Red;">""", unsafe_allow_html=True)
 
-st.sidebar.markdown(f'''
+st.markdown(f'''
 <a href={link}><button style="background-color:Red;">Github</button></a>
 ''', unsafe_allow_html=True)
 
