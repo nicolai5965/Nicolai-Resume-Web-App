@@ -68,15 +68,15 @@ st.sidebar.markdown(GitHub_link_new_code, unsafe_allow_html=True)
 with open(Bachelorproject_file, "rb") as pdf_file:
     PDFbyte_project = pdf_file.read()
 
-
-st.sidebar.write("---")
-
 st.sidebar.download_button(
     label = "Download Bachelor's project",
     data = PDFbyte_project,
     file_name = Bachelorproject_file,
     mime = "application/octet-stream",
 )
+
+
+st.sidebar.write("---")
 ###------------------------------------------------------------------------------------------------------------###
 ## Instroduction 
 
