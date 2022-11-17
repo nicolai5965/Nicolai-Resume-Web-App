@@ -123,9 +123,9 @@ st.markdown(f'''
 <a{link}><button style="background-color:Red;">Github<button/></a>
 ''', unsafe_allow_html=True)
 
-login = st.button(‘Login’)
+login = st.button("Login")
 if login:
-webbrowser.open(‘http://github.com’)
+    webbrowser.open("http://github.com")
 
 
 if st.sidebar.button('LinkedIn'):
