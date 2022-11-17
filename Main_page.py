@@ -108,24 +108,24 @@ st.write(
 ###------------------------------------------------------------------------------------------------------------###
 ## Links
 
-link = '[GitHub](http://github.com)'
-st.markdown(f"""{link}<button style="background-color:Red;"></a>""", unsafe_allow_html=True)
+GitHub_link = '[GitHub](http://github.com)'
+st.sidebar.markdown(f"""<{GitHub_link}button style="background-color:Red;">""", unsafe_allow_html=True)
 
-st.markdown(f'''
-<a href={link}><button style="background-color:Red;">Github<button/></a>
-''', unsafe_allow_html=True)
+# st.markdown(f'''
+# <a href={link}><button style="background-color:Red;">Github<button/></a>
+# ''', unsafe_allow_html=True)
 
-st.markdown(f'''
-<a href={link}><button style="background-color:Red;">Github<button/></a>
-''', unsafe_allow_html=True)
+# st.markdown(f'''
+# <a href={link}><button style="background-color:Red;">Github<button/></a>
+# ''', unsafe_allow_html=True)
 
-st.markdown(f'''
-<a{link}><button style="background-color:Red;">Github<button/></a>
-''', unsafe_allow_html=True)
+# st.markdown(f'''
+# <a{link}><button style="background-color:Red;">Github<button/></a>
+# ''', unsafe_allow_html=True)
 
-login = st.button("Login")
-if login:
-    webbrowser.open("http://github.com")
+# login = st.button("Login")
+# if login:
+#     webbrowser.open("http://github.com")
 
 
 if st.sidebar.button('LinkedIn'):
