@@ -108,8 +108,11 @@ st.write(
 ###------------------------------------------------------------------------------------------------------------###
 ## Links
 
-GitHub_link = '[GitHub](http://github.com)'
-st.sidebar.markdown(f"""<{GitHub_link}button style="background-color:Red;">""", unsafe_allow_html=True)
+LinkedIn_link = '[My LinkedIn](https://www.linkedin.com/in/nicolai-s%C3%B8derberg-907680238/)'
+st.sidebar.markdown(LinkedIn_link, unsafe_allow_html=True)
+
+GitHub_link = '[My GitHub repo](https://github.com/nicolai5965)'
+st.sidebar.markdown(GitHub_link, unsafe_allow_html=True)
 
 # st.markdown(f'''
 # <a href={link}><button style="background-color:Red;">Github<button/></a>
