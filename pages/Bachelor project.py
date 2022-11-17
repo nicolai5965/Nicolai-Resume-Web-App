@@ -65,6 +65,12 @@ st.sidebar.markdown(GitHub_link_old_code, unsafe_allow_html=True)
 GitHub_link_new_code = '[Bachelor project: Remade](https://github.com/nicolai5965)'
 st.sidebar.markdown(GitHub_link_new_code, unsafe_allow_html=True)  
   
+with open(Bachelorproject_file, "rb") as pdf_file:
+    PDFbyte_project = pdf_file.read()
+
+
+st.sidebar.write("---")
+
 st.sidebar.download_button(
     label = "Download Bachelor's project",
     data = PDFbyte_project,
@@ -82,29 +88,6 @@ If you want to read our completed report you can download it from the sidebar, o
 
 st.write(Introduction)
 
-with open(Bachelorproject_file, "rb") as pdf_file:
-    PDFbyte_project = pdf_file.read()
-
-
-st.sidebar.write("---")
-
-st.sidebar.download_button(
-    label = "Download Bachelor's project",
-    data = PDFbyte_project,
-    file_name = Bachelorproject_file,
-    mime = "application/octet-stream",
-)
-
-
-if st.sidebar.button('Kaggle: TrackML Challenge'):
-    webbrowser.open_new_tab("https://www.kaggle.com/competitions/trackml-particle-identification/overview")
-
-
-if st.sidebar.button("Bachelor's project: Old code"):
-    webbrowser.open_new_tab("https://github.com/nicolai5965/Bachelor-project-Nicolai-og-Simon-")
-    
-if st.sidebar.button("Bachelor's project: Remade"):
-    webbrowser.open_new_tab("https://github.com/nicolai5965/Bachelor-project-remastered")
 
 st.write('\n')
 st.write("---")
