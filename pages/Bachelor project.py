@@ -55,7 +55,7 @@ st.sidebar.write("---")
 # if st.sidebar.button("Bachelor's project: Remade"):
 #     webbrowser.open_new_tab("https://github.com/nicolai5965/Bachelor-project-remastered")
 
-Kaggle_link = '['Kaggle: TrackML Challenge](https://www.kaggle.com/competitions/trackml-particle-identification/overview)'
+Kaggle_link = "[Kaggle: TrackML Challenge](https://www.kaggle.com/competitions/trackml-particle-identification/overview)"
 st.sidebar.markdown(Kaggle_link, unsafe_allow_html=True)
 
 GitHub_link_old_code = '[Bachelor project: Old code](https://github.com/nicolai5965)'
