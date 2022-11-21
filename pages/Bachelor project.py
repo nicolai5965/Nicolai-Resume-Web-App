@@ -203,68 +203,68 @@ if page_info == "Test GNN:":
     mlp_settings = '<p style="font-family:sans-serif; color:White; font-size: 22px;"> All settings are on a default that I found give the best results without taking hours to run </p>'
     st.markdown(mlp_settings, unsafe_allow_html=True)
     
-#     ###-------------------------------------------------------------------------------------------------------------------------------------------------------###
-#     st.write("Do you want to set MLP parameters yourself?")
-#     col1, col2 , col3, col4, col5, col6 = st.columns(6)
-#     with col1:
-#         mlp_para_set = st.select_slider("", ["No", "Yes"])
+    ###-------------------------------------------------------------------------------------------------------------------------------------------------------###
+    st.write("Do you want to set MLP parameters yourself?")
+    col1, col2 , col3, col4, col5, col6 = st.columns(6)
+    with col1:
+        mlp_para_set = st.select_slider("", ["No", "Yes"])
     
-#     if mlp_para_set == "No":
-#         hidden_layers = (100, 200, 100)
-#         max_iter = 100
-#         activation = "relu"
-#         solver = "adam"
-#         learning_rate = "constant"
+    if mlp_para_set == "No":
+        hidden_layers = (100, 200, 100)
+        max_iter = 100
+        activation = "relu"
+        solver = "adam"
+        learning_rate = "constant"
         
-#     if mlp_para_set == "Yes":
-#         st.write("Selecet number hidden layers:")
-#         st.write("Min: 2", "Max: 4")
-#         col1, col2 , col3 = st.columns(3)
-#         with col1:
-#             nr_hidden_layers = st.number_input("col1_number1", min_value = 2, max_value = 4, value = 3, label_visibility = "hidden")
+    if mlp_para_set == "Yes":
+        st.write("Selecet number hidden layers:")
+        st.write("Min: 2", "Max: 4")
+        col1, col2 , col3 = st.columns(3)
+        with col1:
+            nr_hidden_layers = st.number_input("col1_number1", min_value = 2, max_value = 4, value = 3, label_visibility = "hidden")
 
-#         if nr_hidden_layers == 2:
-#             st.write("Selecet hidden layers:")
-#             col1, col2 , col3 = st.columns(3)
-#             with col1:
-#                 col2_number1 = st.number_input("col2_number1", min_value = 1, max_value = 300, value = 100, label_visibility = "hidden")
+        if nr_hidden_layers == 2:
+            st.write("Selecet hidden layers:")
+            col1, col2 , col3 = st.columns(3)
+            with col1:
+                col2_number1 = st.number_input("col2_number1", min_value = 1, max_value = 300, value = 100, label_visibility = "hidden")
 
-#             with col2:
-#                 col2_number2 = st.number_input("col2_number2", min_value = 1, max_value = 300, value = 200, label_visibility = "hidden")
+            with col2:
+                col2_number2 = st.number_input("col2_number2", min_value = 1, max_value = 300, value = 200, label_visibility = "hidden")
 
-#             hidden_layers = (col2_number1, col2_number2)
+            hidden_layers = (col2_number1, col2_number2)
 
-#         if nr_hidden_layers == 3:
-#             st.write("Selecet hidden layers:")
-#             col1, col2 , col3 = st.columns(3)
-#             with col1:
-#                 col3_number1 = st.number_input("col3_number1", min_value = 1, max_value = 300, value = 100, label_visibility = "hidden")
+        if nr_hidden_layers == 3:
+            st.write("Selecet hidden layers:")
+            col1, col2 , col3 = st.columns(3)
+            with col1:
+                col3_number1 = st.number_input("col3_number1", min_value = 1, max_value = 300, value = 100, label_visibility = "hidden")
 
-#             with col2:
-#                 col3_number2 = st.number_input("col3_number2", min_value = 1, max_value = 300, value = 200, label_visibility = "hidden")
+            with col2:
+                col3_number2 = st.number_input("col3_number2", min_value = 1, max_value = 300, value = 200, label_visibility = "hidden")
 
-#             with col3:
-#                 col3_number3 = st.number_input("col3_number3", min_value = 1, max_value = 300, value = 100, label_visibility = "hidden")
+            with col3:
+                col3_number3 = st.number_input("col3_number3", min_value = 1, max_value = 300, value = 100, label_visibility = "hidden")
 
-#             hidden_layers = (col3_number1, col3_number2, col3_number3)
+            hidden_layers = (col3_number1, col3_number2, col3_number3)
 
-#         if nr_hidden_layers == 4:
-#             st.write("Selecet hidden layers:")
-#             col1, col2 , col3, col4 = st.columns(4)
-#             with col1:
-#                 col4_number1 = st.number_input("col4_number1", min_value = 1, max_value = 300, value = 100, label_visibility = "hidden")
+        if nr_hidden_layers == 4:
+            st.write("Selecet hidden layers:")
+            col1, col2 , col3, col4 = st.columns(4)
+            with col1:
+                col4_number1 = st.number_input("col4_number1", min_value = 1, max_value = 300, value = 100, label_visibility = "hidden")
 
-#             with col2:
-#                 col4_number2 = st.number_input("col4_number2", min_value = 1, max_value = 300, value = 200, label_visibility = "hidden")
+            with col2:
+                col4_number2 = st.number_input("col4_number2", min_value = 1, max_value = 300, value = 200, label_visibility = "hidden")
 
-#             with col3:
-#                 col4_number3 = st.number_input("col4_number3", min_value = 1, max_value = 300, value = 100, label_visibility = "hidden")
+            with col3:
+                col4_number3 = st.number_input("col4_number3", min_value = 1, max_value = 300, value = 100, label_visibility = "hidden")
 
-#             with col4:
-#                 col4_number4 = st.number_input("col4_number4", min_value = 1, max_value = 300, value = 50, label_visibility = "hidden")   
+            with col4:
+                col4_number4 = st.number_input("col4_number4", min_value = 1, max_value = 300, value = 50, label_visibility = "hidden")   
 
-#             hidden_layers = (col4_number1, col4_number2, col4_number3, col4_number4)  
-#         ###------------------------------------------------------------------------------------------------------------###
+            hidden_layers = (col4_number1, col4_number2, col4_number3, col4_number4)  
+        ###------------------------------------------------------------------------------------------------------------###
         st.write("Selecet maximum number of iterations:")
         col1, col2 , col3 = st.columns(3)
         with col1:
