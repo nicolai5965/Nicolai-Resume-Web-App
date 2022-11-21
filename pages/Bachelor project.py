@@ -18,7 +18,6 @@ import matplotlib.pyplot as plt
 os.environ['NUMEXPR_MAX_THREADS'] = '12'
 ###------------------------------------------------------------------------------------------------------------###
 # --- GENERAL SETTINGS ---
-
 resume_file = "pages/CV.pdf"
 Bachelorproject_file = "pages/Bachelorproject.pdf"
 SOCIAL_MEDIA = {
@@ -98,7 +97,6 @@ page_info = st.radio("Select date format",
 if page_info == 'Read description:':
     ###------------------------------------------------------------------------------------------------------------###
     # Abstract:
-
     Abstract = """Due to the significant scale of data produced in High Luminosity LHC, traditional particle tracking methods will require more time reconstructing particle tracks. To confront
     this problem, various different machine learning techniques have been tested. A method
     that has produced promising results is a Graph Neural Network, which can predict possible
@@ -114,11 +112,8 @@ if page_info == 'Read description:':
     st.write("---")
     st.header("Abstract:")
     st.write(Abstract)
-
-
     ###------------------------------------------------------------------------------------------------------------###
     # Getting started:
-
     Getting_started = """We have only looked at Kaggles 100 events file. This is because we didn't have the time to run all 8850 events when 100 took over an hour with the old code. 
     When getting the 100 events file there are four file types Hits, Truth, Particles and Cells. 
     We found no use in the cells file, so I have made some code that can remove all the Cell files from the 100 events folder. This can be found under the Ramade github page.
@@ -128,31 +123,24 @@ if page_info == 'Read description:':
     st.write("---")
     st.header("Getting started:")
     st.write(Getting_started)
-
-
     ###------------------------------------------------------------------------------------------------------------###
     # Cleaning data
-
     Cleaning_data = """There are some of the particles/hits that has to be removed. Why this has to happen can be read in the finished project.
     """
     st.write('\n')
     st.write("---")
     st.header("Cleaning data:")
     st.write(Cleaning_data)
-
     ###------------------------------------------------------------------------------------------------------------###
     # finding_nodes
-
     finding_nodes = """We decided to make a GNN that could take in the features of the different nodes, and then predict whichs nodes where connected here by findes the right edges.
     """
     st.write('\n')
     st.write("---")
     st.header("Finding the node features:")
     st.write(finding_nodes)
-
     ###------------------------------------------------------------------------------------------------------------###
     # using MLP
-
     MLP_C = """With the limited time that we had, we chose to go along and used Sklearns MLP classifier as the base of out GNN."""
     st.write('\n')
     st.write("---")
@@ -163,7 +151,6 @@ if page_info == 'Read description:':
     st.write("---")
     st.header("All of above and more can be read in our bachelor's project")
 
-    
 if page_info == "Test GNN:":
     
     st.header("Data selection parameters:")
@@ -212,8 +199,6 @@ if page_info == "Test GNN:":
     
     # run_data_reading = '<p style="font-family:sans-serif; color:White; font-size: 22px;"> Do you want to read, clean and find nodes? </p>'
     # st.markdown(run_data_reading, unsafe_allow_html=True)
-
-    
     ###-----------------------------------------------------------------------------------------------------------------------------------------------------###
     st.header("MLP parameters:")
     mlp_settings = '<p style="font-family:sans-serif; color:White; font-size: 22px;"> All settings are on a default that I found give the best results without taking hours to run </p>'
@@ -552,7 +537,7 @@ if page_info == "View detector setup":
     st.markdown(view_detector, unsafe_allow_html=True)    
     col1, col2 , col3, col4, col5, col6 = st.columns(6)
     with col1:
-        view_detector = st.select_slider("view_detector", ["No", "Yes"], label_visibility = "collapsed")
+        view_detector = st.select_slider(label = "view_detector", ["No", "Yes"], label_visibility = "hidden")
     
     if view_detector == "No":
         st.write("Wating to view detector sections...")
@@ -584,7 +569,7 @@ if page_info == "View detector setup":
         ax.set_xlabel('X (mm)', rotation = 0)
         ax.set_ylabel('Y (mm)', rotation = 0)
         ax.set_zlabel('Z (mm)', rotation = 0)
-        ax.scatter3D(layers.cz,layers.cx,layers.cy, c = layers.cy)
+        ax.scatter3D(layers.cz, layers.cx, layers.cy, c = layers.cy)
         st.pyplot(fig)
     
     
