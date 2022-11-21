@@ -152,6 +152,10 @@ if page_info == 'Read description:':
     st.header("All of above and more can be read in our bachelor's project")
 
 if page_info == "Test GNN:":
+    fast_info = """<p style="font-family:sans-serif; color:White; font-size: 22px;"> On a privat pc the code runs faster
+    , but on Streamlit Cloud where the website is deployed it takes ages. 10 events takes around 2 minutes, so I have made a max events on 30.</p>"""
+    st.markdown(fast_info, unsafe_allow_html=True)   
+    
 ###-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------###
     st.header("Data selection parameters:")
     mlp_settings = '<p style="font-family:sans-serif; color:White; font-size: 22px;"> All settings are on a default that I found give the best results without taking hours to run </p>'
@@ -171,7 +175,7 @@ if page_info == "Test GNN:":
         st.header('Select number of events:')
         col1, col2 , col3 = st.columns(3)
         with col1:
-            event_nr = st.number_input("event_nr", min_value = 2, max_value = 100, value = 10, label_visibility = "hidden")
+            event_nr = st.number_input("event_nr", min_value = 2, max_value = 30, value = 10, label_visibility = "hidden")
             #st.write('The event amount = ', number)
 
         ###------------------------------------------------------------------------------------------------------------###
