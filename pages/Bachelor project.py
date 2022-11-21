@@ -42,7 +42,7 @@ st.sidebar.download_button(
     label = "Download Resume 👈",
     data = PDFbyte_CV,
     file_name = "Resume/CV.pdf",
-    mime ="application/octet-stream")
+    mime ="application/octet-stream",)
 
 st.sidebar.write("---")
 
