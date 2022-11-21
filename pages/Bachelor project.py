@@ -42,8 +42,7 @@ st.sidebar.download_button(
     label = "Download Resume 👈",
     data = PDFbyte_CV,
     file_name = "Resume/CV.pdf",
-    mime ="application/octet-stream",
-)
+    mime ="application/octet-stream")
 
 st.sidebar.write("---")
 
@@ -61,7 +60,6 @@ st.sidebar.markdown(Kaggle_link, unsafe_allow_html=True)
 GitHub_link_old_code = '[Bachelor project: Old code](https://github.com/nicolai5965)'
 st.sidebar.markdown(GitHub_link_old_code, unsafe_allow_html=True)  
 
-
 GitHub_link_new_code = '[Bachelor project: Remade](https://github.com/nicolai5965)'
 st.sidebar.markdown(GitHub_link_new_code, unsafe_allow_html=True)  
   
@@ -72,26 +70,18 @@ st.sidebar.download_button(
     label = "Download Bachelor's project",
     data = PDFbyte_project,
     file_name = Bachelorproject_file,
-    mime = "application/octet-stream",
-)
-
-
+    mime = "application/octet-stream",)
 st.sidebar.write("---")
 ###------------------------------------------------------------------------------------------------------------###
 ## Instroduction 
-
 st.header("Introduction:")
-
 Introduction = """This project was my physics bachelor's project that I did with my classmate Simon. We got the idea from our supervisor Stefania. We could either do a convolutional neural network, which had been done multiple times before, or we could do a graph neural network which isn't as widespread as CNN. We chose the GNN because it sounded super interesting, especially since it isn't as widespread. The reason I'm making this page is that I have made some significant changes to the parts of the code. These changes makes the code run significantly faster. With some parts taking multipul hours down to a couple of minutes. 
 If you want to read our completed report you can download it from the sidebar, or look at the chanllenge you self click the Kaggle link.
 """
-
 st.write(Introduction)
-
 
 st.write('\n')
 st.write("---")
-
 ###------------------------------------------------------------------------------------------------------------###
 # Track image:
 st.header("Here you can see an image of a end prediction of the track of particles, from our GNN")
