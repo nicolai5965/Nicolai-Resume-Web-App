@@ -209,19 +209,19 @@ if page_info == "Test GNN:":
     with col1:
         mlp_para_set = st.select_slider("", ["No", "Yes"])
     
-#     if mlp_para_set == "No":
-#         hidden_layers = (100, 200, 100)
-#         max_iter = 100
-#         activation = "relu"
-#         solver = "adam"
-#         learning_rate = "constant"
+    if mlp_para_set == "No":
+        hidden_layers = (100, 200, 100)
+        max_iter = 100
+        activation = "relu"
+        solver = "adam"
+        learning_rate = "constant"
         
-#     if mlp_para_set == "Yes":
-#         st.write("Selecet number hidden layers:")
-#         st.write("Min: 2", "Max: 4")
-#         col1, col2 , col3 = st.columns(3)
-#         with col1:
-#             nr_hidden_layers = st.number_input("col1_number1", min_value = 2, max_value = 4, value = 3, label_visibility = "hidden")
+    if mlp_para_set == "Yes":
+        st.write("Selecet number hidden layers:")
+        st.write("Min: 2", "Max: 4")
+        col1, col2 , col3 = st.columns(3)
+        with col1:
+            nr_hidden_layers = st.number_input("col1_number1", min_value = 2, max_value = 4, value = 3, label_visibility = "hidden")
 
 #         if nr_hidden_layers == 2:
 #             st.write("Selecet hidden layers:")
