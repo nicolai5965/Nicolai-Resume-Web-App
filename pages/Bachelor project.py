@@ -537,7 +537,7 @@ if page_info == "View detector setup":
     st.markdown(view_detector, unsafe_allow_html=True)    
     col1, col2 , col3, col4, col5, col6 = st.columns(6)
     with col1:
-        view_detector = st.select_slider(label = "view_detector", ["No", "Yes"], label_visibility = "hidden")
+        view_detector = st.select_slider("view_detector", ["No", "Yes"], label_visibility = "hidden")
     
     if view_detector == "No":
         st.write("Wating to view detector sections...")
