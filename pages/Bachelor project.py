@@ -545,7 +545,7 @@ if page_info == "View detector setup":
         logo_image = Image.open("Images/Detector volume id.png")
         st.image(logo_image,
                 width=650,
-                output_format="PNG")
+                output_format="png")
     
     def remove_volume_ids(data_H_T, volumn_list):
         data_H_T = data_H_T.loc[data_H_T['volume_id'].isin(volumn_list)]
