@@ -152,141 +152,141 @@ if page_info == 'Read description:':
     st.header("All of above and more can be read in our bachelor's project")
 
 if page_info == "Test GNN:":
-    
-    st.header("Data selection parameters:")
-    mlp_settings = '<p style="font-family:sans-serif; color:White; font-size: 22px;"> All settings are on a default that I found give the best results without taking hours to run </p>'
-    st.markdown(mlp_settings, unsafe_allow_html=True)
-    ###------------------------------------------------------------------------------------------------------------###
-    st.write("Do you want to set data selection parameters yourself?")
-    col1, col2 , col3, col4, col5, col6 = st.columns(6)
-    with col1:
-        data_para_set = st.select_slider("data_para_set", ["No", "Yes"], label_visibility = "hidden")
-    
-    if data_para_set == "No":
-        event_nr = 10
-        detector_sections = [8, 13, 17]
-        pt_values = (1.0, 1.25)
-   
-    if data_para_set == "Yes":
-        st.header('Select number of events:')
-        col1, col2 , col3 = st.columns(3)
-        with col1:
-            event_nr = st.number_input("event_nr", min_value = 2, max_value = 100, value = 10, label_visibility = "hidden")
-            #st.write('The event amount = ', number)
-
-        ###------------------------------------------------------------------------------------------------------------###
-        st.header("Selecet which sections/volume_id you would like to look at:")
-        detector_sections = st.multiselect(
-            "Select Countrys:",
-            options = [7, 8, 12, 13, 14, 16, 17, 18],
-            default = [8, 13, 17],
-            label_visibility = "hidden",)
-
-        st.header("Selecet transverse momentum range:")
-        pt_values = st.slider(
-        'The bigger the range the longer it takes the code to run:',
-        0.0, 3.0, (1.0, 1.25))
-        ###------------------------------------------------------------------------------------------------------------###
-        if st.button('View detector sections:'):
-            logo_image = Image.open("pages/Images/Detector volume id.png")
-            st.image(logo_image,
-                    width=650,
-                    output_format="PNG")
-    
-    st.write("The current data selection parameters are set to:")
-    st.write(f"""Number of events:, {event_nr}. Detector sections: {detector_sections}. Pt value range: {pt_values}.""")
-    
-    # run_data_reading = '<p style="font-family:sans-serif; color:White; font-size: 22px;"> Do you want to read, clean and find nodes? </p>'
-    # st.markdown(run_data_reading, unsafe_allow_html=True)
-    ###-----------------------------------------------------------------------------------------------------------------------------------------------------###
-    st.header("MLP parameters:")
-    mlp_settings = '<p style="font-family:sans-serif; color:White; font-size: 22px;"> All settings are on a default that I found give the best results without taking hours to run </p>'
-    st.markdown(mlp_settings, unsafe_allow_html=True)
-    
-#     ###-------------------------------------------------------------------------------------------------------------------------------------------------------###
-#     st.write("Do you want to set MLP parameters yourself?")
+# ###-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------###
+#     st.header("Data selection parameters:")
+#     mlp_settings = '<p style="font-family:sans-serif; color:White; font-size: 22px;"> All settings are on a default that I found give the best results without taking hours to run </p>'
+#     st.markdown(mlp_settings, unsafe_allow_html=True)
+#     ###------------------------------------------------------------------------------------------------------------###
+#     st.write("Do you want to set data selection parameters yourself?")
 #     col1, col2 , col3, col4, col5, col6 = st.columns(6)
 #     with col1:
-#         mlp_para_set = st.select_slider("", ["No", "Yes"])
+#         data_para_set = st.select_slider("data_para_set", ["No", "Yes"], label_visibility = "hidden")
     
-#     if mlp_para_set == "No":
-#         hidden_layers = (100, 200, 100)
-#         max_iter = 100
-#         activation = "relu"
-#         solver = "adam"
-#         learning_rate = "constant"
+#     if data_para_set == "No":
+#         event_nr = 10
+#         detector_sections = [8, 13, 17]
+#         pt_values = (1.0, 1.25)
+   
+#     if data_para_set == "Yes":
+#         st.header('Select number of events:')
+#         col1, col2 , col3 = st.columns(3)
+#         with col1:
+#             event_nr = st.number_input("event_nr", min_value = 2, max_value = 100, value = 10, label_visibility = "hidden")
+#             #st.write('The event amount = ', number)
+
+#         ###------------------------------------------------------------------------------------------------------------###
+#         st.header("Selecet which sections/volume_id you would like to look at:")
+#         detector_sections = st.multiselect(
+#             "Select Countrys:",
+#             options = [7, 8, 12, 13, 14, 16, 17, 18],
+#             default = [8, 13, 17],
+#             label_visibility = "hidden",)
+
+#         st.header("Selecet transverse momentum range:")
+#         pt_values = st.slider(
+#         'The bigger the range the longer it takes the code to run:',
+#         0.0, 3.0, (1.0, 1.25))
+#         ###------------------------------------------------------------------------------------------------------------###
+#         if st.button('View detector sections:'):
+#             logo_image = Image.open("pages/Images/Detector volume id.png")
+#             st.image(logo_image,
+#                     width=650,
+#                     output_format="PNG")
+    
+#     st.write("The current data selection parameters are set to:")
+#     st.write(f"""Number of events:, {event_nr}. Detector sections: {detector_sections}. Pt value range: {pt_values}.""")
+    
+#     # run_data_reading = '<p style="font-family:sans-serif; color:White; font-size: 22px;"> Do you want to read, clean and find nodes? </p>'
+#     # st.markdown(run_data_reading, unsafe_allow_html=True)
+#     ###-----------------------------------------------------------------------------------------------------------------------------------------------------###
+#     st.header("MLP parameters:")
+#     mlp_settings = '<p style="font-family:sans-serif; color:White; font-size: 22px;"> All settings are on a default that I found give the best results without taking hours to run </p>'
+#     st.markdown(mlp_settings, unsafe_allow_html=True)
+    
+###-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------###
+    st.write("Do you want to set MLP parameters yourself?")
+    col1, col2 , col3, col4, col5, col6 = st.columns(6)
+    with col1:
+        mlp_para_set = st.select_slider("", ["No", "Yes"])
+    
+    if mlp_para_set == "No":
+        hidden_layers = (100, 200, 100)
+        max_iter = 100
+        activation = "relu"
+        solver = "adam"
+        learning_rate = "constant"
         
-#     if mlp_para_set == "Yes":
-#         st.write("Selecet number hidden layers:")
-#         st.write("Min: 2", "Max: 4")
-#         col1, col2 , col3 = st.columns(3)
-#         with col1:
-#             nr_hidden_layers = st.number_input("col1_number1", min_value = 2, max_value = 4, value = 3, label_visibility = "hidden")
+    if mlp_para_set == "Yes":
+        st.write("Selecet number hidden layers:")
+        st.write("Min: 2", "Max: 4")
+        col1, col2 , col3 = st.columns(3)
+        with col1:
+            nr_hidden_layers = st.number_input("col1_number1", min_value = 2, max_value = 4, value = 3, label_visibility = "hidden")
 
-#         if nr_hidden_layers == 2:
-#             st.write("Selecet hidden layers:")
-#             col1, col2 , col3 = st.columns(3)
-#             with col1:
-#                 col2_number1 = st.number_input("col2_number1", min_value = 1, max_value = 300, value = 100, label_visibility = "hidden")
+        if nr_hidden_layers == 2:
+            st.write("Selecet hidden layers:")
+            col1, col2 , col3 = st.columns(3)
+            with col1:
+                col2_number1 = st.number_input("col2_number1", min_value = 1, max_value = 300, value = 100, label_visibility = "hidden")
 
-#             with col2:
-#                 col2_number2 = st.number_input("col2_number2", min_value = 1, max_value = 300, value = 200, label_visibility = "hidden")
+            with col2:
+                col2_number2 = st.number_input("col2_number2", min_value = 1, max_value = 300, value = 200, label_visibility = "hidden")
 
-#             hidden_layers = (col2_number1, col2_number2)
+            hidden_layers = (col2_number1, col2_number2)
 
-#         if nr_hidden_layers == 3:
-#             st.write("Selecet hidden layers:")
-#             col1, col2 , col3 = st.columns(3)
-#             with col1:
-#                 col3_number1 = st.number_input("col3_number1", min_value = 1, max_value = 300, value = 100, label_visibility = "hidden")
+        if nr_hidden_layers == 3:
+            st.write("Selecet hidden layers:")
+            col1, col2 , col3 = st.columns(3)
+            with col1:
+                col3_number1 = st.number_input("col3_number1", min_value = 1, max_value = 300, value = 100, label_visibility = "hidden")
 
-#             with col2:
-#                 col3_number2 = st.number_input("col3_number2", min_value = 1, max_value = 300, value = 200, label_visibility = "hidden")
+            with col2:
+                col3_number2 = st.number_input("col3_number2", min_value = 1, max_value = 300, value = 200, label_visibility = "hidden")
 
-#             with col3:
-#                 col3_number3 = st.number_input("col3_number3", min_value = 1, max_value = 300, value = 100, label_visibility = "hidden")
+            with col3:
+                col3_number3 = st.number_input("col3_number3", min_value = 1, max_value = 300, value = 100, label_visibility = "hidden")
 
-#             hidden_layers = (col3_number1, col3_number2, col3_number3)
+            hidden_layers = (col3_number1, col3_number2, col3_number3)
 
-#         if nr_hidden_layers == 4:
-#             st.write("Selecet hidden layers:")
-#             col1, col2 , col3, col4 = st.columns(4)
-#             with col1:
-#                 col4_number1 = st.number_input("col4_number1", min_value = 1, max_value = 300, value = 100, label_visibility = "hidden")
+        if nr_hidden_layers == 4:
+            st.write("Selecet hidden layers:")
+            col1, col2 , col3, col4 = st.columns(4)
+            with col1:
+                col4_number1 = st.number_input("col4_number1", min_value = 1, max_value = 300, value = 100, label_visibility = "hidden")
 
-#             with col2:
-#                 col4_number2 = st.number_input("col4_number2", min_value = 1, max_value = 300, value = 200, label_visibility = "hidden")
+            with col2:
+                col4_number2 = st.number_input("col4_number2", min_value = 1, max_value = 300, value = 200, label_visibility = "hidden")
 
-#             with col3:
-#                 col4_number3 = st.number_input("col4_number3", min_value = 1, max_value = 300, value = 100, label_visibility = "hidden")
+            with col3:
+                col4_number3 = st.number_input("col4_number3", min_value = 1, max_value = 300, value = 100, label_visibility = "hidden")
 
-#             with col4:
-#                 col4_number4 = st.number_input("col4_number4", min_value = 1, max_value = 300, value = 50, label_visibility = "hidden")   
+            with col4:
+                col4_number4 = st.number_input("col4_number4", min_value = 1, max_value = 300, value = 50, label_visibility = "hidden")   
 
-#             hidden_layers = (col4_number1, col4_number2, col4_number3, col4_number4)  
-#         ###------------------------------------------------------------------------------------------------------------###
-#         st.write("Selecet maximum number of iterations:")
-#         col1, col2 , col3 = st.columns(3)
-#         with col1:
-#             max_iter = st.number_input("max_iter", min_value = 1, max_value = 400, value = 100, label_visibility = "hidden")
-#         ###------------------------------------------------------------------------------------------------------------###
-#         col1, col2 , col3 = st.columns(3)
-#         with col1:
-#             activation = st.radio("Select MLP activation:",
-#                         ("relu", "identity", "logistic", "tanh"))
-#         ###------------------------------------------------------------------------------------------------------------###
-#         with col2:
-#             solver = st.radio("Select MLP solver:",
-#                         ("adam", "sgd", "lbfgs"))
-#         ###------------------------------------------------------------------------------------------------------------###
-#         with col3:
-#             learning_rate = st.radio("Select MLP learning_rate:",
-#                         ("constant", "invscaling", "adaptive"))
+            hidden_layers = (col4_number1, col4_number2, col4_number3, col4_number4)  
+        ###------------------------------------------------------------------------------------------------------------###
+        st.write("Selecet maximum number of iterations:")
+        col1, col2 , col3 = st.columns(3)
+        with col1:
+            max_iter = st.number_input("max_iter", min_value = 1, max_value = 400, value = 100, label_visibility = "hidden")
+        ###------------------------------------------------------------------------------------------------------------###
+        col1, col2 , col3 = st.columns(3)
+        with col1:
+            activation = st.radio("Select MLP activation:",
+                        ("relu", "identity", "logistic", "tanh"))
+        ###------------------------------------------------------------------------------------------------------------###
+        with col2:
+            solver = st.radio("Select MLP solver:",
+                        ("adam", "sgd", "lbfgs"))
+        ###------------------------------------------------------------------------------------------------------------###
+        with col3:
+            learning_rate = st.radio("Select MLP learning_rate:",
+                        ("constant", "invscaling", "adaptive"))
         
-#     st.write("The MLP parameters are set to:")
-#     st.write(f"hidden_layers:", {hidden_layers}, " ,", "max_iter:", {max_iter}, " ,", "solver:", {solver}, " ,", "activation:", {activation}, " ,", "learning_rate:", {learning_rate})
+    st.write("The MLP parameters are set to:")
+    st.write(f"hidden_layers:", {hidden_layers}, " ,", "max_iter:", {max_iter}, " ,", "solver:", {solver}, " ,", "activation:", {activation}, " ,", "learning_rate:", {learning_rate})
 
-# ###---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------###
+###---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------###
 #     run_MLP_test = '<p style="font-family:sans-serif; color:White; font-size: 22px;"> Do you want to read, clean, find nodes and run the MLP? </p>'
 #     st.markdown(run_MLP_test, unsafe_allow_html=True)    
 #     col1, col2 , col3, col4, col5, col6 = st.columns(6)
