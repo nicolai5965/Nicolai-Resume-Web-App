@@ -542,8 +542,8 @@ if page_info == "View detector setup":
         st.write("Wating to view detector sections...")
     
     if view_detector == "Yes":    
-        logo_image = Image.open("Images/Detector volume id.png")
-        st.image(logo_image,
+        detector_volumn = Image.open("Images/detector_id.png")
+        st.image(detector_volumn,
                 width=650,
                 output_format="png")
     
