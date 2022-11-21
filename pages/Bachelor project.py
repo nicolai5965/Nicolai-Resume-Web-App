@@ -84,8 +84,8 @@ st.write("---")
 ###------------------------------------------------------------------------------------------------------------###
 # Track image:
 st.header("Here you can see an image of a end prediction of the track of particles, from our GNN")
-logo_image = Image.open("pages/Images/BP front pic.PNG")
-st.image(logo_image,
+front_image = Image.open("pages/Images/BP front pic.PNG")
+st.image(front_image,
         width=500,
         output_format="PNG")
 
