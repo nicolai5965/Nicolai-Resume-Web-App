@@ -171,13 +171,13 @@ if page_info == "Test GNN:":
         st.header('Select number of events:')
         col1, col2 , col3 = st.columns(3)
         with col1:
-            event_nr = st.number_input(label = "1", min_value = 2, max_value = 100, value = 10, label_visibility = "hidden")
+            event_nr = st.number_input("event_nr", min_value = 2, max_value = 100, value = 10, label_visibility = "hidden")
             #st.write('The event amount = ', number)
 
         ###------------------------------------------------------------------------------------------------------------###
         st.header("Selecet which sections/volume_id you would like to look at:")
         detector_sections = st.multiselect(
-            label = "Select Countrys:",
+            "Select Countrys:",
             options = [7, 8, 12, 13, 14, 16, 17, 18],
             default = [8, 13, 17],
             label_visibility = "hidden",)
@@ -221,54 +221,54 @@ if page_info == "Test GNN:":
         st.write("Min: 2", "Max: 4")
         col1, col2 , col3 = st.columns(3)
         with col1:
-            nr_hidden_layers = st.number_input(label = "6", min_value = 2, max_value = 4, value = 3, label_visibility = "hidden")
+            nr_hidden_layers = st.number_input("col1_number1", min_value = 2, max_value = 4, value = 3, label_visibility = "hidden")
 
         if nr_hidden_layers == 2:
             st.write("Selecet hidden layers:")
             col1, col2 , col3 = st.columns(3)
             with col1:
-                number1 = st.number_input(label = "1", min_value = 1, max_value = 300, value = 100, label_visibility = "hidden")
+                col2_number1 = st.number_input("col2_number1", min_value = 1, max_value = 300, value = 100, label_visibility = "hidden")
 
             with col2:
-                number2 = st.number_input(label = "2", min_value = 1, max_value = 300, value = 200, label_visibility = "hidden")
+                col2_number2 = st.number_input("col2_number2", min_value = 1, max_value = 300, value = 200, label_visibility = "hidden")
 
-            hidden_layers = (number1, number2)
+            hidden_layers = (col2_number1, col2_number2)
 
         if nr_hidden_layers == 3:
             st.write("Selecet hidden layers:")
             col1, col2 , col3 = st.columns(3)
             with col1:
-                number1 = st.number_input(label = "1", min_value = 1, max_value = 300, value = 100, label_visibility = "hidden")
+                col3_number1 = st.number_input("col3_number1", min_value = 1, max_value = 300, value = 100, label_visibility = "hidden")
 
             with col2:
-                number2 = st.number_input(label = "2", min_value = 1, max_value = 300, value = 200, label_visibility = "hidden")
+                col3_number2 = st.number_input("col3_number2", min_value = 1, max_value = 300, value = 200, label_visibility = "hidden")
 
             with col3:
-                number3 = st.number_input(label = "3", min_value = 1, max_value = 300, value = 100, label_visibility = "hidden")
+                col3_number3 = st.number_input("col3_number3", min_value = 1, max_value = 300, value = 100, label_visibility = "hidden")
 
-            hidden_layers = (number1, number2, number3)
+            hidden_layers = (col3_number1, col3_number2, col3_number3)
 
         if nr_hidden_layers == 4:
             st.write("Selecet hidden layers:")
             col1, col2 , col3, col4 = st.columns(4)
             with col1:
-                number1 = st.number_input(label = "1", min_value = 1, max_value = 300, value = 100, label_visibility = "hidden")
+                col4_number1 = st.number_input("col4_number1", min_value = 1, max_value = 300, value = 100, label_visibility = "hidden")
 
             with col2:
-                number2 = st.number_input(label = "2", min_value = 1, max_value = 300, value = 200, label_visibility = "hidden")
+                col4_number2 = st.number_input("col4_number2", min_value = 1, max_value = 300, value = 200, label_visibility = "hidden")
 
             with col3:
-                number3 = st.number_input(label = "3", min_value = 1, max_value = 300, value = 100, label_visibility = "hidden")
+                col4_number3 = st.number_input("col4_number3", min_value = 1, max_value = 300, value = 100, label_visibility = "hidden")
 
             with col4:
-                number4 = st.number_input(label = "4", min_value = 1, max_value = 300, value = 50, label_visibility = "hidden")   
+                col4_number4 = st.number_input("col4_number4", min_value = 1, max_value = 300, value = 50, label_visibility = "hidden")   
 
-            hidden_layers = (number1, number2, number3, number4)  
+            hidden_layers = (col4_number1, col4_number2, col4_number3, col4_number4)  
         ###------------------------------------------------------------------------------------------------------------###
         st.write("Selecet maximum number of iterations:")
         col1, col2 , col3 = st.columns(3)
         with col1:
-            max_iter = st.number_input(label = "max_iter", min_value = 1, max_value = 400, value = 100, label_visibility = "hidden")
+            max_iter = st.number_input("max_iter", min_value = 1, max_value = 400, value = 100, label_visibility = "hidden")
         ###------------------------------------------------------------------------------------------------------------###
         col1, col2 , col3 = st.columns(3)
         with col1:
