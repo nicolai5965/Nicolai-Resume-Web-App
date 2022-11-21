@@ -188,7 +188,7 @@ if page_info == "Test GNN:":
         0.0, 3.0, (1.0, 1.25))
         ###------------------------------------------------------------------------------------------------------------###
         if st.button('View detector sections:'):
-            logo_image = Image.open("Images/Detector volume id.png")
+            logo_image = Image.open("pages/Images/Detector volume id.png")
             st.image(logo_image,
                     width=650,
                     output_format="PNG")
@@ -542,10 +542,10 @@ if page_info == "View detector setup":
         st.write("Wating to view detector sections...")
     
     if view_detector == "Yes":    
-        detector_volumn = Image.open("Images/detector_id.png")
+        detector_volumn = Image.open("pages/Images/Detector volume id.png")
         st.image(detector_volumn,
                 width=650,
-                output_format="png")
+                output_format="PNG")
     
     def remove_volume_ids(data_H_T, volumn_list):
         data_H_T = data_H_T.loc[data_H_T['volume_id'].isin(volumn_list)]
