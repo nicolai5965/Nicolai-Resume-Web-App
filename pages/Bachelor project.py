@@ -202,7 +202,7 @@ if page_info == "Test GNN:":
         0.0, 3.0, (1.0, 1.25))
         ###------------------------------------------------------------------------------------------------------------###
         if st.button('View detector sections:'):
-            logo_image = Image.open("Images/Detector volume id.PNG")
+            logo_image = Image.open("Images/Detector volume id.png")
             st.image(logo_image,
                     width=650,
                     output_format="PNG")
@@ -561,7 +561,7 @@ if page_info == "View detector setup":
         st.write("Wating to view detector sections...")
     
     if run_MLP == "Yes":    
-        logo_image = Image.open("Images/Detector volume id.PNG")
+        logo_image = Image.open("Images/Detector volume id.png")
         st.image(logo_image,
                 width=650,
                 output_format="PNG")
