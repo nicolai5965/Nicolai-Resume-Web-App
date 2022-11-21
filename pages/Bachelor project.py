@@ -173,7 +173,7 @@ if page_info == "Test GNN:":
     st.write("Do you want to set data selection parameters yourself?")
     col1, col2 , col3, col4, col5, col6 = st.columns(6)
     with col1:
-        data_para_set = st.select_slider("data_para_set", ["No", "Yes"], label_visibility = "collapsed")
+        data_para_set = st.select_slider(label = "data_para_set", ["No", "Yes"], label_visibility = "collapsed")
     
     if data_para_set == "No":
         event_nr = 10
@@ -190,10 +190,10 @@ if page_info == "Test GNN:":
         ###------------------------------------------------------------------------------------------------------------###
         st.header("Selecet which sections/volume_id you would like to look at:")
         detector_sections = st.multiselect(
-            "Select Countrys:",
-            options= [7, 8, 12, 13, 14, 16, 17, 18],
-            default= [8, 13, 17],
-            label_visibility="collapsed")
+            label = "Select Countrys:",
+            options = [7, 8, 12, 13, 14, 16, 17, 18],
+            default = [8, 13, 17],
+            label_visibility = "collapsed",)
 
 
         st.header("Selecet transverse momentum range:")
@@ -307,7 +307,7 @@ if page_info == "Test GNN:":
     st.markdown(run_MLP_test, unsafe_allow_html=True)    
     col1, col2 , col3, col4, col5, col6 = st.columns(6)
     with col1:
-        run_MLP = st.select_slider(" ", ["No", "Yes"])
+        run_MLP = st.select_slider("run_mlp", ["No", "Yes"], label_visibility = "collapsed")
     
     if run_MLP == "No":
         st.write("Waiting to read, clean, find nodes and run the MLP")
@@ -546,21 +546,18 @@ if page_info == "Test GNN:":
             st.pyplot(fig)
         
 if page_info == "View detector setup":
-    import pandas as pd
-    import matplotlib.pyplot as plt
-    
     det = pd.read_csv('pages/Data/detectors.csv')
 
     view_detector = '<p style="font-family:sans-serif; color:White; font-size: 22px;"> View detector sections: </p>'
     st.markdown(view_detector, unsafe_allow_html=True)    
     col1, col2 , col3, col4, col5, col6 = st.columns(6)
     with col1:
-        run_MLP = st.select_slider(" ", ["No", "Yes"])
+        view_detector = st.select_slider("view_detector", ["No", "Yes"], label_visibility = "collapsed")
     
-    if run_MLP == "No":
+    if view_detector == "No":
         st.write("Wating to view detector sections...")
     
-    if run_MLP == "Yes":    
+    if view_detector == "Yes":    
         logo_image = Image.open("Images/Detector volume id.png")
         st.image(logo_image,
                 width=650,
