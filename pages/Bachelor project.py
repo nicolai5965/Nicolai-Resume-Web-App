@@ -173,7 +173,7 @@ if page_info == "Test GNN:":
     st.write("Do you want to set data selection parameters yourself?")
     col1, col2 , col3, col4, col5, col6 = st.columns(6)
     with col1:
-        data_para_set = st.select_slider(label = "data_para_set", ["No", "Yes"], label_visibility = "collapsed")
+        data_para_set = st.select_slider("data_para_set", ["No", "Yes"], label_visibility = "collapsed")
     
     if data_para_set == "No":
         event_nr = 10
