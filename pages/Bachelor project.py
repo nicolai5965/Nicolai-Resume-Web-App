@@ -92,7 +92,7 @@ st.image(logo_image,
 ###----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------###
 page_info = st.radio("Select date format",
             ('Read description:', 'Test GNN:', 'View detector setup'),
-            label_visibility="collapsed" )
+            label_visibility="hidden" )
 
 if page_info == 'Read description:':
     ###------------------------------------------------------------------------------------------------------------###
@@ -160,7 +160,7 @@ if page_info == "Test GNN:":
     st.write("Do you want to set data selection parameters yourself?")
     col1, col2 , col3, col4, col5, col6 = st.columns(6)
     with col1:
-        data_para_set = st.select_slider("data_para_set", ["No", "Yes"], label_visibility = "collapsed")
+        data_para_set = st.select_slider("data_para_set", ["No", "Yes"], label_visibility = "hidden")
     
     if data_para_set == "No":
         event_nr = 10
@@ -171,7 +171,7 @@ if page_info == "Test GNN:":
         st.header('Select number of events:')
         col1, col2 , col3 = st.columns(3)
         with col1:
-            event_nr = st.number_input(label = "1", min_value = 2, max_value = 100, value = 10, label_visibility = "collapsed")
+            event_nr = st.number_input(label = "1", min_value = 2, max_value = 100, value = 10, label_visibility = "hidden")
             #st.write('The event amount = ', number)
 
         ###------------------------------------------------------------------------------------------------------------###
@@ -180,8 +180,7 @@ if page_info == "Test GNN:":
             label = "Select Countrys:",
             options = [7, 8, 12, 13, 14, 16, 17, 18],
             default = [8, 13, 17],
-            label_visibility = "collapsed",)
-
+            label_visibility = "hidden",)
 
         st.header("Selecet transverse momentum range:")
         pt_values = st.slider(
@@ -222,16 +221,16 @@ if page_info == "Test GNN:":
         st.write("Min: 2", "Max: 4")
         col1, col2 , col3 = st.columns(3)
         with col1:
-            nr_hidden_layers = st.number_input(label = "6", min_value = 2, max_value = 4, value = 3, label_visibility = "collapsed")
+            nr_hidden_layers = st.number_input(label = "6", min_value = 2, max_value = 4, value = 3, label_visibility = "hidden")
 
         if nr_hidden_layers == 2:
             st.write("Selecet hidden layers:")
             col1, col2 , col3 = st.columns(3)
             with col1:
-                number1 = st.number_input(label = "1", min_value = 1, max_value = 300, value = 100, label_visibility = "collapsed")
+                number1 = st.number_input(label = "1", min_value = 1, max_value = 300, value = 100, label_visibility = "hidden")
 
             with col2:
-                number2 = st.number_input(label = "2", min_value = 1, max_value = 300, value = 200, label_visibility = "collapsed")
+                number2 = st.number_input(label = "2", min_value = 1, max_value = 300, value = 200, label_visibility = "hidden")
 
             hidden_layers = (number1, number2)
 
@@ -239,13 +238,13 @@ if page_info == "Test GNN:":
             st.write("Selecet hidden layers:")
             col1, col2 , col3 = st.columns(3)
             with col1:
-                number1 = st.number_input(label = "1", min_value = 1, max_value = 300, value = 100, label_visibility = "collapsed")
+                number1 = st.number_input(label = "1", min_value = 1, max_value = 300, value = 100, label_visibility = "hidden")
 
             with col2:
-                number2 = st.number_input(label = "2", min_value = 1, max_value = 300, value = 200, label_visibility = "collapsed")
+                number2 = st.number_input(label = "2", min_value = 1, max_value = 300, value = 200, label_visibility = "hidden")
 
             with col3:
-                number3 = st.number_input(label = "3", min_value = 1, max_value = 300, value = 100, label_visibility = "collapsed")
+                number3 = st.number_input(label = "3", min_value = 1, max_value = 300, value = 100, label_visibility = "hidden")
 
             hidden_layers = (number1, number2, number3)
 
@@ -253,23 +252,23 @@ if page_info == "Test GNN:":
             st.write("Selecet hidden layers:")
             col1, col2 , col3, col4 = st.columns(4)
             with col1:
-                number1 = st.number_input(label = "1", min_value = 1, max_value = 300, value = 100, label_visibility = "collapsed")
+                number1 = st.number_input(label = "1", min_value = 1, max_value = 300, value = 100, label_visibility = "hidden")
 
             with col2:
-                number2 = st.number_input(label = "2", min_value = 1, max_value = 300, value = 200, label_visibility = "collapsed")
+                number2 = st.number_input(label = "2", min_value = 1, max_value = 300, value = 200, label_visibility = "hidden")
 
             with col3:
-                number3 = st.number_input(label = "3", min_value = 1, max_value = 300, value = 100, label_visibility = "collapsed")
+                number3 = st.number_input(label = "3", min_value = 1, max_value = 300, value = 100, label_visibility = "hidden")
 
             with col4:
-                number4 = st.number_input(label = "4", min_value = 1, max_value = 300, value = 50, label_visibility = "collapsed")   
+                number4 = st.number_input(label = "4", min_value = 1, max_value = 300, value = 50, label_visibility = "hidden")   
 
             hidden_layers = (number1, number2, number3, number4)  
         ###------------------------------------------------------------------------------------------------------------###
         st.write("Selecet maximum number of iterations:")
         col1, col2 , col3 = st.columns(3)
         with col1:
-            max_iter = st.number_input(label = "max_iter", min_value = 1, max_value = 400, value = 100, label_visibility = "collapsed")
+            max_iter = st.number_input(label = "max_iter", min_value = 1, max_value = 400, value = 100, label_visibility = "hidden")
         ###------------------------------------------------------------------------------------------------------------###
         col1, col2 , col3 = st.columns(3)
         with col1:
@@ -292,7 +291,7 @@ if page_info == "Test GNN:":
     st.markdown(run_MLP_test, unsafe_allow_html=True)    
     col1, col2 , col3, col4, col5, col6 = st.columns(6)
     with col1:
-        run_MLP = st.select_slider("run_mlp", ["No", "Yes"], label_visibility = "collapsed")
+        run_MLP = st.select_slider("run_mlp", ["No", "Yes"], label_visibility = "hidden")
     
     if run_MLP == "No":
         st.write("Waiting to read, clean, find nodes and run the MLP")
@@ -557,7 +556,7 @@ if page_info == "View detector setup":
         "Select Countrys:",
         options= [7, 8, 12, 13, 14, 16, 17, 18],
         default= [8, 13, 17],
-        label_visibility="collapsed")
+        label_visibility="hidden")
     
     layers = remove_volume_ids(det, detector_sections)
     col1, col2 = st.columns(2)
