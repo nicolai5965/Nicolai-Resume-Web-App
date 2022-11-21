@@ -265,26 +265,26 @@ if page_info == "Test GNN:":
 
 #             hidden_layers = (col4_number1, col4_number2, col4_number3, col4_number4)  
         ###------------------------------------------------------------------------------------------------------------###
-        st.write("Selecet maximum number of iterations:")
-        col1, col2 , col3 = st.columns(3)
-        with col1:
-            max_iter = st.number_input("max_iter", min_value = 1, max_value = 400, value = 100, label_visibility = "hidden")
-        ###------------------------------------------------------------------------------------------------------------###
-        col1, col2 , col3 = st.columns(3)
-        with col1:
-            activation = st.radio("Select MLP activation:",
-                        ("relu", "identity", "logistic", "tanh"))
-        ###------------------------------------------------------------------------------------------------------------###
-        with col2:
-            solver = st.radio("Select MLP solver:",
-                        ("adam", "sgd", "lbfgs"))
-        ###------------------------------------------------------------------------------------------------------------###
-        with col3:
-            learning_rate = st.radio("Select MLP learning_rate:",
-                        ("constant", "invscaling", "adaptive"))
+#         st.write("Selecet maximum number of iterations:")
+#         col1, col2 , col3 = st.columns(3)
+#         with col1:
+#             max_iter = st.number_input("max_iter", min_value = 1, max_value = 400, value = 100, label_visibility = "hidden")
+#         ###------------------------------------------------------------------------------------------------------------###
+#         col1, col2 , col3 = st.columns(3)
+#         with col1:
+#             activation = st.radio("Select MLP activation:",
+#                         ("relu", "identity", "logistic", "tanh"))
+#         ###------------------------------------------------------------------------------------------------------------###
+#         with col2:
+#             solver = st.radio("Select MLP solver:",
+#                         ("adam", "sgd", "lbfgs"))
+#         ###------------------------------------------------------------------------------------------------------------###
+#         with col3:
+#             learning_rate = st.radio("Select MLP learning_rate:",
+#                         ("constant", "invscaling", "adaptive"))
         
-    st.write("The MLP parameters are set to:")
-    st.write(f"hidden_layers:", {hidden_layers}, " ,", "max_iter:", {max_iter}, " ,", "solver:", {solver}, " ,", "activation:", {activation}, " ,", "learning_rate:", {learning_rate})
+#     st.write("The MLP parameters are set to:")
+#     st.write(f"hidden_layers:", {hidden_layers}, " ,", "max_iter:", {max_iter}, " ,", "solver:", {solver}, " ,", "activation:", {activation}, " ,", "learning_rate:", {learning_rate})
 
 ###---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------###
 #     run_MLP_test = '<p style="font-family:sans-serif; color:White; font-size: 22px;"> Do you want to read, clean, find nodes and run the MLP? </p>'
