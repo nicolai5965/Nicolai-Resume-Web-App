@@ -221,7 +221,7 @@ if page_info == "Test GNN:":
         st.write("Min: 2", "Max: 4")
         col1, col2 , col3 = st.columns(3)
         with col1:
-            nr_hidden_layers = st.number_input("col1_number1", min_value = 2, max_value = 4, value = 3, label_visibility = "hidden")
+            nr_hidden_layers = st.number_input(label = "col1_number1", min_value = 2, max_value = 4, value = 3, label_visibility = "hidden")
 
 #         if nr_hidden_layers == 2:
 #             st.write("Selecet hidden layers:")
