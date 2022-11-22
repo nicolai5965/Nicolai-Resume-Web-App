@@ -153,7 +153,7 @@ if page_info == 'Read description:':
 
 if page_info == "Test GNN:":
     fast_info = """<p style="font-family:sans-serif; color:White; font-size: 22px;"> On a privat pc the code runs faster
-    , but on Streamlit Cloud where the website is deployed it takes ages. 10 events takes around 2 minutes, so I have made a max events on 30.</p>"""
+    , but on Streamlit Cloud where the website is deployed it takes ages. 10 events takes around 2 minutes, so I have made a max events at 30.</p>"""
     st.markdown(fast_info, unsafe_allow_html=True)   
     
 ###-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------###
