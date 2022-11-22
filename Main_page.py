@@ -9,7 +9,7 @@ import webbrowser
 os.environ['NUMEXPR_MAX_THREADS'] = '12'
 ###------------------------------------------------------------------------------------------------------------###
 # --- PATH SETTINGS ---
-resume_file = "pages/CV.pdf"
+resume_file = "pages/Nicolai's Resume.pdf"
 profile_pic = "pages/Images/Nicolai_Image.jpg"
 
 # --- GENERAL SETTINGS ---
