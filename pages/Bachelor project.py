@@ -18,7 +18,7 @@ import matplotlib.pyplot as plt
 os.environ['NUMEXPR_MAX_THREADS'] = '12'
 ###------------------------------------------------------------------------------------------------------------###
 # --- GENERAL SETTINGS ---
-resume_file = "pages/CV.pdf"
+resume_file = "pages/Nicolai's Resume.pdf"
 Bachelorproject_file = "pages/Bachelorproject.pdf"
 SOCIAL_MEDIA = {
     "LinkedIn": "https://www.linkedin.com/in/nicolai-s%C3%B8derberg-907680238/",
