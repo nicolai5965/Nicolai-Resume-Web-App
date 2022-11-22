@@ -40,7 +40,7 @@ with open(resume_file, "rb") as pdf_file:
 st.sidebar.download_button(
     label = "Download Resume 👈",
     data = PDFbyte_CV,
-    file_name = "Resume/CV.pdf",
+    file_name = "Resume/Nicolai's Resume.pdf",
     mime ="application/octet-stream",)
 
 st.sidebar.write("---")
