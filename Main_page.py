@@ -26,12 +26,7 @@ SOCIAL_MEDIA = {
     "LinkedIn": "https://www.linkedin.com/in/nicolai-s%C3%B8derberg-907680238/",
     "GitHub": "https://github.com/nicolai5965",
 }
-PROJECTS = {
-    "🏆 Sales Dashboard - Comparing sales across three stores": "https://youtu.be/Sb0A9i6d320",
-    "🏆 Income and Expense Tracker - Web app with NoSQL database": "https://youtu.be/3egaMfE9388",
-    "🏆 Desktop Application - Excel2CSV converter with user settings & menubar": "https://youtu.be/LzCfNanQ_9c",
-    "🏆 MyToolBelt - Custom MS Excel add-in to combine Python & Excel": "https://pythonandvba.com/mytoolbelt/",
-}
+
 ###------------------------------------------------------------------------------------------------------------###
 #Starting the streamlit web app page
 st.set_page_config(page_title=PAGE_TITLE, page_icon=PAGE_ICON, layout="wide")
