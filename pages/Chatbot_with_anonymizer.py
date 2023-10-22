@@ -34,12 +34,6 @@ st.sidebar.download_button(
 
 st.sidebar.write("---")
 
-st.sidebar.download_button(
-    label = "Download Bachelor's project",
-    data = PDFbyte_project,
-    file_name = Bachelorproject_file,
-    mime = "application/octet-stream",)
-st.sidebar.write("---")
 ###------------------------------------------------------------------------------------------------------------###
 ## Instroduction 
 st.header("Introduction:")
