@@ -13,3 +13,7 @@ faker==19.11.0
 langdetect==1.0.9
 langchain==0.0.320
 logging==0.4.9.6
+openai==0.28.1
+langchain-experimental==0.0.32
+presidio-analyzer==2.2.33
+
