@@ -45,26 +45,6 @@ st.sidebar.download_button(
 
 st.sidebar.write("---")
 
-# if st.sidebar.button('Kaggle: TrackML Challenge'):
-#     webbrowser.open_new_tab("https://www.kaggle.com/competitions/trackml-particle-identification/overview")
-# if st.sidebar.button("Bachelor's project: Old code"):
-#     webbrowser.open_new_tab("https://github.com/nicolai5965/Bachelor-project-Nicolai-og-Simon-")
-
-# if st.sidebar.button("Bachelor's project: Remade"):
-#     webbrowser.open_new_tab("https://github.com/nicolai5965/Bachelor-project-remastered")
-
-Kaggle_link = "[Kaggle: TrackML Challenge](https://www.kaggle.com/competitions/trackml-particle-identification/overview)"
-st.sidebar.markdown(Kaggle_link, unsafe_allow_html=True)
-
-GitHub_link_old_code = '[Bachelor project: Old code](https://github.com/nicolai5965)'
-st.sidebar.markdown(GitHub_link_old_code, unsafe_allow_html=True)  
-
-GitHub_link_new_code = '[Bachelor project: Remade](https://github.com/nicolai5965)'
-st.sidebar.markdown(GitHub_link_new_code, unsafe_allow_html=True)  
-  
-with open(Bachelorproject_file, "rb") as pdf_file:
-    PDFbyte_project = pdf_file.read()
-
 st.sidebar.download_button(
     label = "Download Bachelor's project",
     data = PDFbyte_project,
