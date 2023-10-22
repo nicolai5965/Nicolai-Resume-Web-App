@@ -17,7 +17,10 @@ PAGE_TITLE = "Digital CV | Nicolai Søderberg"
 PAGE_ICON = ":wave:"
 NAME = "Nicolai Søderberg"
 DESCRIPTION = """
-Data consultant with experience in data engineering, science, analytics and more.
+As a physics student I learned a lot about how to handle various kinds of dataframes, and learned a lot
+of different ways to manipulate data and how to solve real world problems. In the later years of my
+bachelor I found that my love for physics was built on my love of solving problems by using data and by
+learning new ways of using and understanding the output of ones work.
 """
 EMAIL = "nicolai@newf-dreams.dk"
 Location = "Holbæk, Denmark"
@@ -77,10 +80,10 @@ st.write("---")
 st.subheader("Hard Skills")
 st.write(
     """
-- 👩‍💻 Programming: Python (Scikit-learn, Pandas, etc), SQL, Julia (Novice)
+- 👩‍💻 Programming: Python (Scikit-learn, Pandas, etc), SQL
 - 📊 Data Visulization: Google Sheets, Google Studio, Matplotlib, Seaborn 
-- 📚 Modeling: MLP , Logistic regression, linear regression, decition trees, k-nearest neighbors
-- 🗄️ Databases: Goolge sheets, MySQL
+- 📚 Modeling: MLP , Logistic regression, linear regression, decition trees, k-nearest neighbors, Langchain
+- 🗄️ Databases: Goolge sheets, MySQL, Google Data Studio, SQL Server Management Studio.
 """
 )
 ###------------------------------------------------------------------------------------------------------------###
