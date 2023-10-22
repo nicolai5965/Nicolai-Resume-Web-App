@@ -3,18 +3,7 @@
 from pathlib import Path
 import os
 import streamlit as st
-from PIL import Image
-import webbrowser
-import numpy as np 
-import pandas as pd
-import math
-from numba import njit , jit
-from tqdm import trange, tqdm
-from sklearn.neural_network import MLPClassifier
-from sklearn.metrics import classification_report
-from collections import Counter
-from stqdm import stqdm
-import matplotlib.pyplot as plt
+
 os.environ['NUMEXPR_MAX_THREADS'] = '12'
 ###------------------------------------------------------------------------------------------------------------###
 # --- GENERAL SETTINGS ---
