@@ -228,6 +228,30 @@ if custom_pattern_name and custom_pattern_regex and custom_pattern_entity:
         'supported_entity': custom_pattern_entity
     }])
 
+# 4.1 Custom Faker Operator Registration
+st.sidebar.header("Custom Faker Operator Registration")
+entity_type = st.sidebar.text_input("Entity Type")
+faker_method = st.sidebar.text_input("Faker Method")
+digits = st.sidebar.number_input("Digits (if applicable)", min_value=0, value=0, format="%d")
+if entity_type and faker_method:
+    custom_operator = {}
+    if digits:
+        custom_operator = {
+            "entity_type": entity_type,
+            "faker_method": faker_method,
+            "digits": digits
+        }
+    else:
+        custom_operator = {
+            "entity_type": entity_type,
+            "faker_method": faker_method
+        }
+    custom_faker_operators.append(custom_operator)
+    detected_language = document_anonymizer.detect_language(document)
+    document_anonymizer.initialize_faker_operators(detected_language, [custom_operator])
+
+
+
 # A button to initiate the anonymizing process
 start_anonymizing = st.button("Start Anonymizing")
 
