@@ -163,8 +163,8 @@ class DocumentAnonymizer:
         return self.anonymizer.deanonymize(anonymized_content)
 
 ###------------------------------------------------------------------------------------------------------------###
-# Custom Faker operators
-custom_faker_operators = [
+# Define default patterns and operators
+DEFAULT_PATTERNS = [
     #{"entity_type": "PERSON", "faker_method": "name"},  # Modified this line
     {"entity_type": "LOCATION", "faker_method": "city"},
     {"entity_type": "SSN", "faker_method": "ssn"},
@@ -177,8 +177,8 @@ custom_faker_operators = [
     {"entity_type": "LAST_NAME", "faker_method": "last_name"},
 ]
 
-# Custom patterns
-custom_patterns = [
+
+DEFAULT_FAKER_OPERATORS = [
     {"name": "ssn_pattern", "regex": r"\b\d{3}-?\d{2}-?\d{4}\b", "supported_entity": "SSN", "score": 1},
     {"name": "cpr_pattern", "regex": r"\b\d{2}\d{2}\d{2}-?\d{4}\b", "supported_entity": "CPR", "score": 1},
     {"name": "danish_phone_pattern", "regex": r"\b\+45 ?\d{2} ?\d{2} ?\d{2} ?\d{2}\b", "supported_entity": "DANISH_PHONE", "score": 1},
@@ -193,6 +193,9 @@ custom_patterns = [
     {"name": "date_pattern", "regex": r"\b(?:January|February|March|April|May|June|July|August|September|October|November|December) \d{1,2}, \d{4}\b", "supported_entity": "DATE_TIME", "score": 1},
 ]
 
+# Initialize custom patterns and operators with default values
+custom_patterns = DEFAULT_PATTERNS.copy()
+custom_faker_operators = DEFAULT_FAKER_OPERATORS.copy()
 ###------------------------------------------------------------------------------------------------------------###
 
 st.title("Anonymized Chatbot Interface")
@@ -217,55 +220,63 @@ if language != "Auto-detect":
     detected_language = language
 
 # 4. Custom Pattern Registration
-st.sidebar.header("Custom Pattern Registration")
-custom_pattern_name = st.sidebar.text_input("Pattern Name")
-custom_pattern_regex = st.sidebar.text_input("Regex Pattern")
-custom_pattern_entity = st.sidebar.text_input("Supported Entity")
+with st.sidebar.expander("Custom Pattern Registration"):
+    custom_pattern_name = st.text_input("Pattern Name")
+    custom_pattern_regex = st.text_input("Regex Pattern")
+    custom_pattern_entity = st.text_input("Supported Entity")
 
-add_pattern = st.sidebar.button("Add Pattern")
-if add_pattern and custom_pattern_name and custom_pattern_regex and custom_pattern_entity:
-    custom_pattern = {
-        'name': custom_pattern_name,
-        'regex': custom_pattern_regex,
-        'supported_entity': custom_pattern_entity
-    }
-    custom_patterns.append(custom_pattern)
-    document_anonymizer.register_custom_patterns([custom_pattern])
+    add_pattern = st.button("Add Pattern")
+    if add_pattern and custom_pattern_name and custom_pattern_regex and custom_pattern_entity:
+        custom_pattern = {
+            'name': custom_pattern_name,
+            'regex': custom_pattern_regex,
+            'supported_entity': custom_pattern_entity
+        }
+        custom_patterns.append(custom_pattern)
+        document_anonymizer.register_custom_patterns([custom_pattern])
 
-with st.sidebar.expander("View Added Patterns"):
-    for pattern in custom_patterns:
-        st.write(pattern)
+    reset_patterns = st.button("Reset to Default Patterns")
+    if reset_patterns:
+        custom_patterns = DEFAULT_PATTERNS.copy()
+        document_anonymizer.register_custom_patterns(custom_patterns)
+
+    with st.expander("View Added Patterns"):
+        for pattern in custom_patterns:
+            st.write(pattern)
 
 # 4.1 Custom Faker Operator Registration
-st.sidebar.header("Custom Faker Operator Registration")
-entity_type = st.sidebar.text_input("Entity Type (for Faker)")
-faker_method = st.sidebar.text_input("Faker Method")
-digits = st.sidebar.number_input("Digits (if applicable)", min_value=0, value=0, format="%d")
+with st.sidebar.expander("Custom Faker Operator Registration"):
+    entity_type = st.text_input("Entity Type (for Faker)")
+    faker_method = st.text_input("Faker Method")
+    digits = st.number_input("Digits (if applicable)", min_value=0, value=0, format="%d")
 
-add_operator = st.sidebar.button("Add Faker Operator")
-if add_operator and entity_type and faker_method:
-    custom_operator = {}
-    if digits:
-        custom_operator = {
-            "entity_type": entity_type,
-            "faker_method": faker_method,
-            "digits": digits
-        }
-    else:
-        custom_operator = {
-            "entity_type": entity_type,
-            "faker_method": faker_method
-        }
-    custom_faker_operators.append(custom_operator)
-    detected_language = document_anonymizer.detect_language(document)
-    document_anonymizer.initialize_faker_operators(detected_language, [custom_operator])
+    add_operator = st.button("Add Faker Operator")
+    if add_operator and entity_type and faker_method:
+        custom_operator = {}
+        if digits:
+            custom_operator = {
+                "entity_type": entity_type,
+                "faker_method": faker_method,
+                "digits": digits
+            }
+        else:
+            custom_operator = {
+                "entity_type": entity_type,
+                "faker_method": faker_method
+            }
+        custom_faker_operators.append(custom_operator)
+        detected_language = document_anonymizer.detect_language(document)
+        document_anonymizer.initialize_faker_operators(detected_language, [custom_operator])
 
-with st.sidebar.expander("View Added Faker Operators"):
-    for operator in custom_faker_operators:
-        st.write(operator)
+    reset_operators = st.button("Reset to Default Faker Operators")
+    if reset_operators:
+        custom_faker_operators = DEFAULT_FAKER_OPERATORS.copy()
+        detected_language = document_anonymizer.detect_language(document)
+        document_anonymizer.initialize_faker_operators(detected_language, custom_faker_operators)
 
-
-
+    with st.expander("View Added Faker Operators"):
+        for operator in custom_faker_operators:
+            st.write(operator)
 
 # A button to initiate the anonymizing process
 start_anonymizing = st.button("Start Anonymizing")
