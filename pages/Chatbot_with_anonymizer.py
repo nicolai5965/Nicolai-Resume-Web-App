@@ -177,7 +177,6 @@ DEFAULT_FAKER_OPERATORS = [
     {"entity_type": "LAST_NAME", "faker_method": "last_name"},
 ]
 
-DEFAULT_PATTERNS
 DEFAULT_PATTERNS = [
     {"name": "ssn_pattern", "regex": r"\b\d{3}-?\d{2}-?\d{4}\b", "supported_entity": "SSN", "score": 1},
     {"name": "cpr_pattern", "regex": r"\b\d{2}\d{2}\d{2}-?\d{4}\b", "supported_entity": "CPR", "score": 1},
