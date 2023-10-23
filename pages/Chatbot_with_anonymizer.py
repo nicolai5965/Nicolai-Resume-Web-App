@@ -156,7 +156,7 @@ class DocumentAnonymizer:
 
     def display_mapping(self):
         # Prints the mapping between original and anonymized content.
-        pprint.pprint(self.anonymizer.deanonymizer_mapping)
+        return pprint.pprint(self.anonymizer.deanonymizer_mapping)
 
     def deanonymize_text(self, anonymized_content):
         # Deanonymizes the given content using the stored mapping.
