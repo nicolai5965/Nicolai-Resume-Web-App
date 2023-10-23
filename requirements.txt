@@ -15,5 +15,5 @@ openai==0.28.1
 langchain-experimental==0.0.32
 presidio-analyzer==2.2.33
 spacy==3.5.0
-https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.5.0/en_core_web_sm-3.5.0-py3-none-any.whl
-https://github.com/explosion/spacy-models/releases/download/da_core_news_sm-3.5.0/da_core_news_sm-3.5.0-py3-none-any.whl
+https://github.com/explosion/spacy-models/releases/download/en_core_web_md-3.5.0/en_core_web_md-3.5.0-py3-none-any.whl
+https://github.com/explosion/spacy-models/releases/download/da_core_news_md-3.5.0/da_core_news_md-3.5.0-py3-none-any.whl
