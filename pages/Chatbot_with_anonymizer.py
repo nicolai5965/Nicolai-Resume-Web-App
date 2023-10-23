@@ -204,6 +204,14 @@ if 'custom_patterns' not in st.session_state:
 
 if 'custom_faker_operators' not in st.session_state:
     st.session_state.custom_faker_operators = DEFAULT_FAKER_OPERATORS.copy()
+
+
+# A dictionary to map language codes to their full names
+language_name_mapping = {
+    "en": "English",
+    "da": "Danish"
+    # Add more mappings as needed
+}
 ###------------------------------------------------------------------------------------------------------------###
 
 st.title("Anonymized Chatbot Interface")
@@ -287,18 +295,15 @@ with st.sidebar.expander("Custom Faker Operator Registration"):
             for operator in st.session_state.custom_faker_operators:
                 st.write(operator)
 
-
-
-
-
 # A button to initiate the anonymizing process
 start_anonymizing = st.button("Start Anonymizing")
 
 if start_anonymizing and document:
     # Display Detected Language
     with st.expander("Detected Language"):
-        st.write(f"The detected language is: {detected_language}")
-        
+        language_name = language_name_mapping.get(detected_language, "Unknown")
+        st.write(f"The detected language is: {language_name} ({detected_language})")
+
     # 5. Display Document
     with st.expander("Original Document"):
         st.write(document)
