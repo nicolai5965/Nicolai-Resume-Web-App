@@ -196,6 +196,13 @@ DEFAULT_FAKER_OPERATORS = [
 # Initialize custom patterns and operators with default values
 custom_patterns = DEFAULT_PATTERNS.copy()
 custom_faker_operators = DEFAULT_FAKER_OPERATORS.copy()
+
+# Check if custom patterns and operators exist in session state
+if 'custom_patterns' not in st.session_state:
+    st.session_state.custom_patterns = DEFAULT_PATTERNS.copy()
+
+if 'custom_faker_operators' not in st.session_state:
+    st.session_state.custom_faker_operators = DEFAULT_FAKER_OPERATORS.copy()
 ###------------------------------------------------------------------------------------------------------------###
 
 st.title("Anonymized Chatbot Interface")
@@ -232,16 +239,16 @@ with st.sidebar.expander("Custom Pattern Registration"):
             'regex': custom_pattern_regex,
             'supported_entity': custom_pattern_entity
         }
-        custom_patterns.append(custom_pattern)
+        st.session_state.custom_patterns.append(custom_pattern)
         document_anonymizer.register_custom_patterns([custom_pattern])
 
     reset_patterns = st.button("Reset to Default Patterns")
     if reset_patterns:
-        custom_patterns = DEFAULT_PATTERNS.copy()
-        document_anonymizer.register_custom_patterns(custom_patterns)
+        st.session_state.custom_patterns = DEFAULT_PATTERNS.copy()
+        document_anonymizer.register_custom_patterns(st.session_state.custom_patterns)
 
     if st.checkbox("View Added Patterns"):
-        for pattern in custom_patterns:
+        for pattern in st.session_state.custom_patterns:
             st.write(pattern)
 
 # 4.1 Custom Faker Operator Registration
@@ -264,18 +271,18 @@ with st.sidebar.expander("Custom Faker Operator Registration"):
                 "entity_type": entity_type,
                 "faker_method": faker_method
             }
-        custom_faker_operators.append(custom_operator)
+        st.session_state.custom_faker_operators.append(custom_operator)
         detected_language = document_anonymizer.detect_language(document)
         document_anonymizer.initialize_faker_operators(detected_language, [custom_operator])
 
     reset_operators = st.button("Reset to Default Faker Operators")
     if reset_operators:
-        custom_faker_operators = DEFAULT_FAKER_OPERATORS.copy()
+        st.session_state.custom_faker_operators = DEFAULT_FAKER_OPERATORS.copy()
         detected_language = document_anonymizer.detect_language(document)
-        document_anonymizer.initialize_faker_operators(detected_language, custom_faker_operators)
+        document_anonymizer.initialize_faker_operators(detected_language, st.session_state.custom_faker_operators)
 
     if st.checkbox("View Added Faker Operators"):
-        for operator in custom_faker_operators:
+        for operator in st.session_state.custom_faker_operators:
             st.write(operator)
 
 
