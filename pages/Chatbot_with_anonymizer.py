@@ -3,12 +3,28 @@
 from pathlib import Path
 import os
 import streamlit as st
+from langchain.text_splitter import RecursiveCharacterTextSplitter
+from langchain.embeddings.openai import OpenAIEmbeddings
+from langchain.vectorstores import FAISS
+from operator import itemgetter
+from langchain.chat_models.openai import ChatOpenAI
+from langchain.schema.runnable import RunnableMap, RunnablePassthrough, RunnableLambda
+from langchain.prompts import ChatPromptTemplate
+from langchain.schema.output_parser import StrOutputParser
+from langchain.schema import Document
+from langchain_experimental.data_anonymizer import PresidioReversibleAnonymizer
 import spacy
-from presidio_anonymizer import PresidioReversibleAnonymizer
+import re
+import pprint
+import langdetect
+from presidio_analyzer import Pattern, PatternRecognizer
 from presidio_anonymizer.entities import OperatorConfig
 from faker import Faker
-import langdetect
-import re
+import pandas as pd
+import logging
+from langchain.memory import ConversationBufferMemory
+from langchain.prompts import PromptTemplate
+
 os.environ['NUMEXPR_MAX_THREADS'] = '12'
 ###------------------------------------------------------------------------------------------------------------###
 # --- GENERAL SETTINGS ---
