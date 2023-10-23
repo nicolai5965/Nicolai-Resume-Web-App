@@ -255,7 +255,7 @@ if start_anonymizing and document:
     # 7. Mapping Viewer
     with st.expander("View Mapping"):
         mapping = document_anonymizer.display_mapping()
-        st.json(mapping)
+        st.write(mapping)
 
     # 8. Deanonymization Feature
     with st.expander("Deanonymize Content"):
