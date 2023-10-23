@@ -195,10 +195,6 @@ custom_patterns = [
 
 ###------------------------------------------------------------------------------------------------------------###
 
-
-
-
-
 st.title("Anonymized Chatbot Interface")
 
 # 1. Anonymization Settings
@@ -248,7 +244,7 @@ if document:
     if use_faker:  # If the main anonymizer uses faker, then create a separate highlight_anonymizer without faker
         highlight_anonymizer = DocumentAnonymizer(use_faker=False)
         highlight_anonymizer.register_custom_patterns(custom_patterns)
-        highlight_anonymized_content = highlight_anonymizer.anonymize_document_content(document_content)
+        highlight_anonymized_content = highlight_anonymizer.anonymize_document_content(document)
         highlighted_content = highlight_anonymizer.highlight_pii(highlight_anonymized_content)
     else:  # Else, just use the main anonymizer for highlighting
         highlighted_content = highlight_anonymizer.highlight_pii(anonymized_content)
