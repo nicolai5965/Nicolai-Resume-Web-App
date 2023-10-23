@@ -214,7 +214,7 @@ if document:
         highlight_anonymizer = DocumentAnonymizer(use_faker=False)
         highlighted_content = highlight_anonymizer.highlight_pii(anonymized_content)
     else:  # Else, just use the main anonymizer for highlighting
-        highlighted_content = document_anonymizer.highlight_pii(anonymized_content)
+        highlighted_content = highlight_anonymizer.highlight_pii(anonymized_content)
     st.write(highlighted_content)
 
     # 7. Mapping Viewer
