@@ -216,7 +216,7 @@ if document:
 
     # 5. Highlighting PII (pseudo-functionality as true highlighting in Streamlit is limited)
     st.subheader("Highlighted PII in Document")
-    highlighted_content = document_anonymizer.highlight_pii(document)
+    highlighted_content = document_anonymizer.highlight_pii(anonymized_content)
     st.write(highlighted_content)
 
     # 6. Mapping Viewer
