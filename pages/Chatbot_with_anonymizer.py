@@ -173,7 +173,7 @@ document_anonymizer = DocumentAnonymizer()
 st.title("Anonymized Chatbot Interface")
 
 # Document Input
-document = st.text_area("Paste your document content here:")
+document = st.text_area("Paste your document content here:", key="document_input")
 
 # 1. Language Detection
 st.sidebar.header("Language Detection")
@@ -203,10 +203,8 @@ reset_mapping = st.sidebar.button("Reset Deanonymizer Mapping")
 if reset_mapping:
     document_anonymizer.reset_mapping()
 
-# 4. Document Input
-document = st.text_area("Paste your document content here:")
 
-# 5. Display Document
+# 4. Display Document
 if document:
     st.subheader("Original Document")
     st.write(document)
@@ -216,17 +214,17 @@ if document:
     anonymized_content = document_anonymizer.anonymize_document_content(document)
     st.write(anonymized_content)
 
-    # 6. Highlighting PII (pseudo-functionality as true highlighting in Streamlit is limited)
+    # 5. Highlighting PII (pseudo-functionality as true highlighting in Streamlit is limited)
     st.subheader("Highlighted PII in Document")
     highlighted_content = document_anonymizer.highlight_pii(document)
     st.write(highlighted_content)
 
-    # 7. Mapping Viewer
+    # 6. Mapping Viewer
     if st.button("View Mapping"):
         mapping = document_anonymizer.display_mapping()
         st.json(mapping)
 
-    # 8. Deanonymization Feature
+    # 7. Deanonymization Feature
     if st.button("Deanonymize Content"):
         deanonymized_content = document_anonymizer.deanonymize_text(anonymized_content)
         st.subheader("Deanonymized Document")
