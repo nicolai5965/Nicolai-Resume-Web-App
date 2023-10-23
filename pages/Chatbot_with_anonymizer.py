@@ -212,6 +212,9 @@ language_name_mapping = {
     "da": "Danish"
     # Add more mappings as needed
 }
+
+# Initialize document with a default empty value
+document = "Here is my phone number: +4512131415"
 ###------------------------------------------------------------------------------------------------------------###
 
 st.title("Anonymized Chatbot Interface")
@@ -235,7 +238,7 @@ if reset_mapping:
     document_anonymizer.reset_mapping()
 
 # 2. Document Input
-document = st.text_area("Paste your document content here:", key="document_input")
+document = st.text_area("Paste your document content here:", key="document_input", value=document)
 
 # 3. Language Detection
 st.sidebar.header("Language Detection")
