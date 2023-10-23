@@ -142,10 +142,7 @@ class DocumentAnonymizer:
 
     def highlight_pii(self, string):
         # Highlights the given string with potential PII colored for visibility.
-        re.sub(
-            r"(<[^>]*>)", 
-            lambda m: "\033[31m" + m.group(1) + "\033[0m", 
-            string
+        return re.sub(r"(<[^>]*>)", lambda m: "**" + m.group(1) + "**", string
         )
 
     def anonymize_document_content(self, document_content, custom_faker_operators=None):
