@@ -253,12 +253,12 @@ if start_anonymizing and document:
         st.write(highlighted_content)
 
     # 7. Mapping Viewer
-    if st.button("View Mapping"):
+    with st.expander("View Mapping"):
         mapping = document_anonymizer.display_mapping()
         st.json(mapping)
 
     # 8. Deanonymization Feature
-    if st.button("Deanonymize Content"):
+    with st.expander("Deanonymize Content"):
         deanonymized_content = document_anonymizer.deanonymize_text(anonymized_content)
         st.subheader("Deanonymized Document")
         st.write(deanonymized_content)
