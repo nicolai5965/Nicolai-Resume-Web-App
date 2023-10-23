@@ -170,11 +170,40 @@ class DocumentAnonymizer:
 # Create an instance of DocumentAnonymizer
 document_anonymizer = DocumentAnonymizer()
 
-# 2. Document Input
 st.title("Anonymized Chatbot Interface")
+
+# 1. Language Detection
+st.sidebar.header("Language Detection")
+detected_language = document_anonymizer.detect_language(document) if document else None
+language = st.sidebar.selectbox("Detected/Choose Language", ["Auto-detect", "English", "Danish"], index=0 if not detected_language else ["en", "da"].index(detected_language))
+if language != "Auto-detect":
+    detected_language = language
+
+# 2. Custom Pattern Registration
+st.sidebar.header("Custom Pattern Registration")
+custom_pattern_name = st.sidebar.text_input("Pattern Name")
+custom_pattern_regex = st.sidebar.text_input("Regex Pattern")
+custom_pattern_entity = st.sidebar.text_input("Supported Entity")
+if custom_pattern_name and custom_pattern_regex and custom_pattern_entity:
+    document_anonymizer.register_custom_patterns([{
+        'name': custom_pattern_name,
+        'regex': custom_pattern_regex,
+        'supported_entity': custom_pattern_entity
+    }])
+
+# 3. Anonymization Settings
+use_faker = st.sidebar.checkbox("Use Faker", value=True)
+if not use_faker:
+    document_anonymizer = DocumentAnonymizer(use_faker=use_faker)
+
+reset_mapping = st.sidebar.button("Reset Deanonymizer Mapping")
+if reset_mapping:
+    document_anonymizer.reset_mapping()
+
+# 4. Document Input
 document = st.text_area("Paste your document content here:")
 
-# 3. Display Document
+# 5. Display Document
 if document:
     st.subheader("Original Document")
     st.write(document)
@@ -183,6 +212,22 @@ if document:
     # Using the DocumentAnonymizer to get the anonymized content
     anonymized_content = document_anonymizer.anonymize_document_content(document)
     st.write(anonymized_content)
+
+    # 6. Highlighting PII (pseudo-functionality as true highlighting in Streamlit is limited)
+    st.subheader("Highlighted PII in Document")
+    highlighted_content = document_anonymizer.highlight_pii(document)
+    st.write(highlighted_content)
+
+    # 7. Mapping Viewer
+    if st.button("View Mapping"):
+        mapping = document_anonymizer.display_mapping()
+        st.json(mapping)
+
+    # 8. Deanonymization Feature
+    if st.button("Deanonymize Content"):
+        deanonymized_content = document_anonymizer.deanonymize_text(anonymized_content)
+        st.subheader("Deanonymized Document")
+        st.write(deanonymized_content)
 
 # 4. Chat Interface
 st.subheader("Chat with the bot")
