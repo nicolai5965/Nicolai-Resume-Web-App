@@ -233,16 +233,16 @@ start_anonymizing = st.button("Start Anonymizing")
 
 if start_anonymizing and document:
     # 5. Display Document
-    with st.beta_expander("Original Document"):
+    with st.expander("Original Document"):
         st.write(document)
 
-    with st.beta_expander("Anonymized Document"):
+    with st.expander("Anonymized Document"):
         # Using the DocumentAnonymizer to get the anonymized content
         anonymized_content = document_anonymizer.anonymize_document_content(document)
         st.write(anonymized_content)
 
     # 6. Highlighting PII
-    with st.beta_expander("Highlighted PII in Document"):
+    with st.expander("Highlighted PII in Document"):
         if use_faker:  # If the main anonymizer uses faker, then create a separate highlight_anonymizer without faker
             highlight_anonymizer = DocumentAnonymizer(use_faker=False)
             highlight_anonymizer.register_custom_patterns(custom_patterns)
