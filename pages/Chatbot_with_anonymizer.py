@@ -170,8 +170,6 @@ st.title("Anonymized Chatbot Interface")
 use_faker = st.sidebar.checkbox("Use Faker", value=True)
 document_anonymizer = DocumentAnonymizer(use_faker=use_faker)
 highlight_anonymizer = None  # Initialize to None
-if not use_faker:
-    highlight_anonymizer = DocumentAnonymizer(use_faker=False)
 
 reset_mapping = st.sidebar.button("Reset Deanonymizer Mapping")
 if reset_mapping:
@@ -211,9 +209,11 @@ if document:
 
     # 6. Highlighting PII
     st.subheader("Highlighted PII in Document")
-    if highlight_anonymizer:
-        highlighted_content = highlight_anonymizer.highlight_pii(document)
-    else:
+    
+    if use_faker:  # If the main anonymizer uses faker, then create a separate highlight_anonymizer without faker
+        highlight_anonymizer = DocumentAnonymizer(use_faker=False)
+        highlighted_content = highlight_anonymizer.highlight_pii(anonymized_content)
+    else:  # Else, just use the main anonymizer for highlighting
         highlighted_content = document_anonymizer.highlight_pii(anonymized_content)
     st.write(highlighted_content)
 
