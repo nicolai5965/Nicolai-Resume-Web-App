@@ -199,13 +199,6 @@ if custom_pattern_name and custom_pattern_regex and custom_pattern_entity:
         'supported_entity': custom_pattern_entity
     }])
 
-
-
-reset_mapping = st.sidebar.button("Reset Deanonymizer Mapping")
-if reset_mapping:
-    document_anonymizer.reset_mapping()
-
-
 # 5. Display Document
 if document:
     st.subheader("Original Document")
