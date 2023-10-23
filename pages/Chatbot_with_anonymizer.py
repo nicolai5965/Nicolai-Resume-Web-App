@@ -228,27 +228,29 @@ if custom_pattern_name and custom_pattern_regex and custom_pattern_entity:
         'supported_entity': custom_pattern_entity
     }])
 
-# 5. Display Document
-if document:
-    st.subheader("Original Document")
-    st.write(document)
-    
-    st.subheader("Anonymized Document")
-    # Using the DocumentAnonymizer to get the anonymized content
-    anonymized_content = document_anonymizer.anonymize_document_content(document)
-    st.write(anonymized_content)
+# A button to initiate the anonymizing process
+start_anonymizing = st.button("Start Anonymizing")
+
+if start_anonymizing and document:
+    # 5. Display Document
+    with st.beta_expander("Original Document"):
+        st.write(document)
+
+    with st.beta_expander("Anonymized Document"):
+        # Using the DocumentAnonymizer to get the anonymized content
+        anonymized_content = document_anonymizer.anonymize_document_content(document)
+        st.write(anonymized_content)
 
     # 6. Highlighting PII
-    st.subheader("Highlighted PII in Document")
-    
-    if use_faker:  # If the main anonymizer uses faker, then create a separate highlight_anonymizer without faker
-        highlight_anonymizer = DocumentAnonymizer(use_faker=False)
-        highlight_anonymizer.register_custom_patterns(custom_patterns)
-        highlight_anonymized_content = highlight_anonymizer.anonymize_document_content(document)
-        highlighted_content = highlight_anonymizer.highlight_pii(highlight_anonymized_content)
-    else:  # Else, just use the main anonymizer for highlighting
-        highlighted_content = highlight_anonymizer.highlight_pii(anonymized_content)
-    st.write(highlighted_content)
+    with st.beta_expander("Highlighted PII in Document"):
+        if use_faker:  # If the main anonymizer uses faker, then create a separate highlight_anonymizer without faker
+            highlight_anonymizer = DocumentAnonymizer(use_faker=False)
+            highlight_anonymizer.register_custom_patterns(custom_patterns)
+            highlight_anonymized_content = highlight_anonymizer.anonymize_document_content(document)
+            highlighted_content = highlight_anonymizer.highlight_pii(highlight_anonymized_content)
+        else:  # Else, just use the main anonymizer for highlighting
+            highlighted_content = document_anonymizer.highlight_pii(anonymized_content)
+        st.write(highlighted_content)
 
     # 7. Mapping Viewer
     if st.button("View Mapping"):
