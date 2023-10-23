@@ -172,6 +172,9 @@ document_anonymizer = DocumentAnonymizer()
 
 st.title("Anonymized Chatbot Interface")
 
+# Document Input
+document = st.text_area("Paste your document content here:")
+
 # 1. Language Detection
 st.sidebar.header("Language Detection")
 detected_language = document_anonymizer.detect_language(document) if document else None
