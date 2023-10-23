@@ -227,7 +227,7 @@ if 'custom_patterns' in st.session_state:
 
 # Ensure custom faker operators from session state are initialized
 if 'custom_faker_operators' in st.session_state:
-    detected_language = document_anonymizer.detect_language(document)
+    detected_language = document_anonymizer.detect_language(document) if document else None
     document_anonymizer.initialize_faker_operators(detected_language, st.session_state.custom_faker_operators)
 
 reset_mapping = st.sidebar.button("Reset Deanonymizer Mapping")
@@ -290,14 +290,14 @@ with st.sidebar.expander("Custom Faker Operator Registration"):
                 "faker_method": faker_method
             }
         st.session_state.custom_faker_operators.append(custom_operator)
-        detected_language = document_anonymizer.detect_language(document)
+        detected_language = document_anonymizer.detect_language(document) if document else None
         document_anonymizer.initialize_faker_operators(detected_language, [custom_operator])
 
     if st.session_state.custom_faker_operators:
         reset_operators = st.button("Reset to Default Faker Operators")
         if reset_operators:
             st.session_state.custom_faker_operators = DEFAULT_FAKER_OPERATORS.copy()
-            detected_language = document_anonymizer.detect_language(document)
+            detected_language = document_anonymizer.detect_language(document) if document else None
             document_anonymizer.initialize_faker_operators(detected_language, st.session_state.custom_faker_operators)
 
         if st.checkbox("View Added Faker Operators"):
