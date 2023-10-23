@@ -164,22 +164,30 @@ class DocumentAnonymizer:
 
 ###------------------------------------------------------------------------------------------------------------###
 
-# Create an additional instance specifically for highlighting PII without fake values
-highlight_anonymizer = DocumentAnonymizer(use_faker=False)
-
 st.title("Anonymized Chatbot Interface")
 
-# Document Input
+# 1. Anonymization Settings
+use_faker = st.sidebar.checkbox("Use Faker", value=True)
+document_anonymizer = DocumentAnonymizer(use_faker=use_faker)
+highlight_anonymizer = None  # Initialize to None
+if not use_faker:
+    highlight_anonymizer = DocumentAnonymizer(use_faker=False)
+
+reset_mapping = st.sidebar.button("Reset Deanonymizer Mapping")
+if reset_mapping:
+    document_anonymizer.reset_mapping()
+
+# 2. Document Input
 document = st.text_area("Paste your document content here:", key="document_input")
 
-# 1. Language Detection
+# 3. Language Detection
 st.sidebar.header("Language Detection")
 detected_language = document_anonymizer.detect_language(document) if document else None
 language = st.sidebar.selectbox("Detected/Choose Language", ["Auto-detect", "English", "Danish"], index=0 if not detected_language else ["en", "da"].index(detected_language))
 if language != "Auto-detect":
     detected_language = language
 
-# 2. Custom Pattern Registration
+# 4. Custom Pattern Registration
 st.sidebar.header("Custom Pattern Registration")
 custom_pattern_name = st.sidebar.text_input("Pattern Name")
 custom_pattern_regex = st.sidebar.text_input("Regex Pattern")
@@ -191,17 +199,14 @@ if custom_pattern_name and custom_pattern_regex and custom_pattern_entity:
         'supported_entity': custom_pattern_entity
     }])
 
-# 3. Anonymization Settings
-use_faker = st.sidebar.checkbox("Use Faker", value=True)
-if not use_faker:
-    document_anonymizer = DocumentAnonymizer(use_faker=use_faker)
+
 
 reset_mapping = st.sidebar.button("Reset Deanonymizer Mapping")
 if reset_mapping:
     document_anonymizer.reset_mapping()
 
 
-# 4. Display Document
+# 5. Display Document
 if document:
     st.subheader("Original Document")
     st.write(document)
@@ -211,17 +216,20 @@ if document:
     anonymized_content = document_anonymizer.anonymize_document_content(document)
     st.write(anonymized_content)
 
-    # 5. Highlighting PII (pseudo-functionality as true highlighting in Streamlit is limited)
+    # 6. Highlighting PII
     st.subheader("Highlighted PII in Document")
-    highlighted_content = highlight_anonymizer.highlight_pii(anonymized_content)
+    if highlight_anonymizer:
+        highlighted_content = highlight_anonymizer.highlight_pii(document)
+    else:
+        highlighted_content = document_anonymizer.highlight_pii(anonymized_content)
     st.write(highlighted_content)
 
-    # 6. Mapping Viewer
+    # 7. Mapping Viewer
     if st.button("View Mapping"):
         mapping = document_anonymizer.display_mapping()
         st.json(mapping)
 
-    # 7. Deanonymization Feature
+    # 8. Deanonymization Feature
     if st.button("Deanonymize Content"):
         deanonymized_content = document_anonymizer.deanonymize_text(anonymized_content)
         st.subheader("Deanonymized Document")
