@@ -256,17 +256,6 @@ with st.sidebar.expander("Custom Faker Operator Registration"):
     faker_method = st.text_input("Faker Method")
     digits = st.number_input("Digits (if applicable)", min_value=0, value=0, format="%d")
 
-    if st.session_state.custom_faker_operators:
-        reset_operators = st.button("Reset to Default Faker Operators")
-        if reset_operators:
-            st.session_state.custom_faker_operators = DEFAULT_OPERATORS.copy()
-            detected_language = document_anonymizer.detect_language(document)
-            document_anonymizer.initialize_faker_operators(detected_language, st.session_state.custom_faker_operators)
-
-        if st.checkbox("View Added Faker Operators"):
-            for operator in st.session_state.custom_faker_operators:
-                st.write(operator)
-
     add_operator = st.button("Add Faker Operator")
     if add_operator and entity_type and faker_method:
         custom_operator = {}
@@ -284,6 +273,18 @@ with st.sidebar.expander("Custom Faker Operator Registration"):
         st.session_state.custom_faker_operators.append(custom_operator)
         detected_language = document_anonymizer.detect_language(document)
         document_anonymizer.initialize_faker_operators(detected_language, [custom_operator])
+
+    if st.session_state.custom_faker_operators:
+        reset_operators = st.button("Reset to Default Faker Operators")
+        if reset_operators:
+            st.session_state.custom_faker_operators = DEFAULT_FAKER_OPERATORS.copy()
+            detected_language = document_anonymizer.detect_language(document)
+            document_anonymizer.initialize_faker_operators(detected_language, st.session_state.custom_faker_operators)
+
+        if st.checkbox("View Added Faker Operators"):
+            for operator in st.session_state.custom_faker_operators:
+                st.write(operator)
+
 
 
 # A button to initiate the anonymizing process
