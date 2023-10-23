@@ -164,8 +164,8 @@ class DocumentAnonymizer:
 
 ###------------------------------------------------------------------------------------------------------------###
 
-# Create an instance of DocumentAnonymizer
-document_anonymizer = DocumentAnonymizer()
+# Create an additional instance specifically for highlighting PII without fake values
+highlight_anonymizer = DocumentAnonymizer(use_faker=False)
 
 st.title("Anonymized Chatbot Interface")
 
@@ -213,7 +213,7 @@ if document:
 
     # 5. Highlighting PII (pseudo-functionality as true highlighting in Streamlit is limited)
     st.subheader("Highlighted PII in Document")
-    highlighted_content = document_anonymizer.highlight_pii(anonymized_content)
+    highlighted_content = highlight_anonymizer.highlight_pii(anonymized_content)
     st.write(highlighted_content)
 
     # 6. Mapping Viewer
