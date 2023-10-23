@@ -240,9 +240,9 @@ with st.sidebar.expander("Custom Pattern Registration"):
         custom_patterns = DEFAULT_PATTERNS.copy()
         document_anonymizer.register_custom_patterns(custom_patterns)
 
-    with st.expander("View Added Patterns"):
-        for pattern in custom_patterns:
-            st.write(pattern)
+    st.write("View Added Patterns:")
+    for pattern in custom_patterns:
+        st.write(pattern)
 
 # 4.1 Custom Faker Operator Registration
 with st.sidebar.expander("Custom Faker Operator Registration"):
@@ -274,9 +274,10 @@ with st.sidebar.expander("Custom Faker Operator Registration"):
         detected_language = document_anonymizer.detect_language(document)
         document_anonymizer.initialize_faker_operators(detected_language, custom_faker_operators)
 
-    with st.expander("View Added Faker Operators"):
-        for operator in custom_faker_operators:
-            st.write(operator)
+    st.write("View Added Faker Operators:")
+    for operator in custom_faker_operators:
+        st.write(operator)
+
 
 # A button to initiate the anonymizing process
 start_anonymizing = st.button("Start Anonymizing")
