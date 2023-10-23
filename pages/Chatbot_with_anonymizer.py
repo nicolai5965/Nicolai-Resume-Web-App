@@ -295,6 +295,10 @@ with st.sidebar.expander("Custom Faker Operator Registration"):
 start_anonymizing = st.button("Start Anonymizing")
 
 if start_anonymizing and document:
+    # Display Detected Language
+    with st.expander("Detected Language"):
+        st.write(f"The detected language is: {detected_language}")
+        
     # 5. Display Document
     with st.expander("Original Document"):
         st.write(document)
