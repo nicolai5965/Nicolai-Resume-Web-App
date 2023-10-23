@@ -163,6 +163,41 @@ class DocumentAnonymizer:
         return self.anonymizer.deanonymize(anonymized_content)
 
 ###------------------------------------------------------------------------------------------------------------###
+# Custom Faker operators
+custom_faker_operators = [
+    #{"entity_type": "PERSON", "faker_method": "name"},  # Modified this line
+    {"entity_type": "LOCATION", "faker_method": "city"},
+    {"entity_type": "SSN", "faker_method": "ssn"},
+    {"entity_type": "FULL_US_DRIVER_LICENSE", "faker_method": "license_plate"},
+    {"entity_type": "CPR", "faker_method": "random_number", "digits": 10},
+    {"entity_type": "BANK_ACCOUNT", "faker_method": "random_number", "digits": 14},
+    {"entity_type": "DANISH_PASSPORT", "faker_method": "random_number", "digits": 9},
+    {"entity_type": "FULL_NAME", "faker_method": "name"},
+    {"entity_type": "FIRST_NAME", "faker_method": "first_name"},
+    {"entity_type": "LAST_NAME", "faker_method": "last_name"},
+]
+
+# Custom patterns
+custom_patterns = [
+    {"name": "ssn_pattern", "regex": r"\b\d{3}-?\d{2}-?\d{4}\b", "supported_entity": "SSN", "score": 1},
+    {"name": "cpr_pattern", "regex": r"\b\d{2}\d{2}\d{2}-?\d{4}\b", "supported_entity": "CPR", "score": 1},
+    {"name": "danish_phone_pattern", "regex": r"\b\+45 ?\d{2} ?\d{2} ?\d{2} ?\d{2}\b", "supported_entity": "DANISH_PHONE", "score": 1},
+    {"name": "credit_card_pattern", "regex": r"\b\d{4}[ -]?\d{4}[ -]?\d{4}[ -]?\d{4}\b", "supported_entity": "CREDIT_CARD", "score": 1},
+    {"name": "bank_account_pattern", "regex": r"\b\d{4}[ -]?\d{10}\b", "supported_entity": "BANK_ACCOUNT", "score": 1},
+    {"name": "drivers_license_pattern", "regex": r"\bD\d{3}-?\d{4}-?\d{4}-?\d\b", "supported_entity": "FULL_US_DRIVER_LICENSE", "score": 1},
+    {"name": "danish_license_pattern", "regex": r"\b(DK)?\d{10}\b", "supported_entity": "DANISH_LICENSE", "score": 1},
+    {"name": "danish_passport_pattern", "regex": r"\b(DK)?\d{9}\b", "supported_entity": "DANISH_PASSPORT", "score": 1},
+    {"name": "full_name_pattern", "regex": r"(?P<FULL_NAME>[A-Z][a-z]+ [A-Z][a-z]+)", "supported_entity": "FULL_NAME", "score": 3},
+    {"name": "first_name_pattern", "regex": r"\b(?P<FIRST_NAME>[A-Z][a-z]+)\b", "supported_entity": "FIRST_NAME", "score": 1},
+    {"name": "last_name_pattern", "regex": r"\b(?P<LAST_NAME>[A-Z][a-z]+)\b", "supported_entity": "LAST_NAME", "score": 1},
+    {"name": "date_pattern", "regex": r"\b(?:January|February|March|April|May|June|July|August|September|October|November|December) \d{1,2}, \d{4}\b", "supported_entity": "DATE_TIME", "score": 1},
+]
+
+###------------------------------------------------------------------------------------------------------------###
+
+
+
+
 
 st.title("Anonymized Chatbot Interface")
 
@@ -212,7 +247,9 @@ if document:
     
     if use_faker:  # If the main anonymizer uses faker, then create a separate highlight_anonymizer without faker
         highlight_anonymizer = DocumentAnonymizer(use_faker=False)
-        highlighted_content = highlight_anonymizer.highlight_pii(anonymized_content)
+        highlight_anonymizer.register_custom_patterns(custom_patterns)
+        highlight_anonymized_content = highlight_anonymizer.anonymize_document_content(document_content)
+        highlighted_content = highlight_anonymizer.highlight_pii(highlight_anonymized_content)
     else:  # Else, just use the main anonymizer for highlighting
         highlighted_content = highlight_anonymizer.highlight_pii(anonymized_content)
     st.write(highlighted_content)
