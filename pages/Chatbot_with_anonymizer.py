@@ -164,7 +164,7 @@ class DocumentAnonymizer:
 
 ###------------------------------------------------------------------------------------------------------------###
 # Define default patterns and operators
-DEFAULT_PATTERNS = [
+DEFAULT_FAKER_OPERATORS = [
     #{"entity_type": "PERSON", "faker_method": "name"},  # Modified this line
     {"entity_type": "LOCATION", "faker_method": "city"},
     {"entity_type": "SSN", "faker_method": "ssn"},
@@ -177,8 +177,8 @@ DEFAULT_PATTERNS = [
     {"entity_type": "LAST_NAME", "faker_method": "last_name"},
 ]
 
-
-DEFAULT_FAKER_OPERATORS = [
+DEFAULT_PATTERNS
+DEFAULT_PATTERNS = [
     {"name": "ssn_pattern", "regex": r"\b\d{3}-?\d{2}-?\d{4}\b", "supported_entity": "SSN", "score": 1},
     {"name": "cpr_pattern", "regex": r"\b\d{2}\d{2}\d{2}-?\d{4}\b", "supported_entity": "CPR", "score": 1},
     {"name": "danish_phone_pattern", "regex": r"\b\+45 ?\d{2} ?\d{2} ?\d{2} ?\d{2}\b", "supported_entity": "DANISH_PHONE", "score": 1},
