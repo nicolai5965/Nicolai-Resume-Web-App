@@ -109,8 +109,10 @@ class DocumentAnonymizer:
         self.anonymizer.reset_deanonymizer_mapping()
 
     def detect_language(self, text):
-        # Detects the language of the given text.
-        self.detected_language = langdetect.detect(text)
+        try:
+            self.detected_language = langdetect.detect(text)
+        except langdetect.lang_detect_exception.LangDetectException:
+            self.detected_language = "en"  # default to English
         return self.detected_language
 
     def initialize_faker_operators(self, locale, custom_faker_operators):
