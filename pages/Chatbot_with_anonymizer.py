@@ -466,32 +466,57 @@ st.title("💬 Chatbot")
 
 # Initialize the DocumentAnonymizer and ChatbotMemory classes
 document_anonymizer_memory = DocumentAnonymizer(use_faker=True)
-chatbot_memory = ChatbotMemory(document_anonymizer_memory, "", openai_api_key)  # Empty document for now
 
-# Initialize chat messages if not present
-if "messages" not in st.session_state:
-    st.session_state["messages"] = [{"role": "assistant", "content": "How can I help you?"}]
 
-# Display chat messages
-for msg in st.session_state.messages:
-    if msg["role"] == "assistant":
-        st.chat_message("assistant").write(msg["content"])
+def main():
+    st.title("OpenAI API Key Checker")
+
+    # Check if the API key is set in the environment variables
+    api_key = os.environ.get('OPENAI_API_KEY', None)
+
+    if api_key:
+        st.success("OpenAI API key is set!")
+        
+        # Optional: Test the API key by listing OpenAI models
+        try:
+            openai.api_key = api_key
+            models = openai.Model.list()
+            st.write("API key is valid! Here are the available models:", models)
+        except Exception as e:
+            st.error(f"Error using the API key: {e}")
+
     else:
-        st.chat_message("user").write(msg["content"])
+        st.error("OpenAI API key is not set in the environment variables.")
 
-# Get user input and display chatbot's response
-if prompt := st.chat_input():
-    if not openai_api_key:
-        st.info("Please add your OpenAI API key to continue.")
-        st.stop()
+if __name__ == "__main__":
+    main()
 
-    # Append user's message to session state
-    st.session_state.messages.append({"role": "user", "content": prompt})
-    st.chat_message("user").write(prompt)
+# chatbot_memory = ChatbotMemory(document_anonymizer_memory, "", openai_api_key)  # Empty document for now
 
-    # Get chatbot's response using ChatbotMemory class
-    chatbot_response = chatbot_memory.view_answer(prompt)
-    st.session_state.messages.append({"role": "assistant", "content": chatbot_response})
-    st.chat_message("assistant").write(chatbot_response)
+# # Initialize chat messages if not present
+# if "messages" not in st.session_state:
+#     st.session_state["messages"] = [{"role": "assistant", "content": "How can I help you?"}]
+
+# # Display chat messages
+# for msg in st.session_state.messages:
+#     if msg["role"] == "assistant":
+#         st.chat_message("assistant").write(msg["content"])
+#     else:
+#         st.chat_message("user").write(msg["content"])
+
+# # Get user input and display chatbot's response
+# if prompt := st.chat_input():
+#     if not openai_api_key:
+#         st.info("Please add your OpenAI API key to continue.")
+#         st.stop()
+
+#     # Append user's message to session state
+#     st.session_state.messages.append({"role": "user", "content": prompt})
+#     st.chat_message("user").write(prompt)
+
+#     # Get chatbot's response using ChatbotMemory class
+#     chatbot_response = chatbot_memory.view_answer(prompt)
+#     st.session_state.messages.append({"role": "assistant", "content": chatbot_response})
+#     st.chat_message("assistant").write(chatbot_response)
 
 
