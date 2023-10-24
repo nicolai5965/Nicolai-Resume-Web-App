@@ -472,7 +472,7 @@ document_anonymizer_memory = DocumentAnonymizer(use_faker=True)
 openai_api_key = os.environ.get('OPENAI_API_KEY', None)
 
 
-chatbot_memory = ChatbotMemory(document_anonymizer_memory, "", openai_api_key)  # Empty document for now
+chatbot_memory = ChatbotMemory(document_anonymizer_memory, document, openai_api_key)  # Empty document for now
 
 # Initialize chat messages if not present
 if "messages" not in st.session_state:
