@@ -24,6 +24,7 @@ import pandas as pd
 import logging
 from langchain.memory import ConversationBufferMemory
 from langchain.prompts import PromptTemplate
+import openai
 
 os.environ['NUMEXPR_MAX_THREADS'] = '12'
 ###------------------------------------------------------------------------------------------------------------###
