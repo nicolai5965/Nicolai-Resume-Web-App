@@ -469,23 +469,15 @@ st.title("💬 Chatbot")
 document_anonymizer_memory = DocumentAnonymizer(use_faker=True)
 
 
+# Streamlit app
 def main():
-    st.title("OpenAI API Key Checker")
+    st.title("OpenAI API Key Display")
 
-    # Check if the API key is set in the environment variables
+    # Retrieve the API key from environment variables
     api_key = os.environ.get('OPENAI_API_KEY', None)
 
     if api_key:
-        st.success("OpenAI API key is set!")
-        
-        # Optional: Test the API key by listing OpenAI models
-        try:
-            openai.api_key = api_key
-            models = openai.Model.list()
-            st.write("API key is valid! Here are the available models:", models)
-        except Exception as e:
-            st.error(f"Error using the API key: {e}")
-
+        st.write(f"OpenAI API key: {api_key}")
     else:
         st.error("OpenAI API key is not set in the environment variables.")
 
