@@ -6,7 +6,8 @@
     "codespaces": {
       "openFiles": [
         "README.md",
-        "Main_page.py"
+        "Main_page.py",
+        "requirements.txt"
       ]
     },
     "vscode": {
