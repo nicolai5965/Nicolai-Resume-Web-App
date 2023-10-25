@@ -475,7 +475,13 @@ document_anonymizer_memory = DocumentAnonymizer(use_faker=True)
 openai_api_key = os.environ.get('OPENAI_API_KEY', None)
 
 
-chatbot_memory = ChatbotMemory(document_anonymizer_memory, document, openai_api_key)  # Empty document for now
+# Text area for users to input a document with a default value
+default_document = "Here is my phone number: +4527131415"
+document_content = st.text_area("Please provide a document:", default_document)
+
+# Initialize the DocumentAnonymizer and ChatbotMemory classes
+document_anonymizer_memory = DocumentAnonymizer(use_faker=True)
+chatbot_memory = ChatbotMemory(document_anonymizer_memory, document_content, openai_api_key)
 
 # Initialize chat messages if not present
 if "messages" not in st.session_state:
@@ -494,13 +500,13 @@ if prompt := st.chat_input():
         st.info("Please add your OpenAI API key to continue.")
         st.stop()
 
-        # Append user's message to session state
-        st.session_state.messages.append({"role": "user", "content": prompt})
-        st.chat_message("user").write(prompt)
+    # Append user's message to session state
+    st.session_state.messages.append({"role": "user", "content": prompt})
+    st.chat_message("user").write(prompt)
 
-        # Get chatbot's response using ChatbotMemory class
-        chatbot_response = chatbot_memory.view_answer(prompt)
-        st.session_state.messages.append({"role": "assistant", "content": chatbot_response})
-        st.chat_message("assistant").write(chatbot_response)
+    # Get chatbot's response using ChatbotMemory class
+    chatbot_response = chatbot_memory.view_answer(prompt)
+    st.session_state.messages.append({"role": "assistant", "content": chatbot_response})
+    st.chat_message("assistant").write(chatbot_response)
 
 
