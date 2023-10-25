@@ -466,7 +466,6 @@ class ChatbotMemory:
 
 st.title("💬 Chatbot")
 
-st.title("💬 Chatbo2")
 
 
 # Initialize the DocumentAnonymizer and ChatbotMemory classes
@@ -476,7 +475,7 @@ openai_api_key = os.environ.get('OPENAI_API_KEY', None)
 
 
 # Text area for users to input a document with a default value
-default_document = "Here is my phone number: +4527131415"
+default_document = "Here is my phone number: +4527576097"
 document_content = st.text_area("Please provide a document:", default_document)
 
 # Initialize the DocumentAnonymizer and ChatbotMemory classes
