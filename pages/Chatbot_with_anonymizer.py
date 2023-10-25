@@ -167,6 +167,113 @@ class DocumentAnonymizer:
         return self.anonymizer.deanonymize(anonymized_content)
 
 ###------------------------------------------------------------------------------------------------------------###
+# Chatbot code: 
+class ChatbotMemory:
+    # A class to represent a Chatbot that integrates memory and document anonymization capabilities.
+    def __init__(self, document_anonymizer, document_content, openai_key):
+        # Initializes the Chatbot with given document anonymizer, content, and OpenAI key.
+        self.document_anonymizer = document_anonymizer
+        self.document_content = document_content
+        self.openai_key = openai_key
+        self.setup()
+
+    def setup(self):
+        # Sets up the Chatbot components.
+        self.documents = self.convert_to_document(self.document_content)
+        self.anonymize_document()
+        self.setup_text_splitter()
+        self.setup_embeddings()
+        self.setup_retriever()
+        self.setup_prompt_and_model()
+        self.setup_anonymizer_chain()
+
+    def convert_to_document(self, document_content):
+        # Converts the document content to a Document object.
+        return [Document(page_content=document_content)]
+
+    def anonymize_document(self):
+        # Anonymizes the content of each document.
+        for doc in self.documents:
+            doc.page_content = self.document_anonymizer.anonymize_document_content(doc.page_content)
+
+    def setup_text_splitter(self):
+        # Initializes the text splitter.
+        self.text_splitter = RecursiveCharacterTextSplitter(chunk_size=2000, chunk_overlap=100)
+        self.chunks = self.text_splitter.split_documents(self.documents)
+
+    def setup_embeddings(self):
+        # Initializes the embeddings for OpenAI.
+        self.embeddings = OpenAIEmbeddings(openai_api_key=self.openai_key)
+
+    def setup_retriever(self):
+        # Initializes the document retriever.
+        docsearch = FAISS.from_documents(self.chunks, self.embeddings)
+        self.retriever = docsearch.as_retriever()
+
+    def setup_prompt_and_model(self):
+        # Sets up the prompt and model for OpenAI.
+        template = (
+            """You are a chatbot having a conversation with a human.
+            Given the following extracted parts of a long document and a question, create a final answer.
+            {context}
+            {chat_history}
+            Human: {human_input}
+            Chatbot:"""
+        )
+        self.prompt = PromptTemplate(
+            input_variables=["chat_history", "human_input", "context"], template=template
+        )
+        self.model = ChatOpenAI(openai_api_key=self.openai_key, temperature=0)
+        self.memory = ConversationBufferMemory(memory_key="chat_history", input_key="human_input")
+
+    def setup_anonymizer_chain(self):
+        # Sets up the anonymizer chain for the chatbot.
+        _inputs = RunnableMap(
+            question=RunnablePassthrough(),
+            anonymized_question=RunnableLambda(self.document_anonymizer.anonymize_document_content),
+            chat_history=RunnablePassthrough()
+        )
+        self.anonymizer_chain = (
+            _inputs
+            | {
+                "context": itemgetter("anonymized_question") | self.retriever,
+                "human_input": itemgetter("anonymized_question"),
+                "chat_history": lambda _: self.memory.load_memory_variables({})["chat_history"]
+            }
+            | self.prompt
+            | self.model
+            | StrOutputParser()
+        )
+        self.chain_with_deanonymization = self.anonymizer_chain | RunnableLambda(self.document_anonymizer.deanonymize_text)
+
+    def view_document_before_anonymization(self):
+        # Returns the original document before anonymization.
+        return self.document_content
+
+    def view_document_after_anonymization(self):
+        # Returns the document after it has been anonymized.
+        return [doc.page_content for doc in self.documents]
+
+    def view_anonymized_question(self, question):
+        # Returns the anonymized version of a given question.
+        return self.document_anonymizer.anonymize_document_content(question)
+
+    def view_answer(self, question):
+        # Returns the answer to a given question, after processing through the chatbot.
+        anonymized_question = self.view_anonymized_question(question)
+        response = self.anonymizer_chain.invoke(anonymized_question)
+
+        # Update memory with anonymized question and response.
+        self.memory.save_context({"human_input": anonymized_question}, {"output": response})
+        deanonymized_response = self.document_anonymizer.deanonymize_text(response)
+        return deanonymized_response
+
+    def get_memory_content(self):
+        # Returns the content stored in the chatbot's memory.
+        return self.memory.load_memory_variables({})
+
+###------------------------------------------------------------------------------------------------------------###
+
 # Define default patterns and operators
 DEFAULT_FAKER_OPERATORS = [
     #{"entity_type": "PERSON", "faker_method": "name"},  # Modified this line
@@ -348,117 +455,6 @@ if start_anonymizing and document:
         deanonymized_content = document_anonymizer.deanonymize_text(anonymized_content)
         st.subheader("Deanonymized Document")
         st.write(deanonymized_content)
-
-
-###------------------------------------------------------------------------------------------------------------###
-# Chatbot code: 
-
-class ChatbotMemory:
-    # A class to represent a Chatbot that integrates memory and document anonymization capabilities.
-
-    def __init__(self, document_anonymizer, document_content, openai_key):
-        # Initializes the Chatbot with given document anonymizer, content, and OpenAI key.
-        self.document_anonymizer = document_anonymizer
-        self.document_content = document_content
-        self.openai_key = openai_key
-        self.setup()
-
-    def setup(self):
-        # Sets up the Chatbot components.
-        self.documents = self.convert_to_document(self.document_content)
-        self.anonymize_document()
-        self.setup_text_splitter()
-        self.setup_embeddings()
-        self.setup_retriever()
-        self.setup_prompt_and_model()
-        self.setup_anonymizer_chain()
-
-    def convert_to_document(self, document_content):
-        # Converts the document content to a Document object.
-        return [Document(page_content=document_content)]
-
-    def anonymize_document(self):
-        # Anonymizes the content of each document.
-        for doc in self.documents:
-            doc.page_content = self.document_anonymizer.anonymize_document_content(doc.page_content)
-
-
-    def setup_text_splitter(self):
-        # Initializes the text splitter.
-        self.text_splitter = RecursiveCharacterTextSplitter(chunk_size=2000, chunk_overlap=100)
-        self.chunks = self.text_splitter.split_documents(self.documents)
-
-    def setup_embeddings(self):
-        # Initializes the embeddings for OpenAI.
-        self.embeddings = OpenAIEmbeddings(openai_api_key=self.openai_key)
-
-    def setup_retriever(self):
-        # Initializes the document retriever.
-        docsearch = FAISS.from_documents(self.chunks, self.embeddings)
-        self.retriever = docsearch.as_retriever()
-
-    def setup_prompt_and_model(self):
-        # Sets up the prompt and model for OpenAI.
-        template = (
-            """You are a chatbot having a conversation with a human.
-            Given the following extracted parts of a long document and a question, create a final answer.
-            {context}
-            {chat_history}
-            Human: {human_input}
-            Chatbot:"""
-        )
-        self.prompt = PromptTemplate(
-            input_variables=["chat_history", "human_input", "context"], template=template
-        )
-        self.model = ChatOpenAI(openai_api_key=self.openai_key, temperature=0)
-        self.memory = ConversationBufferMemory(memory_key="chat_history", input_key="human_input")
-
-    def setup_anonymizer_chain(self):
-        # Sets up the anonymizer chain for the chatbot.
-        _inputs = RunnableMap(
-            question=RunnablePassthrough(),
-            anonymized_question=RunnableLambda(self.document_anonymizer.anonymize_document_content),
-            chat_history=RunnablePassthrough()
-        )
-        self.anonymizer_chain = (
-            _inputs
-            | {
-                "context": itemgetter("anonymized_question") | self.retriever,
-                "human_input": itemgetter("anonymized_question"),
-                "chat_history": lambda _: self.memory.load_memory_variables({})["chat_history"]
-            }
-            | self.prompt
-            | self.model
-            | StrOutputParser()
-        )
-        self.chain_with_deanonymization = self.anonymizer_chain | RunnableLambda(self.document_anonymizer.deanonymize_text)
-
-
-    def view_document_before_anonymization(self):
-        # Returns the original document before anonymization.
-        return self.document_content
-
-    def view_document_after_anonymization(self):
-        # Returns the document after it has been anonymized.
-        return [doc.page_content for doc in self.documents]
-
-    def view_anonymized_question(self, question):
-        # Returns the anonymized version of a given question.
-        return self.document_anonymizer.anonymize_document_content(question)
-
-    def view_answer(self, question):
-        # Returns the answer to a given question, after processing through the chatbot.
-        anonymized_question = self.view_anonymized_question(question)
-        response = self.anonymizer_chain.invoke(anonymized_question)
-
-        # Update memory with anonymized question and response.
-        self.memory.save_context({"human_input": anonymized_question}, {"output": response})
-        deanonymized_response = self.document_anonymizer.deanonymize_text(response)
-        return deanonymized_response
-
-    def get_memory_content(self):
-        # Returns the content stored in the chatbot's memory.
-        return self.memory.load_memory_variables({})
 
 ###------------------------------------------------------------------------------------------------------------###
 
