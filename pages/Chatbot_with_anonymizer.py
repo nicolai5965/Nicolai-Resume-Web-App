@@ -466,6 +466,9 @@ class ChatbotMemory:
 
 st.title("💬 Chatbot")
 
+st.title("💬 Chatbo2")
+
+
 # Initialize the DocumentAnonymizer and ChatbotMemory classes
 document_anonymizer_memory = DocumentAnonymizer(use_faker=True)
 
