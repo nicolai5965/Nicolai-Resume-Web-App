@@ -489,7 +489,7 @@ chatbot_memory = initialize_chatbot(document_content, openai_api_key)
 
 # Button to reset the chat
 if st.button("Reset Chat"):
-    st.session_state["messages"] = [{"role": "assistant", "content": "How can I help you?"}]
+    st.session_state.messages = [{"role": "assistant", "content": "How can I help you?"}]
 
 
 # Initialize chat messages if not present
