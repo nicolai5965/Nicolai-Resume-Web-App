@@ -154,6 +154,11 @@ class DocumentAnonymizer:
         detected_language = self.detect_language(document_content)
         if custom_faker_operators:
             self.initialize_faker_operators(detected_language, custom_faker_operators)
+
+        # Check if the detected language is supported
+        if detected_language not in ['en', 'da']:
+            detected_language = 'en'  # Default to English if the language is not supported
+        
         anonymized_content = self.anonymize_text(document_content, detected_language)
         self.highlight_pii(anonymized_content)
         return anonymized_content  # Return the anonymized content
