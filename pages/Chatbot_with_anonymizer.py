@@ -593,7 +593,8 @@ if st.session_state.start_chatbot:
         st.write("Chatbot Anonymizer Content:")
         st.write(mapping_content)
 ###------------------------------------------------------------------------------------------------------------###
-
+st.write('\n')
+st.write("---")
 st.header("Project Conclusion:")
 Project_Conclusion = """As a conclusion of this project, I have found that anonymizing one's data before it gets sent to a large language model can definitely improve data security, but to get the best results, one would have to spend a lot of time testing and tweaking the different patterns and faker operators.
 
