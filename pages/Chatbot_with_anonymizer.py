@@ -527,17 +527,6 @@ def initialize_chatbot(document_content, openai_api_key):
 if 'start_chatbot' not in st.session_state:
     st.session_state.start_chatbot = False
 
-# Toggle for using custom patterns
-if use_custom_patterns != st.session_state.get('prev_use_custom_patterns', True):
-    st.session_state.start_chatbot = False
-    st.session_state.prev_use_custom_patterns = use_custom_patterns
-
-# Toggle for using custom faker operators
-if use_custom_faker_operators != st.session_state.get('prev_use_custom_faker_operators', True):
-    st.session_state.start_chatbot = False
-    st.session_state.prev_use_custom_faker_operators = use_custom_faker_operators
-
-
 # Button to start the chatbot
 if st.button("Start Chatbot"):
     st.session_state.start_chatbot = True
