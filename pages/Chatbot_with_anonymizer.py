@@ -509,8 +509,11 @@ st.title("💬 Chatbot")
 
 
 openai_api_key = os.environ.get('OPENAI_API_KEY', None)
+# Initialize reset_counter in session state if it doesn't exist
+if 'reset_counter' not in st.session_state:
+    st.session_state.reset_counter = 0
 
-@st.cache_resource()
+@st.cache_resource(allow_output_mutation=True, key=st.session_state.reset_counter)
 def initialize_chatbot(document_content, openai_api_key):
     # Initialize the DocumentAnonymizer and ChatbotMemory classes
     document_anonymizer_memory = DocumentAnonymizer(use_faker=True)
@@ -537,22 +540,12 @@ if st.button("Start Chatbot"):
 # If the "Start Chatbot" button has been clicked, display the chatbot interface
 if st.session_state.start_chatbot:
 
-    # Initialize the DocumentAnonymizer and ChatbotMemory classes
-    document_anonymizer_memory = DocumentAnonymizer(use_faker=True)
-    detected_language = document_anonymizer_memory.detect_language(document)
-    # Ensure custom patterns from session state are registered
-    if use_custom_patterns and 'custom_patterns' in st.session_state:
-        document_anonymizer_memory.register_custom_patterns(st.session_state.custom_patterns)
-
-    # Ensure custom faker operators from session state are initialized
-    if use_custom_faker_operators and 'custom_faker_operators' in st.session_state:
-        document_anonymizer_memory.initialize_faker_operators(detected_language, st.session_state.custom_faker_operators)
-
-    chatbot_memory = ChatbotMemory(document_anonymizer_memory, document, openai_api_key)
+    chatbot_memory = initialize_chatbot(document, openai_api_key)
 
     # Button to reset the chat
     if st.button("Reset Chat"):
         st.session_state.messages = [{"role": "assistant", "content": "How can I help you?"}]
+        st.session_state.reset_counter += 1  # Increment the reset_counter
 
     # Initialize chat messages if not present
     if "messages" not in st.session_state:
