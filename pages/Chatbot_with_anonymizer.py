@@ -513,7 +513,7 @@ openai_api_key = os.environ.get('OPENAI_API_KEY', None)
 if 'reset_counter' not in st.session_state:
     st.session_state.reset_counter = 0
 
-@st.cache_resource(allow_output_mutation=True, key=st.session_state.reset_counter)
+@st.cache_resource(key=st.session_state.reset_counter)
 def initialize_chatbot(document_content, openai_api_key):
     # Initialize the DocumentAnonymizer and ChatbotMemory classes
     document_anonymizer_memory = DocumentAnonymizer(use_faker=True)
