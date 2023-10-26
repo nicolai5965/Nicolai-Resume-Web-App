@@ -349,6 +349,7 @@ use_custom_patterns = st.sidebar.checkbox("Use Custom Patterns", value=True)
 if use_custom_patterns != st.session_state.get('prev_use_custom_patterns', True):
     st.session_state.show_anonymizing = False  # Reset the anonymizer state
     st.session_state.start_chatbot = False     # Reset the chatbot state
+    st.session_state.messages = []             # Clear the chat messages
     st.session_state.prev_use_custom_patterns = use_custom_patterns
 
 # Toggle for using custom faker operators in the sidebar
@@ -356,7 +357,9 @@ use_custom_faker_operators = st.sidebar.checkbox("Use Custom Faker Operators", v
 if use_custom_faker_operators != st.session_state.get('prev_use_custom_faker_operators', True):
     st.session_state.show_anonymizing = False  # Reset the anonymizer state
     st.session_state.start_chatbot = False     # Reset the chatbot state
+    st.session_state.messages = []             # Clear the chat messages
     st.session_state.prev_use_custom_faker_operators = use_custom_faker_operators
+
 
 # 2. Document Input
 document = st.text_area("Paste your document content here:", key="document_input", value=document)
