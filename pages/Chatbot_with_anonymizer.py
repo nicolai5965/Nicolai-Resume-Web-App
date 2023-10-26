@@ -476,7 +476,7 @@ if st.session_state.show_anonymizing and document:
     # Add a close button at the end
     if st.button("Close Anonymizing"):
         st.session_state.show_anonymizing = False
-        st.experimental_rerun()  # Force Streamlit to rerun the script immediately
+        st.rerun()  # Force Streamlit to rerun the script immediately
  
 
 ###------------------------------------------------------------------------------------------------------------###
