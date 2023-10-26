@@ -493,17 +493,25 @@ st.title("💬 Chatbot")
 
 openai_api_key = os.environ.get('OPENAI_API_KEY', None)
 
+# Toggle for using custom patterns
+use_custom_patterns = st.checkbox("Use Custom Patterns", value=True)
+
+# Toggle for using custom faker operators
+use_custom_faker_operators = st.checkbox("Use Custom Faker Operators", value=True)
+
+
+
 @st.cache_resource()
 def initialize_chatbot(document_content, openai_api_key):
     # Initialize the DocumentAnonymizer and ChatbotMemory classes
     document_anonymizer_memory = DocumentAnonymizer(use_faker=True)
     
     # Ensure custom patterns from session state are registered
-    if 'custom_patterns' in st.session_state:
+    if use_custom_patterns and 'custom_patterns' in st.session_state:
         document_anonymizer_memory.register_custom_patterns(st.session_state.custom_patterns)
 
     # Ensure custom faker operators from session state are initialized
-    if 'custom_faker_operators' in st.session_state:
+    if use_custom_faker_operators and 'custom_faker_operators' in st.session_state:
         detected_language = document_anonymizer_memory.detect_language(document_content)
         document_anonymizer_memory.initialize_faker_operators(detected_language, st.session_state.custom_faker_operators)
 
