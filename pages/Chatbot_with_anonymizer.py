@@ -446,9 +446,8 @@ if st.session_state.show_anonymizing and document:
 
     # Ensure custom faker operators from session state are initialized
     if use_custom_faker_operators and 'custom_faker_operators' in st.session_state:
-        detected_language = document_anonymizer.detect_language(document_content)
+        detected_language = document_anonymizer.detect_language(document)
         document_anonymizer.initialize_faker_operators(detected_language, st.session_state.custom_faker_operators)
-
 
     # Display Detected Language
     with st.expander("Detected Language"):
