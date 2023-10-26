@@ -513,8 +513,8 @@ openai_api_key = os.environ.get('OPENAI_API_KEY', None)
 if 'reset_counter' not in st.session_state:
     st.session_state.reset_counter = 0
 
-@st.cache_resource(key=st.session_state.reset_counter)
-def initialize_chatbot(document_content, openai_api_key):
+@st.cache_resource()
+def initialize_chatbot(document_content, openai_api_key, reset_counter):
     # Initialize the DocumentAnonymizer and ChatbotMemory classes
     document_anonymizer_memory = DocumentAnonymizer(use_faker=True)
     detected_language = document_anonymizer_memory.detect_language(document_content)
@@ -540,7 +540,7 @@ if st.button("Start Chatbot"):
 # If the "Start Chatbot" button has been clicked, display the chatbot interface
 if st.session_state.start_chatbot:
 
-    chatbot_memory = initialize_chatbot(document, openai_api_key)
+    chatbot_memory = initialize_chatbot(document, openai_api_key, st.session_state.reset_counter)
 
     # Button to reset the chat
     if st.button("Reset Chat"):
