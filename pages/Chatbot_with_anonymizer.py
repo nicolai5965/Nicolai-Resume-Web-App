@@ -579,3 +579,9 @@ if st.session_state.start_chatbot:
         memory_content = chatbot_memory.get_memory_content()
         st.write("Chatbot Memory Content:")
         st.write(memory_content)
+
+    # Button to display chatbot's anonymizer mapping
+    if st.button("View Chatbot anonymizer mapping"):
+        mapping_content = chatbot_memory.document_anonymizer.display_mapping()
+        st.write("Chatbot Anonymizer Content:")
+        st.write(mapping_content)
