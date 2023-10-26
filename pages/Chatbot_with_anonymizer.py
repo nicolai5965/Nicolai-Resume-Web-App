@@ -413,7 +413,7 @@ with st.sidebar.expander("Custom Faker Operator Registration"):
 
 # Check if the 'show_anonymizing' state exists, if not, initialize it to True
 if 'show_anonymizing' not in st.session_state:
-    st.session_state.show_anonymizing = True
+    st.session_state.show_anonymizing = False
 
 # The "Start Anonymizing" button should always be visible
 start_anonymizing = st.button("Start Anonymizing")
