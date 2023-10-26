@@ -335,7 +335,7 @@ Address: 123 Main St, Copenhagen
 Objective: Experienced software developer with a passion for creating innovative solutions. Seeking a challenging role in a forward-thinking tech company.
 Skills: Python, Streamlit, Data Analysis, Machine Learning
 Education: Bachelor's in Computer Science, University of Copenhagen, 2015-2018
-Experience: Software Developer at TechCorp, 2019-2022
+Experience: System specialist, 2023->
 """
 ###------------------------------------------------------------------------------------------------------------###
 
