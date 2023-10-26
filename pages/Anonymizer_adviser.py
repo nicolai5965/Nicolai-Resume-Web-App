@@ -67,7 +67,7 @@ st.title("Document Anonymizer")
 user_input = st.text_area("Paste your document here:")
 
 # File uploader
-uploaded_file = st.file_uploader("Or upload a file:", type=["txt", "pdf", "html", "pptx", "docx", "jpeg", "png"])
+uploaded_file = st.file_uploader("Or upload a file:", type=["txt", "pdf", "html", "pptx", "docx"])
 
 if uploaded_file:
     content = load_content(uploaded_file)
