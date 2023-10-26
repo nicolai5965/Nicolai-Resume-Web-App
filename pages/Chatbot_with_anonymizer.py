@@ -422,14 +422,8 @@ start_anonymizing = st.button("Start Anonymizing")
 if start_anonymizing:
     st.session_state.show_anonymizing = True
 
-# Check if the "Close Anonymizing" button was clicked in this run
-close_anonymizing = st.button("Close Anonymizing", key="close_button")
-
-if close_anonymizing:
-    st.session_state.show_anonymizing = False
-
-# Only display the anonymizing section if 'show_anonymizing' is True and the close button wasn't clicked in this run
-if st.session_state.show_anonymizing and document and not close_anonymizing:
+# Only display the anonymizing section if 'show_anonymizing' is True
+if st.session_state.show_anonymizing and document:
     # Initialize anonymizing
     document_anonymizer = DocumentAnonymizer(use_faker=use_faker)
     highlight_anonymizer = None  # Initialize to None
