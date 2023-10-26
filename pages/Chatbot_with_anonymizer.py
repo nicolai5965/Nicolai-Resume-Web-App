@@ -330,24 +330,14 @@ st.title("Anonymized Chatbot Interface")
 
 # 1. Anonymization Settings
 use_faker = st.sidebar.checkbox("Use Faker", value=True)
-document_anonymizer = DocumentAnonymizer(use_faker=use_faker)
-highlight_anonymizer = None  # Initialize to None
 
-# Ensure custom patterns from session state are registered
-if 'custom_patterns' in st.session_state:
-    document_anonymizer.register_custom_patterns(st.session_state.custom_patterns)
+# 2. Document Input
+document = st.text_area("Paste your document content here:", key="document_input", value=document)
 
-# Ensure custom faker operators from session state are initialized
-if 'custom_faker_operators' in st.session_state:
-    detected_language = document_anonymizer.detect_language(document) if document else None
-    document_anonymizer.initialize_faker_operators(detected_language, st.session_state.custom_faker_operators)
 
 reset_mapping = st.sidebar.button("Reset Deanonymizer Mapping")
 if reset_mapping:
     document_anonymizer.reset_mapping()
-
-# 2. Document Input
-document = st.text_area("Paste your document content here:", key="document_input", value=document)
 
 # 3. Language Detection
 st.sidebar.header("Language Detection")
@@ -420,6 +410,18 @@ with st.sidebar.expander("Custom Faker Operator Registration"):
 start_anonymizing = st.button("Start Anonymizing")
 
 if start_anonymizing and document:
+    document_anonymizer = DocumentAnonymizer(use_faker=use_faker)
+    highlight_anonymizer = None  # Initialize to None
+
+    # Ensure custom patterns from session state are registered
+    if 'custom_patterns' in st.session_state:
+        document_anonymizer.register_custom_patterns(st.session_state.custom_patterns)
+
+    # Ensure custom faker operators from session state are initialized
+    if 'custom_faker_operators' in st.session_state:
+        detected_language = document_anonymizer.detect_language(document)
+        document_anonymizer.initialize_faker_operators(detected_language, st.session_state.custom_faker_operators)
+        
     # Display Detected Language
     with st.expander("Detected Language"):
         language_name = language_name_mapping.get(detected_language, "Unknown")
