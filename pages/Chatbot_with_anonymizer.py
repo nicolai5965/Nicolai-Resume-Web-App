@@ -335,8 +335,8 @@ language_name_mapping = {
 }
 
 # Initialize document with a default value
-document = """Name: Nicolai
-Email: nicolai@example.com
+document = """Name: Nicolai Søderberg
+Email: nicolai@newf-dreams.com
 Phone: +4527576097
 Address: 123 Main St, Copenhagen
 Objective: Experienced software developer with a passion for creating innovative solutions. Seeking a challenging role in a forward-thinking tech company.
