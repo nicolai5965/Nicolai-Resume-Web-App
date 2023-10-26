@@ -592,3 +592,19 @@ if st.session_state.start_chatbot:
         mapping_content = chatbot_memory.document_anonymizer.display_mapping()
         st.write("Chatbot Anonymizer Content:")
         st.write(mapping_content)
+###------------------------------------------------------------------------------------------------------------###
+
+st.header("Project Conclusion:")
+Introduction = """As a conclusion of this project, I have found that anonymizing one's data before it gets sent to a large language model can definitely improve data security, but to get the best results, one would have to spend a lot of time testing and tweaking the different patterns and faker operators.
+
+I discovered that some personal data can still slip through, although in most cases all or nearly all of the data was anonymized before being sent to the LLM and stored in the vector database.
+
+There were occasional issues with the mapping when trying to deanonymize the chatbot's responses, indicating there is still room for improvement in the reversible anonymization process.
+
+Overall, this project demonstrated that anonymization is a useful technique to balance utility and privacy when applying AI chatbots and other natural language systems. 
+
+With refinement of the entity recognition and fake data generation, anonymizing chatbots could serve as an important safeguard for handling personal and sensitive information going forward.
+"""
+
+st.write('\n')
+st.write("---")
