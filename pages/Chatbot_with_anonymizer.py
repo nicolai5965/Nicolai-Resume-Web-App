@@ -536,11 +536,22 @@ if st.button("Start Chatbot"):
 
 # If the "Start Chatbot" button has been clicked, display the chatbot interface
 if st.session_state.start_chatbot:
-    chatbot_memory = initialize_chatbot(document, openai_api_key)
+
+    # Initialize the DocumentAnonymizer and ChatbotMemory classes
+    document_anonymizer_memory = DocumentAnonymizer(use_faker=True)
+    detected_language = document_anonymizer_memory.detect_language(document_content)
+    # Ensure custom patterns from session state are registered
+    if use_custom_patterns and 'custom_patterns' in st.session_state:
+        document_anonymizer_memory.register_custom_patterns(st.session_state.custom_patterns)
+
+    # Ensure custom faker operators from session state are initialized
+    if use_custom_faker_operators and 'custom_faker_operators' in st.session_state:
+        document_anonymizer_memory.initialize_faker_operators(detected_language, st.session_state.custom_faker_operators)
+
+    chatbot_memory = ChatbotMemory(document_anonymizer_memory, document_content, openai_api_key)
 
     # Button to reset the chat
     if st.button("Reset Chat"):
-        st.session_state.messages = []
         st.session_state.messages = [{"role": "assistant", "content": "How can I help you?"}]
 
     # Initialize chat messages if not present
