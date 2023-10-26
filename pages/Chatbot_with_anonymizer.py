@@ -539,7 +539,7 @@ if st.session_state.start_chatbot:
 
     # Initialize the DocumentAnonymizer and ChatbotMemory classes
     document_anonymizer_memory = DocumentAnonymizer(use_faker=True)
-    detected_language = document_anonymizer_memory.detect_language(document_content)
+    detected_language = document_anonymizer_memory.detect_language(document)
     # Ensure custom patterns from session state are registered
     if use_custom_patterns and 'custom_patterns' in st.session_state:
         document_anonymizer_memory.register_custom_patterns(st.session_state.custom_patterns)
