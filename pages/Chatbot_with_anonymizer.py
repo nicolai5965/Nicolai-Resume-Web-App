@@ -493,7 +493,7 @@ st.title("💬 Chatbot")
 
 openai_api_key = os.environ.get('OPENAI_API_KEY', None)
 
-@st.cache_data()
+@st.cache_resource()
 def initialize_chatbot(document_content, openai_api_key):
     # Initialize the DocumentAnonymizer and ChatbotMemory classes
     document_anonymizer_memory = DocumentAnonymizer(use_faker=True)
