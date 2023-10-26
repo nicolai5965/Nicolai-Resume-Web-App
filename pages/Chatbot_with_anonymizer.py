@@ -540,6 +540,7 @@ if st.session_state.start_chatbot:
 
     # Button to reset the chat
     if st.button("Reset Chat"):
+        st.session_state.messages = []
         st.session_state.messages = [{"role": "assistant", "content": "How can I help you?"}]
 
     # Initialize chat messages if not present
