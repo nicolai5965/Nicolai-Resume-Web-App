@@ -351,14 +351,11 @@ if use_custom_patterns != st.session_state.get('prev_use_custom_patterns', True)
     st.session_state.show_anonymizing = False
     st.session_state.prev_use_custom_patterns = use_custom_patterns
 
-
 # Toggle for using custom faker operators in the sidebar
 use_custom_faker_operators = st.sidebar.checkbox("Use Custom Faker Operators", value=True)
 if use_custom_faker_operators != st.session_state.get('prev_use_custom_faker_operators', True):
     st.session_state.show_anonymizing = False
     st.session_state.prev_use_custom_faker_operators = use_custom_faker_operators
-
-
 
 # 2. Document Input
 document = st.text_area("Paste your document content here:", key="document_input", value=document)
@@ -448,13 +445,14 @@ if st.session_state.show_anonymizing and document:
     document_anonymizer = DocumentAnonymizer(use_faker=use_faker)
     highlight_anonymizer = None  # Initialize to None
 
+    detected_language = document_anonymizer.detect_language(document)
+
     # Ensure custom patterns from session state are registered
     if use_custom_patterns and 'custom_patterns' in st.session_state:
         document_anonymizer.register_custom_patterns(st.session_state.custom_patterns)
 
     # Ensure custom faker operators from session state are initialized
     if use_custom_faker_operators and 'custom_faker_operators' in st.session_state:
-        detected_language = document_anonymizer.detect_language(document)
         document_anonymizer.initialize_faker_operators(detected_language, st.session_state.custom_faker_operators)
 
     # Display Detected Language
@@ -512,14 +510,13 @@ openai_api_key = os.environ.get('OPENAI_API_KEY', None)
 def initialize_chatbot(document_content, openai_api_key):
     # Initialize the DocumentAnonymizer and ChatbotMemory classes
     document_anonymizer_memory = DocumentAnonymizer(use_faker=True)
-    
+    detected_language = document_anonymizer_memory.detect_language(document_content)
     # Ensure custom patterns from session state are registered
     if use_custom_patterns and 'custom_patterns' in st.session_state:
         document_anonymizer_memory.register_custom_patterns(st.session_state.custom_patterns)
 
     # Ensure custom faker operators from session state are initialized
     if use_custom_faker_operators and 'custom_faker_operators' in st.session_state:
-        detected_language = document_anonymizer_memory.detect_language(document_content)
         document_anonymizer_memory.initialize_faker_operators(detected_language, st.session_state.custom_faker_operators)
 
     chatbot_memory = ChatbotMemory(document_anonymizer_memory, document_content, openai_api_key)
