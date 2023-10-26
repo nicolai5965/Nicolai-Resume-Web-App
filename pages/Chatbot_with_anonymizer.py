@@ -527,13 +527,11 @@ if 'start_chatbot' not in st.session_state:
     st.session_state.start_chatbot = False
 
 # Toggle for using custom patterns
-use_custom_patterns = st.sidebar.checkbox("Use Custom Patterns", value=True)
 if use_custom_patterns != st.session_state.get('prev_use_custom_patterns', True):
     st.session_state.start_chatbot = False
     st.session_state.prev_use_custom_patterns = use_custom_patterns
 
 # Toggle for using custom faker operators
-use_custom_faker_operators = st.sidebar.checkbox("Use Custom Faker Operators", value=True)
 if use_custom_faker_operators != st.session_state.get('prev_use_custom_faker_operators', True):
     st.session_state.start_chatbot = False
     st.session_state.prev_use_custom_faker_operators = use_custom_faker_operators
