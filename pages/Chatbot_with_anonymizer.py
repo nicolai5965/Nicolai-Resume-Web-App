@@ -335,16 +335,12 @@ use_faker = st.sidebar.checkbox("Use Faker", value=True)
 document = st.text_area("Paste your document content here:", key="document_input", value=document)
 
 
-reset_mapping = st.sidebar.button("Reset Deanonymizer Mapping")
-if reset_mapping:
-    document_anonymizer.reset_mapping()
-
 # 3. Language Detection
-st.sidebar.header("Language Detection")
-detected_language = document_anonymizer.detect_language(document) if document else None
-language = st.sidebar.selectbox("Detected/Choose Language", ["Auto-detect", "English", "Danish"], index=0 if not detected_language else ["en", "da"].index(detected_language))
-if language != "Auto-detect":
-    detected_language = language
+#st.sidebar.header("Language Detection")
+#detected_language = document_anonymizer.detect_language(document) if document else None
+#language = st.sidebar.selectbox("Detected/Choose Language", ["Auto-detect", "English", "Danish"], index=0 if not detected_language else ["en", "da"].index(detected_language))
+#if language != "Auto-detect":
+#    detected_language = language
 
 # 4. Custom Pattern Registration
 with st.sidebar.expander("Custom Pattern Registration"):
@@ -421,7 +417,7 @@ if start_anonymizing and document:
     if 'custom_faker_operators' in st.session_state:
         detected_language = document_anonymizer.detect_language(document)
         document_anonymizer.initialize_faker_operators(detected_language, st.session_state.custom_faker_operators)
-        
+
     # Display Detected Language
     with st.expander("Detected Language"):
         language_name = language_name_mapping.get(detected_language, "Unknown")
@@ -457,6 +453,10 @@ if start_anonymizing and document:
         deanonymized_content = document_anonymizer.deanonymize_text(anonymized_content)
         st.subheader("Deanonymized Document")
         st.write(deanonymized_content)
+
+    reset_mapping = st.sidebar.button("Reset Deanonymizer Mapping")
+    if reset_mapping:
+        document_anonymizer.reset_mapping()
 
 ###------------------------------------------------------------------------------------------------------------###
 
