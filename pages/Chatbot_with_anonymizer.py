@@ -595,7 +595,7 @@ if st.session_state.start_chatbot:
 ###------------------------------------------------------------------------------------------------------------###
 
 st.header("Project Conclusion:")
-Introduction = """As a conclusion of this project, I have found that anonymizing one's data before it gets sent to a large language model can definitely improve data security, but to get the best results, one would have to spend a lot of time testing and tweaking the different patterns and faker operators.
+Project_Conclusion = """As a conclusion of this project, I have found that anonymizing one's data before it gets sent to a large language model can definitely improve data security, but to get the best results, one would have to spend a lot of time testing and tweaking the different patterns and faker operators.
 
 I discovered that some personal data can still slip through, although in most cases all or nearly all of the data was anonymized before being sent to the LLM and stored in the vector database.
 
@@ -605,6 +605,8 @@ Overall, this project demonstrated that anonymization is a useful technique to b
 
 With refinement of the entity recognition and fake data generation, anonymizing chatbots could serve as an important safeguard for handling personal and sensitive information going forward.
 """
+
+st.write(Project_Conclusion)
 
 st.write('\n')
 st.write("---")
