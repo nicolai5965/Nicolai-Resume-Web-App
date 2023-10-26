@@ -418,7 +418,7 @@ if start_anonymizing and document:
     # Initialize anonymizing
     document_anonymizer = DocumentAnonymizer(use_faker=use_faker)
     # Automatically reset the Deanonymizer mapping before starting the anonymization
-    document_anonymizer.reset_mapping()
+    #document_anonymizer.reset_mapping()
 
     highlight_anonymizer = None  # Initialize to None
 
