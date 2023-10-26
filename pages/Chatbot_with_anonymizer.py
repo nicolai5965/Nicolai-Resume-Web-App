@@ -604,6 +604,12 @@ There were occasional issues with the mapping when trying to deanonymize the cha
 Overall, this project demonstrated that anonymization is a useful technique to balance utility and privacy when applying AI chatbots and other natural language systems. 
 
 With refinement of the entity recognition and fake data generation, anonymizing chatbots could serve as an important safeguard for handling personal and sensitive information going forward.
+
+If you want to know more about anonymizing data and how to integrate it into your system, write me a email. 
+
+You can fine more intomation about the examples I have used at this link: 
+
+https://python.langchain.com/docs/guides/privacy/presidio_data_anonymization/qa_privacy_protection
 """
 
 st.write(Project_Conclusion)
