@@ -415,7 +415,11 @@ with st.sidebar.expander("Custom Faker Operator Registration"):
 start_anonymizing = st.button("Start Anonymizing")
 
 if start_anonymizing and document:
+    # Initialize anonymizing
     document_anonymizer = DocumentAnonymizer(use_faker=use_faker)
+    # Automatically reset the Deanonymizer mapping before starting the anonymization
+    document_anonymizer.reset_mapping()
+
     highlight_anonymizer = None  # Initialize to None
 
     # Ensure custom patterns from session state are registered
@@ -441,7 +445,18 @@ if start_anonymizing and document:
         anonymized_content = document_anonymizer.anonymize_document_content(document)
         st.write(anonymized_content)
 
-    # 6. Highlighting PII
+    # 6. Mapping Viewer
+    with st.expander("View Mapping"):
+        mapping = document_anonymizer.display_mapping()
+        st.write(mapping)
+
+    # 7. Deanonymization Feature
+    with st.expander("Deanonymize Content"):
+        deanonymized_content = document_anonymizer.deanonymize_text(anonymized_content)
+        st.subheader("Deanonymized Document")
+        st.write(deanonymized_content)
+
+    # 8. Highlighting PII
     with st.expander("Highlighted PII in Document"):
         if use_faker:  # If the main anonymizer uses faker, then create a separate highlight_anonymizer without faker
             highlight_anonymizer = DocumentAnonymizer(use_faker=False)
@@ -452,20 +467,6 @@ if start_anonymizing and document:
             highlighted_content = document_anonymizer.highlight_pii(anonymized_content)
         st.write(highlighted_content)
 
-    # 7. Mapping Viewer
-    with st.expander("View Mapping"):
-        mapping = document_anonymizer.display_mapping()
-        st.write(mapping)
-
-    # 8. Deanonymization Feature
-    with st.expander("Deanonymize Content"):
-        deanonymized_content = document_anonymizer.deanonymize_text(anonymized_content)
-        st.subheader("Deanonymized Document")
-        st.write(deanonymized_content)
-
-    reset_mapping = st.sidebar.button("Reset Deanonymizer Mapping")
-    if reset_mapping:
-        document_anonymizer.reset_mapping()
 
 ###------------------------------------------------------------------------------------------------------------###
 
