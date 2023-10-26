@@ -411,7 +411,7 @@ with st.sidebar.expander("Custom Faker Operator Registration"):
             for operator in st.session_state.custom_faker_operators:
                 st.write(operator)
 
-# Check if the 'show_anonymizing' state exists, if not, initialize it to True
+# Check if the 'show_anonymizing' state exists, if not, initialize it to False
 if 'show_anonymizing' not in st.session_state:
     st.session_state.show_anonymizing = False
 
@@ -422,7 +422,14 @@ start_anonymizing = st.button("Start Anonymizing")
 if start_anonymizing:
     st.session_state.show_anonymizing = True
 
-if st.session_state.show_anonymizing and document:
+# Check if the "Close Anonymizing" button was clicked in this run
+close_anonymizing = st.button("Close Anonymizing", key="close_button")
+
+if close_anonymizing:
+    st.session_state.show_anonymizing = False
+
+# Only display the anonymizing section if 'show_anonymizing' is True and the close button wasn't clicked in this run
+if st.session_state.show_anonymizing and document and not close_anonymizing:
     # Initialize anonymizing
     document_anonymizer = DocumentAnonymizer(use_faker=use_faker)
     highlight_anonymizer = None  # Initialize to None
