@@ -536,62 +536,66 @@ def initialize_chatbot(document_content, openai_api_key, reset_counter):
     chatbot_memory = ChatbotMemory(document_anonymizer_memory, document_content, openai_api_key)
     return chatbot_memory
 
-# Check if 'start_chatbot' exists in session state, if not, initialize it
-if 'start_chatbot' not in st.session_state:
-    st.session_state.start_chatbot = False
+# Create a container for the chatbot
+chatbot_container = st.container()
 
-# Button to start the chatbot
-if st.button("Start Chatbot"):
-    st.session_state.start_chatbot = True
+with chatbot_container:
+    # Check if 'start_chatbot' exists in session state, if not, initialize it
+    if 'start_chatbot' not in st.session_state:
+        st.session_state.start_chatbot = False
 
-# If the "Start Chatbot" button has been clicked, display the chatbot interface
-if st.session_state.start_chatbot:
+    # Button to start the chatbot
+    if st.button("Start Chatbot"):
+        st.session_state.start_chatbot = True
 
-    chatbot_memory = initialize_chatbot(document, openai_api_key, st.session_state.reset_counter)
+    # If the "Start Chatbot" button has been clicked, display the chatbot interface
+    if st.session_state.start_chatbot:
 
-    # Button to reset the chat
-    if st.button("Reset Chat"):
-        st.session_state.messages = [{"role": "assistant", "content": "How can I help you?"}]
-        st.session_state.reset_counter += 1  # Increment the reset_counter
+        chatbot_memory = initialize_chatbot(document, openai_api_key, st.session_state.reset_counter)
 
-    # Initialize chat messages if not present
-    if "messages" not in st.session_state:
-        st.session_state["messages"] = [{"role": "assistant", "content": "How can I help you?"}]
+        # Button to reset the chat
+        if st.button("Reset Chat"):
+            st.session_state.messages = [{"role": "assistant", "content": "How can I help you?"}]
+            st.session_state.reset_counter += 1  # Increment the reset_counter
 
-    # Display chat messages
-    for msg in st.session_state.messages:
-        if msg["role"] == "assistant":
-            st.chat_message("assistant").write(msg["content"])
-        else:
-            st.chat_message("user").write(msg["content"])
+        # Initialize chat messages if not present
+        if "messages" not in st.session_state:
+            st.session_state["messages"] = [{"role": "assistant", "content": "How can I help you?"}]
 
-    # Get user input and display chatbot's response
-    if prompt := st.chat_input():
-        if not openai_api_key:
-            st.info("Please add your OpenAI API key to continue.")
-            st.stop()
+        # Display chat messages
+        for msg in st.session_state.messages:
+            if msg["role"] == "assistant":
+                st.chat_message("assistant").write(msg["content"])
+            else:
+                st.chat_message("user").write(msg["content"])
 
-        # Append user's message to session state
-        st.session_state.messages.append({"role": "user", "content": prompt})
-        st.chat_message("user").write(prompt)
+        # Get user input and display chatbot's response
+        if prompt := st.chat_input():
+            if not openai_api_key:
+                st.info("Please add your OpenAI API key to continue.")
+                st.stop()
 
-        # Get chatbot's response using ChatbotMemory class
-        chatbot_response = chatbot_memory.view_answer(prompt)
-        st.session_state.messages.append({"role": "assistant", "content": chatbot_response})
-        st.chat_message("assistant").write(chatbot_response)
+            # Append user's message to session state
+            st.session_state.messages.append({"role": "user", "content": prompt})
+            st.chat_message("user").write(prompt)
+
+            # Get chatbot's response using ChatbotMemory class
+            chatbot_response = chatbot_memory.view_answer(prompt)
+            st.session_state.messages.append({"role": "assistant", "content": chatbot_response})
+            st.chat_message("assistant").write(chatbot_response)
 
 
-    # Button to display chatbot's memory
-    if st.button("View Chatbot Memory"):
-        memory_content = chatbot_memory.get_memory_content()
-        st.write("Chatbot Memory Content:")
-        st.write(memory_content)
+        # Button to display chatbot's memory
+        if st.button("View Chatbot Memory"):
+            memory_content = chatbot_memory.get_memory_content()
+            st.write("Chatbot Memory Content:")
+            st.write(memory_content)
 
-    # Button to display chatbot's anonymizer mapping
-    if st.button("View Chatbot anonymizer mapping"):
-        mapping_content = chatbot_memory.document_anonymizer.display_mapping()
-        st.write("Chatbot Anonymizer Content:")
-        st.write(mapping_content)
+        # Button to display chatbot's anonymizer mapping
+        if st.button("View Chatbot anonymizer mapping"):
+            mapping_content = chatbot_memory.document_anonymizer.display_mapping()
+            st.write("Chatbot Anonymizer Content:")
+            st.write(mapping_content)
 ###------------------------------------------------------------------------------------------------------------###
 st.write('\n')
 st.write("---")
