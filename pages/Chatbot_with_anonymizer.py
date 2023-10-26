@@ -322,8 +322,17 @@ language_name_mapping = {
     # Add more mappings as needed
 }
 
-# Initialize document with a default empty value
-document = "Here is my phone number: +4527131415"
+# Initialize document with a default value
+document = """
+Name: Nicolai
+Email: nicolai@example.com
+Phone: +4527576097
+Address: 123 Main St, Copenhagen
+Objective: Experienced software developer with a passion for creating innovative solutions. Seeking a challenging role in a forward-thinking tech company.
+Skills: Python, Streamlit, Data Analysis, Machine Learning
+Education: Bachelor's in Computer Science, University of Copenhagen, 2015-2018
+Experience: Software Developer at TechCorp, 2019-2022
+"""
 ###------------------------------------------------------------------------------------------------------------###
 
 st.title("Anonymized Chatbot Interface")
@@ -466,53 +475,4 @@ st.title("💬 Chatbot")
 
 
 
-# Initialize the DocumentAnonymizer and ChatbotMemory classes
-document_anonymizer_memory = DocumentAnonymizer(use_faker=True)
-
-openai_api_key = os.environ.get('OPENAI_API_KEY', None)
-
-
-# Text area for users to input a document with a default value
-default_document = "Here is my phone number: +4527576097"
-document_content = st.text_area("Please provide a document:", default_document)
-
-@st.cache(allow_output_mutation=True)
-def initialize_chatbot(document_content, openai_api_key):
-    # Initialize the DocumentAnonymizer and ChatbotMemory classes
-    document_anonymizer_memory = DocumentAnonymizer(use_faker=True)
-    chatbot_memory = ChatbotMemory(document_anonymizer_memory, document_content, openai_api_key)
-    return chatbot_memory
-
-chatbot_memory = initialize_chatbot(document_content, openai_api_key)
-
-# Button to reset the chat
-if st.button("Reset Chat"):
-    st.session_state.messages = [{"role": "assistant", "content": "How can I help you?"}]
-
-
-# Initialize chat messages if not present
-if "messages" not in st.session_state:
-    st.session_state["messages"] = [{"role": "assistant", "content": "How can I help you?"}]
-
-# Display chat messages
-for msg in st.session_state.messages:
-    if msg["role"] == "assistant":
-        st.chat_message("assistant").write(msg["content"])
-    else:
-        st.chat_message("user").write(msg["content"])
-
-# Get user input and display chatbot's response
-if prompt := st.chat_input():
-    if not openai_api_key:
-        st.info("Please add your OpenAI API key to continue.")
-        st.stop()
-
-    # Append user's message to session state
-    st.session_state.messages.append({"role": "user", "content": prompt})
-    st.chat_message("user").write(prompt)
-
-    # Get chatbot's response using ChatbotMemory class
-    chatbot_response = chatbot_memory.view_answer(prompt)
-    st.session_state.messages.append({"role": "assistant", "content": chatbot_response})
-    st.chat_message("assistant").write(chatbot_response)
 
