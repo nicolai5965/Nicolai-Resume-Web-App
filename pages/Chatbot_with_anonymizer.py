@@ -488,10 +488,6 @@ st.title("💬 Chatbot")
 
 openai_api_key = os.environ.get('OPENAI_API_KEY', None)
 
-# Text area for users to input a document with a default value
-default_document = "Here is my phone number: +4527576097"
-document_content = st.text_area("Please provide a document:", default_document)
-
 @st.cache(allow_output_mutation=True)
 def initialize_chatbot(document_content, openai_api_key):
     # Initialize the DocumentAnonymizer and ChatbotMemory classes
@@ -519,7 +515,7 @@ if st.button("Start Chatbot"):
 
 # If the "Start Chatbot" button has been clicked, display the chatbot interface
 if st.session_state.start_chatbot:
-    chatbot_memory = initialize_chatbot(document_content, openai_api_key)
+    chatbot_memory = initialize_chatbot(document, openai_api_key)
 
     # Button to reset the chat
     if st.button("Reset Chat"):
