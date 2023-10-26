@@ -548,7 +548,7 @@ if st.session_state.start_chatbot:
     if use_custom_faker_operators and 'custom_faker_operators' in st.session_state:
         document_anonymizer_memory.initialize_faker_operators(detected_language, st.session_state.custom_faker_operators)
 
-    chatbot_memory = ChatbotMemory(document_anonymizer_memory, document_content, openai_api_key)
+    chatbot_memory = ChatbotMemory(document_anonymizer_memory, document, openai_api_key)
 
     # Button to reset the chat
     if st.button("Reset Chat"):
