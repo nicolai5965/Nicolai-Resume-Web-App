@@ -25,6 +25,7 @@ import logging
 from langchain.memory import ConversationBufferMemory
 from langchain.prompts import PromptTemplate
 import openai
+import json
 
 
 os.environ['NUMEXPR_MAX_THREADS'] = '12'
@@ -481,9 +482,14 @@ if st.session_state.show_anonymizing and document:
         st.write(anonymized_content)
 
     # 6. Mapping Viewer
+    #with st.expander("View Mapping"):
+    #    mapping = document_anonymizer.display_mapping()
+    #    st.write(mapping)
+    # 6. Mapping Viewer
     with st.expander("View Mapping"):
         mapping = document_anonymizer.display_mapping()
-        st.write(mapping)
+        formatted_mapping = json.dumps(mapping, indent=4)  # Format the mapping as JSON with indentation
+        st.code(formatted_mapping, language='json')  # Display the formatted JSON as code
 
     # 7. Deanonymization Feature
     with st.expander("Deanonymize Content"):
