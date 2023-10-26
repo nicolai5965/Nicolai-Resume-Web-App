@@ -347,9 +347,17 @@ use_faker = st.sidebar.checkbox("Use Faker", value=True)
 
 # Toggle for using custom patterns in the sidebar
 use_custom_patterns = st.sidebar.checkbox("Use Custom Patterns", value=True)
+if use_custom_patterns != st.session_state.get('prev_use_custom_patterns', True):
+    st.session_state.show_anonymizing = False
+    st.session_state.prev_use_custom_patterns = use_custom_patterns
+
 
 # Toggle for using custom faker operators in the sidebar
 use_custom_faker_operators = st.sidebar.checkbox("Use Custom Faker Operators", value=True)
+if use_custom_faker_operators != st.session_state.get('prev_use_custom_faker_operators', True):
+    st.session_state.show_anonymizing = False
+    st.session_state.prev_use_custom_faker_operators = use_custom_faker_operators
+
 
 
 # 2. Document Input
