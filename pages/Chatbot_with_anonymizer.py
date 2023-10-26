@@ -328,8 +328,7 @@ language_name_mapping = {
 }
 
 # Initialize document with a default value
-document = """
-Name: Nicolai
+document = """ Name: Nicolai
 Email: nicolai@example.com
 Phone: +4527576097
 Address: 123 Main St, Copenhagen
