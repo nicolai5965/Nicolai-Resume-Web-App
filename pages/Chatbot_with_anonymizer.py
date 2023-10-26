@@ -569,3 +569,8 @@ if st.session_state.start_chatbot:
         st.chat_message("assistant").write(chatbot_response)
 
 
+    # Button to display chatbot's memory
+    if st.button("View Chatbot Memory"):
+        memory_content = chatbot_memory.get_memory_content()
+        st.write("Chatbot Memory Content:")
+        st.write(memory_content)
