@@ -78,7 +78,7 @@ st.write("---")
 
 
 
-profile_pic = "Images/qa_privacy_protection.png"
+profile_pic = "pages/Images/qa_privacy_protection.png"
 
 profile_pic = Image.open(profile_pic)
 
