@@ -373,13 +373,6 @@ if use_custom_faker_operators != st.session_state.get('prev_use_custom_faker_ope
 document = st.text_area("Paste your document content here:", key="document_input", value=document)
 
 
-# 3. Language Detection
-#st.sidebar.header("Language Detection")
-#detected_language = document_anonymizer.detect_language(document) if document else None
-#language = st.sidebar.selectbox("Detected/Choose Language", ["Auto-detect", "English", "Danish"], index=0 if not detected_language else ["en", "da"].index(detected_language))
-#if language != "Auto-detect":
-#    detected_language = language
-
 # 4. Custom Pattern Registration
 with st.sidebar.expander("Custom Pattern Registration"):
     custom_pattern_name = st.text_input("Pattern Name")
@@ -489,7 +482,7 @@ if st.session_state.show_anonymizing and document:
     with st.expander("View Mapping"):
         mapping = document_anonymizer.display_mapping()
         formatted_mapping = json.dumps(mapping, indent=4)  # Format the mapping as JSON with indentation
-        st.code(formatted_mapping, language='json')  # Display the formatted JSON as code
+        st.write(formatted_mapping, language='json')  # Display the formatted JSON as code
 
     # 7. Deanonymization Feature
     with st.expander("Deanonymize Content"):
