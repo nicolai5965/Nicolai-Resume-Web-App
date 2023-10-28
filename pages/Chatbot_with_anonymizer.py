@@ -482,7 +482,7 @@ if st.session_state.show_anonymizing and document:
     with st.expander("View Mapping"):
         mapping = document_anonymizer.display_mapping()
         formatted_mapping = json.dumps(mapping, indent=4)  # Format the mapping as JSON with indentation
-        st.write(formatted_mapping, language='json')  # Display the formatted JSON as code
+        st.code(formatted_mapping, language='json')  # Display the formatted JSON as code
 
     # 7. Deanonymization Feature
     with st.expander("Deanonymize Content"):
