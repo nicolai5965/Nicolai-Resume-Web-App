@@ -75,6 +75,18 @@ st.write(Introduction)
 
 st.write('\n')
 st.write("---")
+
+
+
+profile_pic = "pages/Images/qa_privacy_protection.png"
+
+profile_pic = Image.open(profile_pic)
+
+###------------------------------------------------------------------------------------------------------------###
+
+col1, col2, col3 = st.columns(3, gap="small")
+with col1:
+    st.image(profile_pic, width=230)
 ###------------------------------------------------------------------------------------------------------------###
 ## Anonymizer code: 
 

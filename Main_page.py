@@ -41,7 +41,7 @@ with open(resume_file, "rb") as pdf_file:
 profile_pic = Image.open(profile_pic)
 
 ###------------------------------------------------------------------------------------------------------------###
-# --- HERO SECTION ---
+
 col1, col2, col3 = st.columns(3, gap="small")
 with col1:
     st.image(profile_pic, width=230)
