@@ -159,12 +159,11 @@ BASIC_SCHEMAS = [
 
 # Advanced Response Schemas
 ADVANCED_SCHEMAS = [
-    ResponseSchema(name="entity_recognition", description="Identify names, places, and organizations mentioned in the text."),
-    ResponseSchema(name="topic_modeling", description="What are the main topics or themes discussed in the text?"),
+    ResponseSchema(name="Text recognition", description="Identify names, places, and organizations mentioned in the text."),
+    ResponseSchema(name="Text topic", description="What are the main topics or themes discussed in the text?"),
 ]
 
 ###-----------------------------------###
-
 st.subheader("Chatbot Integration with Streamlit")
 
 # Checkbox for more schemas
@@ -176,11 +175,9 @@ if use_advanced:
 else:
     schemas = BASIC_SCHEMAS
 
-
 with st.expander("Selected ResponseSchemas:"):
     for schema in schemas:
         st.write(f"- {schema.name}: {schema.description}")
-
 
 
 # Check if 'interpreter_SingleChain' exists in the session state
@@ -198,8 +195,7 @@ default_text = """Apple recently unveiled the iPhone 13 at their California head
 Priced at $999, this latest model has garnered positive reviews for its advanced camera features and improved battery life. 
 Many tech enthusiasts believe that Apple's focus on augmented reality and 5G capabilities will set new standards in the smartphone industry. 
 Additionally, the collaboration with organizations like NASA for satellite communication features has piqued the interest of many. 
-Overall, the iPhone 13 seems to be a promising step forward in mobile technology.
-"""
+Overall, the iPhone 13 seems to be a promising step forward in mobile technology."""
 
 # Checkbox to insert default text
 if st.checkbox("Use default text", value=False):
