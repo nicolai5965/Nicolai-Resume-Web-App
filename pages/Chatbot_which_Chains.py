@@ -101,7 +101,9 @@ class TextInterpreter_SingleChain:
         for attribute, value in self.chat.__dict__.items():
             print(f"{attribute}: {value}")
 
-# Usage
-interpreter_SingleChain = TextInterpreter_SingleChain(openai_api_key)
+st.write(openai_api_key)
 
-st.write(interpreter_SingleChain.print_settings())
+# Usage
+#interpreter_SingleChain = TextInterpreter_SingleChain(openai_api_key)
+
+#st.write(interpreter_SingleChain.print_settings())
