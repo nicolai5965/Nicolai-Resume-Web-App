@@ -127,7 +127,7 @@ with st.expander("Single Chain Chatbot Introduction"):
 
 ###-----------------------------------###
 # Custom ResponseSchema definer
-st.subheader("Define your ResponseSchema")
+st.subheader("What is the ResponseSchema")
 
 # Collect ResponseSchema from user
 # Expander for 'Name' description
