@@ -62,7 +62,7 @@ def load_content(file):
     return docs[0].page_content
 
 
-st.title("Still under process"
+st.title("Still under process")
 
 st.title("Document Anonymizer")
 
