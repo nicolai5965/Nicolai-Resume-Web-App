@@ -109,8 +109,14 @@ interpreter_SingleChain = TextInterpreter_SingleChain(openai_api_key)
 def main():
     st.title("Chatbot Integration with Streamlit")
     
-    # User input
-    user_input = st.text_area("Enter your text here:")
+    # Default text
+    default_text = "The new iPhone 13 costs $999 and it's absolutely amazing with its camera features!"
+    
+    # Checkbox to insert default text
+    if st.checkbox("Use default text", value=False):
+        user_input = st.text_area("Enter your text here:", value=default_text)
+    else:
+        user_input = st.text_area("Enter your text here:")
     
     # When the user clicks the 'Interpret' button
     if st.button("Interpret"):
