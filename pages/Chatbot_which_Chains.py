@@ -107,7 +107,7 @@ class TextInterpreter_SingleChain:
 
 st.title("💬 Single Chain Chatbot")
 
-with st.expander("Use Single Chain Chatbot"):
+with st.expander("Single Chain Chatbot Introduction"):
     # Introduction
     st.write("""
     Welcome to the Single Chain Text Interpreter Chatbot! This specialized tool is designed to analyze and interpret textual inputs, 
@@ -125,62 +125,62 @@ with st.expander("Use Single Chain Chatbot"):
     """)
 
 
-    ###-----------------------------------###
-    # Custom ResponseSchema definer
-    st.subheader("Define your ResponseSchema")
+###-----------------------------------###
+# Custom ResponseSchema definer
+st.subheader("Define your ResponseSchema")
 
-    # Collect ResponseSchema from user
-    # Expander for 'Name' description
-    with st.expander("Name Info"):
-        st.write("""
-        The 'Name' field in the ResponseSchema represents the key or identifier for the extracted information.
-        For example, if you want the chatbot to identify sentiments in the text, you might use 'sentiment' as the name.
-        """)
+# Collect ResponseSchema from user
+# Expander for 'Name' description
+with st.expander("Name Info"):
+    st.write("""
+    The 'Name' field in the ResponseSchema represents the key or identifier for the extracted information.
+    For example, if you want the chatbot to identify sentiments in the text, you might use 'sentiment' as the name.
+    """)
 
-    schema_name = st.text_input("Name:")
+schema_name = st.text_input("Name:")
 
-    # Expander for 'Description' description
-    with st.expander("Description Info"):
-        st.write("""
-        The 'Description' field provides a brief explanation or instruction about the information you want to extract.
-        For instance, if you're identifying sentiments, the description might be 'Is the text positive, neutral, or negative?'.
-        """)
+# Expander for 'Description' description
+with st.expander("Description Info"):
+    st.write("""
+    The 'Description' field provides a brief explanation or instruction about the information you want to extract.
+    For instance, if you're identifying sentiments, the description might be 'Is the text positive, neutral, or negative?'.
+    """)
 
-    schema_description = st.text_input("Description:")
+schema_description = st.text_input("Description:")
 
-    # Store multiple ResponseSchemas
-    schemas = []
+# Store multiple ResponseSchemas
+schemas = []
 
-    # Button to add the user-defined schema
-    if st.button("Add ResponseSchema"):
-        if schema_name and schema_description:
-            schemas.append(ResponseSchema(name=schema_name, description=schema_description))
-            st.write(f"Added: {schema_name} - {schema_description}")
+# Button to add the user-defined schema
+if st.button("Add ResponseSchema"):
+    if schema_name and schema_description:
+        schemas.append(ResponseSchema(name=schema_name, description=schema_description))
+        st.write(f"Added: {schema_name} - {schema_description}")
 
-    # Button to initialize the chatbot with user-defined schemas
-    if st.button("Initialize Chatbot with ResponseSchemas"):
-        interpreter_SingleChain = TextInterpreter_SingleChain(openai_api_key, response_schemas=schemas)
-        st.write("Chatbot initialized with user-defined ResponseSchemas!")
+# Button to initialize the chatbot with user-defined schemas
+if st.button("Initialize Chatbot with ResponseSchemas"):
+    interpreter_SingleChain = TextInterpreter_SingleChain(openai_api_key, response_schemas=schemas)
+    st.write("Chatbot initialized with user-defined ResponseSchemas!")
 
-    ###-----------------------------------###
+###-----------------------------------###
 
-    st.subheader("Chatbot Integration with Streamlit")
+st.subheader("Chatbot Integration with Streamlit")
 
-    # Default text
-    default_text = "The new iPhone 13 costs $999 and it's absolutely amazing with its camera features!"
+# Default text
+default_text = "The new iPhone 13 costs $999 and it's absolutely amazing with its camera features!"
 
-    # Checkbox to insert default text
-    if st.checkbox("Use default text", value=False):
-        user_input = st.text_area("Enter your text here:", value=default_text)
-    else:
-        user_input = st.text_area("Enter your text here:")
+# Checkbox to insert default text
+if st.checkbox("Use default text", value=False):
+    user_input = st.text_area("Enter your text here:", value=default_text)
+else:
+    user_input = st.text_area("Enter your text here:")
 
-    # When the user clicks the 'Interpret' button
-    if st.button("Interpret"):
-        # Get the chatbot's response
-        response = interpreter_SingleChain.interpret(user_input)
-        
-        # Display the response
-        for key, value in response.items():
-            st.write(f"{key.capitalize()}: {value or 'N/A'}")
+# When the user clicks the 'Interpret' button
+if st.button("Interpret"):
+    # Get the chatbot's response
+    response = interpreter_SingleChain.interpret(user_input)
+    
+    # Display the response
+    for key, value in response.items():
+        st.write(f"{key.capitalize()}: {value or 'N/A'}")
 
