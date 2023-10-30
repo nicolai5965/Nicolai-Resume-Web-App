@@ -120,31 +120,43 @@ class TextInterpreter_SingleChain:
             print(f"{attribute}: {value}")
 
 
-# Usage
-interpreter_SingleChain = TextInterpreter_SingleChain(openai_api_key)
+st.subheader("Define your ResponseSchema")
 
-# Streamlit app
-def main():
-    st.subheader("Chatbot Integration with Streamlit")
-    
-    # Default text
-    default_text = "The new iPhone 13 costs $999 and it's absolutely amazing with its camera features!"
-    
-    # Checkbox to insert default text
-    if st.checkbox("Use default text", value=False):
-        user_input = st.text_area("Enter your text here:", value=default_text)
-    else:
-        user_input = st.text_area("Enter your text here:")
-    
-    # When the user clicks the 'Interpret' button
-    if st.button("Interpret"):
-        # Get the chatbot's response
-        response = interpreter_SingleChain.interpret(user_input)
-        
-        # Display the response
-        st.write("Sentiment:", response.get("sentiment", "N/A"))
-        st.write("Subject:", response.get("subject", "N/A"))
-        st.write("Price:", response.get("price", "N/A"))
+# Collect ResponseSchema from user
+schema_name = st.text_input("Name:")
+schema_description = st.text_input("Description:")
 
-if __name__ == "__main__":
-    main()
+# Store multiple ResponseSchemas
+schemas = []
+
+# Button to add the user-defined schema
+if st.button("Add ResponseSchema"):
+    if schema_name and schema_description:
+        schemas.append(ResponseSchema(name=schema_name, description=schema_description))
+        st.write(f"Added: {schema_name} - {schema_description}")
+
+# Button to initialize the chatbot with user-defined schemas
+if st.button("Initialize Chatbot with ResponseSchemas"):
+    interpreter_SingleChain = TextInterpreter_SingleChain(openai_api_key, response_schemas=schemas)
+    st.write("Chatbot initialized with user-defined ResponseSchemas!")
+
+st.subheader("Chatbot Integration with Streamlit")
+
+# Default text
+default_text = "The new iPhone 13 costs $999 and it's absolutely amazing with its camera features!"
+
+# Checkbox to insert default text
+if st.checkbox("Use default text", value=False):
+    user_input = st.text_area("Enter your text here:", value=default_text)
+else:
+    user_input = st.text_area("Enter your text here:")
+
+# When the user clicks the 'Interpret' button
+if st.button("Interpret"):
+    # Get the chatbot's response
+    response = interpreter_SingleChain.interpret(user_input)
+    
+    # Display the response
+    for key, value in response.items():
+        st.write(f"{key.capitalize()}: {value or 'N/A'}")
+
