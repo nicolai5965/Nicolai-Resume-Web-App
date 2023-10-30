@@ -190,10 +190,28 @@ if use_advanced:
 else:
     schemas = BASIC_SCHEMAS
 
+
+st.write("Selected ResponseSchemas:")
+for schema in schemas:
+    st.write(f"- {schema.name}: {schema.description}")
+
+
+
 # Button to initialize the chatbot with selected schemas
 if st.button("Initialize Chatbot with Selected Schemas"):
     interpreter_SingleChain = TextInterpreter_SingleChain(openai_api_key, response_schemas=schemas)
     st.write("Chatbot initialized with selected ResponseSchemas!")
+
+
+if st.button("Interpret"):
+    if 'interpreter_SingleChain' in locals():
+        # Get the chatbot's response
+        response = interpreter_SingleChain.interpret(user_input)
+        # Display the response
+        for key, value in response.items():
+            st.write(f"{key.capitalize()}: {value or 'N/A'}")
+    else:
+        st.warning("Please initialize the chatbot with selected ResponseSchemas first!")
 
 
 # Default text
