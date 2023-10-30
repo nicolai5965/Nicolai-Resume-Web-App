@@ -300,6 +300,45 @@ if st.button("Interpret", key="interpret_button"):
 # Streamlit UI
 st.title("Multi Chained Text Interpreter Chatbot")
 
+# Introduction Expander
+with st.expander("Introduction"):
+    st.write("""
+    In the rapidly evolving world of Natural Language Processing (NLP), the ability to extract and interpret nuanced information from textual data is paramount. Enter the Multi Chained Text Interpreter Chatbot—a cutting-edge solution designed to delve deep into the layers of textual reviews and provide comprehensive insights.
+    """)
+
+# What is the Multi Chained Text Interpreter Chatbot? Expander
+with st.expander("What is the Multi Chained Text Interpreter Chatbot?"):
+    st.write("""
+    The Multi Chained Text Interpreter Chatbot is an advanced NLP tool that leverages the power of OpenAI's GPT-3.5 Turbo model to analyze and interpret textual reviews. Instead of providing a singular output, this chatbot employs a multi-chain approach, breaking down the review into various components such as sentiment, subject, price, and more.
+    """)
+
+# Key Features Expander
+with st.expander("Key Features"):
+    st.write("""
+    1. **Sequential Analysis:** The chatbot processes reviews in a sequential manner, extracting multiple pieces of information one after the other, ensuring a thorough analysis.
+    2. **Concise Outputs:** With a set word limit, the chatbot ensures that the responses are concise yet informative, making it easier for users to grasp the insights.
+    3. **Versatility:** From determining the sentiment of a review to suggesting improvements and providing follow-up comments, this chatbot covers a wide spectrum of analytical capabilities.
+    4. **User-Friendly Interface:** Integrated with Streamlit, the chatbot offers an intuitive interface where users can input reviews, choose to use default text, and instantly receive interpretations.
+    """)
+
+# How Does It Work? Expander
+with st.expander("How Does It Work?"):
+    st.write("""
+    At its core, the chatbot utilizes a series of chains—each responsible for a specific type of analysis. For instance, one chain might determine the sentiment of a review, while another identifies the main subject. These chains work in tandem, feeding information from one to the next, culminating in a comprehensive interpretation of the input review.
+    """)
+
+# Applications Expander
+with st.expander("Applications"):
+    st.write("""
+    The potential applications of the Multi Chained Text Interpreter Chatbot are vast. Businesses can use it to gain insights into customer feedback, researchers can analyze qualitative data, and individuals can get a deeper understanding of any textual content they come across.
+    """)
+
+# Conclusion Expander
+with st.expander("Conclusion"):
+    st.write("""
+    In a world inundated with textual data, the Multi Chained Text Interpreter Chatbot stands out as a beacon of analytical prowess. Whether you're a business looking to understand customer sentiment or an individual curious about the nuances of a piece of text, this chatbot promises to deliver insights that are both deep and actionable.
+    """)
+
 # Checkbox to add default text
 if st.checkbox("Use default text", key="Multi_Chain"):
     review_text = st.text_area("Enter your review:", value=default_text)
