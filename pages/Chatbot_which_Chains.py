@@ -208,12 +208,15 @@ else:
 
 # When the user clicks the 'Interpret' button
 if st.button("Interpret", key="interpret_button"):
-    # Get the chatbot's response
-    response = interpreter_SingleChain.interpret(user_input)
-    
-    # Display the response
-    for key, value in response.items():
-        st.write(f"{key.capitalize()}: {value or 'N/A'}")
+    # Check if the chatbot has been initialized
+    if 'interpreter_SingleChain' in locals():
+        # Get the chatbot's response
+        response = interpreter_SingleChain.interpret(user_input)
+        
+        # Display the response
+        for key, value in response.items():
+            st.write(f"{key.capitalize()}: {value or 'N/A'}")
     else:
         st.warning("Please initialize the chatbot with selected ResponseSchemas first!")
+
 
