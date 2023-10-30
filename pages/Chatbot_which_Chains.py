@@ -177,9 +177,9 @@ else:
     schemas = BASIC_SCHEMAS
 
 
-st.write("Selected ResponseSchemas:")
-for schema in schemas:
-    st.write(f"- {schema.name}: {schema.description}")
+with st.expander("Selected ResponseSchemas:"):
+    for schema in schemas:
+        st.write(f"- {schema.name}: {schema.description}")
 
 
 
