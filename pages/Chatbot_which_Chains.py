@@ -101,6 +101,6 @@ class TextInterpreter_SingleChain:
             print(f"{attribute}: {value}")
 
 # Usage
-interpreter_SingleChain = TextInterpreter_SingleChain(openai_key)
+interpreter_SingleChain = TextInterpreter_SingleChain(openai_api_key)
 
 st.write(interpreter_SingleChain.print_settings())
