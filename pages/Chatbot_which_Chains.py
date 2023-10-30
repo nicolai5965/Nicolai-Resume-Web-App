@@ -47,7 +47,6 @@ st.sidebar.download_button(
 
 st.sidebar.write("---")
 
-
 ###------------------------------------------------------------------------------------------------------------###
 # Single chain chatbot code 
 class TextInterpreter_SingleChain:
@@ -101,10 +100,12 @@ class TextInterpreter_SingleChain:
         for attribute, value in self.chat.__dict__.items():
             print(f"{attribute}: {value}")
 
+###------------------------------------------------------------------------------------------------------------###
+
+
 
 ###------------------------------------------------------------------------------------------------------------###
-# Chatbot interface: 
-
+# Single Chain Chatbot interface: 
 st.title("💬 Single Chain Chatbot")
 
 with st.expander("Single Chain Chatbot Introduction"):
@@ -123,7 +124,6 @@ with st.expander("Single Chain Chatbot Introduction"):
 
     *Note: This is just one of the many chatbots available on this page. Feel free to explore others for different functionalities.*
     """)
-
 
 ###-----------------------------------###
 # Custom ResponseSchema definer
