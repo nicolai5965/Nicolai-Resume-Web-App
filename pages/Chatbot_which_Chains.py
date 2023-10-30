@@ -294,11 +294,13 @@ if st.button("Interpret", key="interpret_button"):
         st.warning("Please initialize the chatbot with selected ResponseSchemas first!")
 
 ###------------------------------------------------------------------------------------------------------------###
-interpreter_MultiChain = TextInterpreter_MultiChain(openai_key, word_limit=50)
+
+
 
 # Streamlit UI
-st.title("Review Interpreter Chatbot")
+st.title("Multi Chained Text Interpreter Chatbot")
 
+interpreter_MultiChain = TextInterpreter_MultiChain(openai_api_key, word_limit=50)
 # Text input for user's review
 review_text = st.text_area("Enter your review:")
 
