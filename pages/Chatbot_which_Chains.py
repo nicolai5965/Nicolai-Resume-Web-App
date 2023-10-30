@@ -162,9 +162,39 @@ if st.button("Initialize Chatbot with ResponseSchemas"):
     interpreter_SingleChain = TextInterpreter_SingleChain(openai_api_key, response_schemas=schemas)
     st.write("Chatbot initialized with user-defined ResponseSchemas!")
 
+
+# Basic Response Schemas
+BASIC_SCHEMAS = [
+    ResponseSchema(name="sentiment", description="Is the text positive, neutral or negative? Only provide these words"),
+    ResponseSchema(name="subject", description="What subject is the text about? Use exactly one word."),
+    ResponseSchema(name="price", description="How expensive was the product? Use None if no price was provided in the text")
+]
+
+# Advanced Response Schemas
+ADVANCED_SCHEMAS = [
+    ResponseSchema(name="entity_recognition", description="Identify names, places, and organizations mentioned in the text."),
+    ResponseSchema(name="topic_modeling", description="What are the main topics or themes discussed in the text?"),
+    # ... Add other advanced schemas here
+]
+
 ###-----------------------------------###
 
 st.subheader("Chatbot Integration with Streamlit")
+
+# Checkbox for Advanced Settings
+use_advanced = st.checkbox("Use Advanced Settings")
+
+# If the user wants to use advanced settings, combine both basic and advanced schemas
+if use_advanced:
+    schemas = BASIC_SCHEMAS + ADVANCED_SCHEMAS
+else:
+    schemas = BASIC_SCHEMAS
+
+# Button to initialize the chatbot with selected schemas
+if st.button("Initialize Chatbot with Selected Schemas"):
+    interpreter_SingleChain = TextInterpreter_SingleChain(openai_api_key, response_schemas=schemas)
+    st.write("Chatbot initialized with selected ResponseSchemas!")
+
 
 # Default text
 default_text = "The new iPhone 13 costs $999 and it's absolutely amazing with its camera features!"
