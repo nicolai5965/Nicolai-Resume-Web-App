@@ -47,30 +47,9 @@ st.sidebar.download_button(
 
 st.sidebar.write("---")
 
+
 ###------------------------------------------------------------------------------------------------------------###
-
-# Chatbot interface: 
-
-st.title("💬 Single Chain Chatbot")
-
-
-# Introduction
-st.write("""
-Welcome to the Single Chain Text Interpreter Chatbot! This specialized tool is designed to analyze and interpret textual inputs, 
-providing insights into the sentiment, subject, and potential price mentioned in the text.
-
-**Use Cases:**
-- **Sentiment Analysis:** Understand whether a piece of text conveys a positive, neutral, or negative sentiment.
-- **Subject Identification:** Identify the main subject or topic of a given text.
-- **Price Extraction:** Extract any mentioned price from the text, useful for quickly identifying product or service costs.
-
-Whether you're analyzing customer reviews, product descriptions, or any text snippet, this chatbot can provide quick 
-and valuable insights. Simply input your text and let the chatbot do the rest!
-
-*Note: This is just one of the many chatbots available on this page. Feel free to explore others for different functionalities.*
-""")
-
-
+# Single chain chatbot code 
 class TextInterpreter_SingleChain:
     def __init__(self, openai_key):
         # Define the ResponseSchema for each expected output
@@ -120,10 +99,50 @@ class TextInterpreter_SingleChain:
             print(f"{attribute}: {value}")
 
 
+###------------------------------------------------------------------------------------------------------------###
+# Chatbot interface: 
+
+st.title("💬 Single Chain Chatbot")
+
+
+# Introduction
+st.write("""
+Welcome to the Single Chain Text Interpreter Chatbot! This specialized tool is designed to analyze and interpret textual inputs, 
+providing insights into the sentiment, subject, and potential price mentioned in the text.
+
+**Use Cases:**
+- **Sentiment Analysis:** Understand whether a piece of text conveys a positive, neutral, or negative sentiment.
+- **Subject Identification:** Identify the main subject or topic of a given text.
+- **Price Extraction:** Extract any mentioned price from the text, useful for quickly identifying product or service costs.
+
+Whether you're analyzing customer reviews, product descriptions, or any text snippet, this chatbot can provide quick 
+and valuable insights. Simply input your text and let the chatbot do the rest!
+
+*Note: This is just one of the many chatbots available on this page. Feel free to explore others for different functionalities.*
+""")
+
+
+###-----------------------------------###
+# Custom ResponseSchema definer
 st.subheader("Define your ResponseSchema")
 
 # Collect ResponseSchema from user
+# Expander for 'Name' description
+with st.expander("Name Info"):
+    st.write("""
+    The 'Name' field in the ResponseSchema represents the key or identifier for the extracted information.
+    For example, if you want the chatbot to identify sentiments in the text, you might use 'sentiment' as the name.
+    """)
+
 schema_name = st.text_input("Name:")
+
+# Expander for 'Description' description
+with st.expander("Description Info"):
+    st.write("""
+    The 'Description' field provides a brief explanation or instruction about the information you want to extract.
+    For instance, if you're identifying sentiments, the description might be 'Is the text positive, neutral, or negative?'.
+    """)
+
 schema_description = st.text_input("Description:")
 
 # Store multiple ResponseSchemas
@@ -139,6 +158,8 @@ if st.button("Add ResponseSchema"):
 if st.button("Initialize Chatbot with ResponseSchemas"):
     interpreter_SingleChain = TextInterpreter_SingleChain(openai_api_key, response_schemas=schemas)
     st.write("Chatbot initialized with user-defined ResponseSchemas!")
+
+###-----------------------------------###
 
 st.subheader("Chatbot Integration with Streamlit")
 
