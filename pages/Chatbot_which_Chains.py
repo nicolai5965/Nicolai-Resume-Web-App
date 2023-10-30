@@ -194,7 +194,12 @@ if st.button("Initialize Chatbot with Selected Schemas"):
 
 
 # Default text
-default_text = "The new iPhone 13 costs $999 and it's absolutely amazing with its camera features!"
+default_text = """Apple recently unveiled the iPhone 13 at their California headquarters. 
+Priced at $999, this latest model has garnered positive reviews for its advanced camera features and improved battery life. 
+Many tech enthusiasts believe that Apple's focus on augmented reality and 5G capabilities will set new standards in the smartphone industry. 
+Additionally, the collaboration with organizations like NASA for satellite communication features has piqued the interest of many. 
+Overall, the iPhone 13 seems to be a promising step forward in mobile technology.
+"""
 
 # Checkbox to insert default text
 if st.checkbox("Use default text", value=False):
