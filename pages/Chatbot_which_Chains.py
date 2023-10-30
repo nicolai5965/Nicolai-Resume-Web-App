@@ -51,13 +51,16 @@ st.sidebar.write("---")
 ###------------------------------------------------------------------------------------------------------------###
 # Single chain chatbot code 
 class TextInterpreter_SingleChain:
-    def __init__(self, openai_key):
-        # Define the ResponseSchema for each expected output
-        self.response_schemas = [
-            ResponseSchema(name="sentiment", description="Is the text positive, neutral or negative? Only provide these words"),
-            ResponseSchema(name="subject", description="What subject is the text about? Use exactly one word."),
-            ResponseSchema(name="price", description="How expensive was the product? Use None if no price was provided in the text")
-        ]
+    def __init__(self, openai_key, response_schemas=None):
+        # If no custom schemas are provided, use the default ones
+        if response_schemas is None:
+            self.response_schemas = [
+                ResponseSchema(name="sentiment", description="Is the text positive, neutral or negative? Only provide these words"),
+                ResponseSchema(name="subject", description="What subject is the text about? Use exactly one word."),
+                ResponseSchema(name="price", description="How expensive was the product? Use None if no price was provided in the text")
+            ]
+        else:
+            self.response_schemas = response_schemas
 
         # Create a StructuredOutputParser using the defined schemas
         self.parser = StructuredOutputParser.from_response_schemas(self.response_schemas)
