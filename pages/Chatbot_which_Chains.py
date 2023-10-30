@@ -191,9 +191,13 @@ for schema in schemas:
 
 
 
+# Check if 'interpreter_SingleChain' exists in the session state
+if 'interpreter_SingleChain' not in st.session_state:
+    st.session_state.interpreter_SingleChain = None
+
 # Button to initialize the chatbot with selected schemas
 if st.button("Initialize Chatbot with Selected Schemas"):
-    interpreter_SingleChain = TextInterpreter_SingleChain(openai_api_key, response_schemas=schemas)
+    st.session_state.interpreter_SingleChain = TextInterpreter_SingleChain(openai_api_key, response_schemas=schemas)
     st.write("Chatbot initialized with selected ResponseSchemas!")
 
 
@@ -208,10 +212,10 @@ else:
 
 # When the user clicks the 'Interpret' button
 if st.button("Interpret", key="interpret_button"):
-    # Check if the chatbot has been initialized
-    if 'interpreter_SingleChain' in locals():
+    # Check if the chatbot has been initialized in the session state
+    if st.session_state.interpreter_SingleChain:
         # Get the chatbot's response
-        response = interpreter_SingleChain.interpret(user_input)
+        response = st.session_state.interpreter_SingleChain.interpret(user_input)
         
         # Display the response
         for key, value in response.items():
