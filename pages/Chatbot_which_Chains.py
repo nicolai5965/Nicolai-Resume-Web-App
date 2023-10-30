@@ -129,7 +129,13 @@ with st.expander("Single Chain Chatbot Introduction"):
 # Custom ResponseSchema definer
 st.subheader("What is the ResponseSchema")
 
-# Collect ResponseSchema from user
+# Expander for ResponseSchema description
+with st.expander("Name Info"):
+    st.write("""
+    the ResponseSchema in Langchain defines the structure of the output that the agent should return.
+    Specifically, the ResponseSchema allows you to specify multiple fields that the output should contain, along with a name and description for each field.
+    """)
+
 # Expander for 'Name' description
 with st.expander("Name Info"):
     st.write("""
