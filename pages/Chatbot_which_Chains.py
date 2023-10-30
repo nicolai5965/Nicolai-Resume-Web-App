@@ -101,7 +101,84 @@ class TextInterpreter_SingleChain:
             print(f"{attribute}: {value}")
 
 ###------------------------------------------------------------------------------------------------------------###
+# Multi chain chatbot:
 
+class TextInterpreter_MultiChain:
+    def __init__(self, openai_key, word_limit=50):
+        self.word_limit = word_limit
+
+        # Initialize LangChain's OpenAI model with the provided API key
+        self.chat = ChatOpenAI(model='gpt-3.5-turbo-0613', openai_api_key=openai_key, temperature=0)
+
+        # Initialize chains
+        self._initialize_chains()
+
+    def _get_concise_instruction(self):
+        return f"Provide a concise answer, ideally within {self.word_limit} words, ensuring it's complete and makes sense."
+
+    def _initialize_chains(self):
+        self.chain_sentiment = LLMChain(
+            llm=self.chat,
+            prompt=PromptTemplate.from_template("Determine the sentiment of the review: {review_text}. (positive, negative, neutral)"),
+            output_key="sentiment"
+        )
+
+        self.chain_subject = LLMChain(
+            llm=self.chat,
+            prompt=PromptTemplate.from_template("Identify the main subject of the review: {review_text}. (one word)"),
+            output_key="subject"
+        )
+
+        self.chain_price = LLMChain(
+            llm=self.chat,
+            prompt=PromptTemplate.from_template("Extract the price mentioned in the review: {review_text}. (None if no price mentioned)"),
+            output_key="price"
+        )
+
+        concise_instruction = self._get_concise_instruction()
+        self.chain_review = LLMChain(
+            llm=self.chat,
+            prompt=PromptTemplate.from_template(f"Analyze the sentiment of the following review: {{review_text}}. {concise_instruction}"),
+            output_key="detailed_sentiment"
+        )
+
+        self.chain_comment = LLMChain(
+            llm=self.chat,
+            prompt=PromptTemplate.from_template(f"Given the sentiment of the review: {{detailed_sentiment}}. {concise_instruction}"),
+            output_key="comment"
+        )
+
+        self.chain_follow_up = LLMChain(
+            llm=self.chat,
+            prompt=PromptTemplate.from_template(f"Write a follow-up comment on the {{review_text}}. {concise_instruction}"),
+            output_key="follow-up"
+        )
+
+        self.chain_summary = LLMChain(
+            llm=self.chat,
+            prompt=PromptTemplate.from_template(f"Summarise the {{review_text}} and our {{comment}} in one concise sentence. {concise_instruction}"),
+            output_key="summary"
+        )
+
+        self.chain_improvements = LLMChain(
+            llm=self.chat,
+            prompt=PromptTemplate.from_template(f"From the review, suggest main improvements in one concise sentence. {concise_instruction}"),
+            output_key="improvements"
+        )
+
+        self.overall_chain = SequentialChain(
+            chains=[self.chain_sentiment, self.chain_subject, self.chain_price, self.chain_review, self.chain_comment, self.chain_summary, self.chain_improvements, self.chain_follow_up],
+            input_variables=["review_text"],
+            output_variables=["sentiment", "subject", "price", "detailed_sentiment", "comment", "summary", "improvements", "follow-up"]
+        )
+
+    def multi_chain_interpret(self, review_text):
+        return self.overall_chain({"review_text": review_text})
+
+    def print_settings(self):
+        # Print the default settings (attributes) of the ChatOpenAI instance
+        for attribute, value in self.chat.__dict__.items():
+            print(f"{attribute}: {value}")
 
 
 ###------------------------------------------------------------------------------------------------------------###
@@ -216,4 +293,28 @@ if st.button("Interpret", key="interpret_button"):
     else:
         st.warning("Please initialize the chatbot with selected ResponseSchemas first!")
 
+###------------------------------------------------------------------------------------------------------------###
+interpreter_MultiChain = TextInterpreter_MultiChain(openai_key, word_limit=50)
 
+# Streamlit UI
+st.title("Review Interpreter Chatbot")
+
+# Text input for user's review
+review_text = st.text_area("Enter your review:")
+
+if st.button("Interpret"):
+    if review_text:
+        # Get the results from the chatbot
+        multi_chain_result = interpreter_MultiChain.multi_chain_interpret(review_text)
+        
+        # Display the results
+        st.write("Sentiment:", multi_chain_result["sentiment"])
+        st.write("Subject:", multi_chain_result["subject"])
+        st.write("Price:", multi_chain_result["price"])
+        st.write("Detailed Sentiment:", multi_chain_result["detailed_sentiment"])
+        st.write("Comment:", multi_chain_result["comment"])
+        st.write("Summary:", multi_chain_result["summary"])
+        st.write("Improvements:", multi_chain_result["improvements"])
+        st.write("Follow-up:", multi_chain_result["follow-up"])
+    else:
+        st.warning("Please enter a review to interpret.")
