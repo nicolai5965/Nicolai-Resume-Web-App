@@ -104,6 +104,6 @@ class TextInterpreter_SingleChain:
 st.write(openai_api_key)
 
 # Usage
-#interpreter_SingleChain = TextInterpreter_SingleChain(openai_api_key)
+interpreter_SingleChain = TextInterpreter_SingleChain(openai_api_key)
 
-#st.write(interpreter_SingleChain.print_settings())
+st.write(interpreter_SingleChain.print_settings())
