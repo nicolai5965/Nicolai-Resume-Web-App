@@ -303,7 +303,7 @@ st.title("Multi Chained Text Interpreter Chatbot")
 interpreter_MultiChain = TextInterpreter_MultiChain(openai_api_key, word_limit=50)
 
 # Checkbox to add default text
-if st.checkbox("Use default text"):
+if st.checkbox("Use default text", key="Multi_Chain"):
     review_text = default_text
 else:
     # Text input for user's review
