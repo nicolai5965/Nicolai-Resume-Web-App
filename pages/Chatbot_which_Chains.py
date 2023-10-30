@@ -53,6 +53,24 @@ st.sidebar.write("---")
 
 st.title("💬 Single Chain Chatbot")
 
+
+# Introduction
+st.write("""
+Welcome to the Text Interpreter Chatbot! This specialized tool is designed to analyze and interpret textual inputs, 
+providing insights into the sentiment, subject, and potential price mentioned in the text.
+
+**Use Cases:**
+- **Sentiment Analysis:** Understand whether a piece of text conveys a positive, neutral, or negative sentiment.
+- **Subject Identification:** Identify the main subject or topic of a given text.
+- **Price Extraction:** Extract any mentioned price from the text, useful for quickly identifying product or service costs.
+
+Whether you're analyzing customer reviews, product descriptions, or any text snippet, this chatbot can provide quick 
+and valuable insights. Simply input your text and let the chatbot do the rest!
+
+*Note: This is just one of the many chatbots available on this page. Feel free to explore others for different functionalities.*
+""")
+
+
 class TextInterpreter_SingleChain:
     def __init__(self, openai_key):
         # Define the ResponseSchema for each expected output
