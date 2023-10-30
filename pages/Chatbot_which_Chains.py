@@ -167,8 +167,8 @@ ADVANCED_SCHEMAS = [
 
 st.subheader("Chatbot Integration with Streamlit")
 
-# Checkbox for Advanced Settings
-use_advanced = st.checkbox("Use Advanced Settings")
+# Checkbox for more schemas
+use_advanced = st.checkbox("Use More Schemas")
 
 # If the user wants to use advanced settings, combine both basic and advanced schemas
 if use_advanced:
