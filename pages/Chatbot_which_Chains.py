@@ -13,6 +13,7 @@ from langchain.chains.router import MultiPromptChain
 from langchain.chains.llm import LLMChain
 from langchain.chains.router.llm_router import LLMRouterChain, RouterOutputParser
 from langchain.chains.router.multi_prompt_prompt import MULTI_PROMPT_ROUTER_TEMPLATE
+import openai
 
 os.environ['NUMEXPR_MAX_THREADS'] = '12'
 ###------------------------------------------------------------------------------------------------------------###
