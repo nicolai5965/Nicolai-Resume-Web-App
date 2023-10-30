@@ -137,25 +137,12 @@ with st.expander("Name Info"):
     For example, if you want the chatbot to identify sentiments in the text, you might use 'sentiment' as the name.
     """)
 
-schema_name = st.text_input("Name:")
-
 # Expander for 'Description' description
 with st.expander("Description Info"):
     st.write("""
     The 'Description' field provides a brief explanation or instruction about the information you want to extract.
     For instance, if you're identifying sentiments, the description might be 'Is the text positive, neutral, or negative?'.
     """)
-
-schema_description = st.text_input("Description:")
-
-# Store multiple ResponseSchemas
-schemas = []
-
-# Button to add the user-defined schema
-if st.button("Add ResponseSchema"):
-    if schema_name and schema_description:
-        schemas.append(ResponseSchema(name=schema_name, description=schema_description))
-        st.write(f"Added: {schema_name} - {schema_description}")
 
 # Basic Response Schemas
 BASIC_SCHEMAS = [
@@ -168,7 +155,6 @@ BASIC_SCHEMAS = [
 ADVANCED_SCHEMAS = [
     ResponseSchema(name="entity_recognition", description="Identify names, places, and organizations mentioned in the text."),
     ResponseSchema(name="topic_modeling", description="What are the main topics or themes discussed in the text?"),
-    # ... Add other advanced schemas here
 ]
 
 ###-----------------------------------###
