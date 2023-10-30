@@ -125,7 +125,7 @@ interpreter_SingleChain = TextInterpreter_SingleChain(openai_api_key)
 
 # Streamlit app
 def main():
-    st.title("Chatbot Integration with Streamlit")
+    st.subheader("Chatbot Integration with Streamlit")
     
     # Default text
     default_text = "The new iPhone 13 costs $999 and it's absolutely amazing with its camera features!"
