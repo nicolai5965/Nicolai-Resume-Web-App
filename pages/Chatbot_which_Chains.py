@@ -105,4 +105,22 @@ class TextInterpreter_SingleChain:
 # Usage
 interpreter_SingleChain = TextInterpreter_SingleChain(openai_api_key)
 
-st.write(interpreter_SingleChain.print_settings())
+# Streamlit app
+def main():
+    st.title("Chatbot Integration with Streamlit")
+    
+    # User input
+    user_input = st.text_area("Enter your text here:")
+    
+    # When the user clicks the 'Interpret' button
+    if st.button("Interpret"):
+        # Get the chatbot's response
+        response = interpreter_SingleChain.interpret(user_input)
+        
+        # Display the response
+        st.write("Sentiment:", response.get("sentiment", "N/A"))
+        st.write("Subject:", response.get("subject", "N/A"))
+        st.write("Price:", response.get("price", "N/A"))
+
+if __name__ == "__main__":
+    main()
