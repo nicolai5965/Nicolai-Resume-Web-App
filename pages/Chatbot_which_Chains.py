@@ -300,8 +300,6 @@ if st.button("Interpret", key="interpret_button"):
 # Streamlit UI
 st.title("Multi Chained Text Interpreter Chatbot")
 
-
-
 # Checkbox to add default text
 if st.checkbox("Use default text", key="Multi_Chain"):
     review_text = st.text_area("Enter your review:", value=default_text)
@@ -310,6 +308,7 @@ else:
     review_text = st.text_area("Enter your review:")
 
 if st.button("Interpret"):
+    st.write("It take a second")
     interpreter_MultiChain = TextInterpreter_MultiChain(openai_api_key, word_limit=50)
     if review_text:
         # Get the results from the chatbot
