@@ -61,6 +61,9 @@ def load_content(file):
     docs = loader.load()
     return docs[0].page_content
 
+
+st.title("Still under process"
+
 st.title("Document Anonymizer")
 
 # Text input
