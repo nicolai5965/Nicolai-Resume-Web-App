@@ -56,7 +56,7 @@ st.title("💬 Single Chain Chatbot")
 
 # Introduction
 st.write("""
-Welcome to the Text Interpreter Chatbot! This specialized tool is designed to analyze and interpret textual inputs, 
+Welcome to the Single Chain Text Interpreter Chatbot! This specialized tool is designed to analyze and interpret textual inputs, 
 providing insights into the sentiment, subject, and potential price mentioned in the text.
 
 **Use Cases:**
