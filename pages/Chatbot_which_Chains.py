@@ -157,12 +157,6 @@ if st.button("Add ResponseSchema"):
         schemas.append(ResponseSchema(name=schema_name, description=schema_description))
         st.write(f"Added: {schema_name} - {schema_description}")
 
-# Button to initialize the chatbot with user-defined schemas
-if st.button("Initialize Chatbot with ResponseSchemas"):
-    interpreter_SingleChain = TextInterpreter_SingleChain(openai_api_key, response_schemas=schemas)
-    st.write("Chatbot initialized with user-defined ResponseSchemas!")
-
-
 # Basic Response Schemas
 BASIC_SCHEMAS = [
     ResponseSchema(name="sentiment", description="Is the text positive, neutral or negative? Only provide these words"),
@@ -203,17 +197,6 @@ if st.button("Initialize Chatbot with Selected Schemas"):
     st.write("Chatbot initialized with selected ResponseSchemas!")
 
 
-if st.button("Interpret"):
-    if 'interpreter_SingleChain' in locals():
-        # Get the chatbot's response
-        response = interpreter_SingleChain.interpret(user_input)
-        # Display the response
-        for key, value in response.items():
-            st.write(f"{key.capitalize()}: {value or 'N/A'}")
-    else:
-        st.warning("Please initialize the chatbot with selected ResponseSchemas first!")
-
-
 # Default text
 default_text = "The new iPhone 13 costs $999 and it's absolutely amazing with its camera features!"
 
@@ -224,11 +207,13 @@ else:
     user_input = st.text_area("Enter your text here:")
 
 # When the user clicks the 'Interpret' button
-if st.button("Interpret"):
+if st.button("Interpret", key="interpret_button"):
     # Get the chatbot's response
     response = interpreter_SingleChain.interpret(user_input)
     
     # Display the response
     for key, value in response.items():
         st.write(f"{key.capitalize()}: {value or 'N/A'}")
+    else:
+        st.warning("Please initialize the chatbot with selected ResponseSchemas first!")
 
