@@ -112,30 +112,6 @@ st.sidebar.markdown(LinkedIn_link, unsafe_allow_html=True)
 GitHub_link = '[My GitHub repo](https://github.com/nicolai5965)'
 st.sidebar.markdown(GitHub_link, unsafe_allow_html=True)
 
-# st.markdown(f'''
-# <a href={link}><button style="background-color:Red;">Github<button/></a>
-# ''', unsafe_allow_html=True)
-
-# st.markdown(f'''
-# <a href={link}><button style="background-color:Red;">Github<button/></a>
-# ''', unsafe_allow_html=True)
-
-# st.markdown(f'''
-# <a{link}><button style="background-color:Red;">Github<button/></a>
-# ''', unsafe_allow_html=True)
-
-# login = st.button("Login")
-# if login:
-#     webbrowser.open("http://github.com")
-
-
-# if st.sidebar.button('LinkedIn'):
-#     webbrowser.open_new_tab(list(SOCIAL_MEDIA.values())[0])
-
-# if st.sidebar.button('GitHub'):
-#     #webbrowser.open_new_tab(link, unsafe_allow_html=True)
-#     st.markdown(link, unsafe_allow_html=True)
-    
 st.sidebar.download_button(
     label = "Download Resume 👈",
     data = PDFbyte,
