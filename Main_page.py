@@ -17,11 +17,13 @@ PAGE_TITLE = "Digital CV | Nicolai Søderberg"
 PAGE_ICON = ":wave:"
 NAME = "Nicolai Søderberg"
 DESCRIPTION = """
-As a physics student I learned a lot about how to handle various kinds of dataframes, and learned a lot
-of different ways to manipulate data and how to solve real world problems. In the later years of my
-bachelor I found that my love for physics was built on my love of solving problems by using data and by
-learning new ways of using and understanding the output of ones work.
+With a strong foundation in Quantum Physics from Copenhagen University, I've developed a profound ability to analyze and manipulate complex data structures, uncovering insights to solve real-world challenges. My journey in physics has evolved into a passion for data science and machine learning, where I apply my problem-solving skills to derive meaningful interpretations from data. 
+
+At the core of my expertise lies a deep understanding of data processing and visualization, honed through roles in system integration and data consultancy. My recent projects involve advanced techniques in machine learning, including neural networks and graph neural networks, showcasing my ability to innovate and adapt to the evolving field of data science.
+
+I am constantly exploring new realms in AI and machine learning, with a keen interest in deep learning, data engineering, and the transformative potential of these technologies. My goal is to leverage my skills in data science and machine learning to drive impactful solutions, whether it's through innovative project development or strategic consultancy.
 """
+
 EMAIL = "nicolai@newf-dreams.dk"
 Location = "Holbæk, Denmark"
 Phone_number = "+4527576097"
@@ -64,14 +66,24 @@ st.write('\n')
 st.write("---")
 st.subheader("Work History")
 
-st.write("🚧", "**Data consultant | Mobtimizers**")
-st.write("Date:  08/2022 - Present")
+st.write("🚧", "**System Integration Specialist | Intrum**")
+st.write("Date: 01/2023 - 01/2023")
 st.write(
     """
-- ► Data collection/extraction with API calls and manually.
-- ► Cleaning/manipulating data before storaged manipulating 
-- ► Saved the company multiply hours an week by making a automated data storaged system to allways have a clean and updated data storage
-"""
+    - Collaborating with clients for onboarding
+    - Developing integration solutions
+    - Providing technical guidance
+    """
+)
+
+st.write("🚧", "**Data consultant | Mobtimizers**")
+st.write("Date: 08/2022 - 01/2023")
+st.write(
+    """
+    - Data collection/extraction with API calls and manually
+    - Cleaning/manipulating data before storage
+    - Automated data storage system development
+    """
 )
 ###------------------------------------------------------------------------------------------------------------###
 # --- SKILLS ---
@@ -80,11 +92,20 @@ st.write("---")
 st.subheader("Hard Skills")
 st.write(
     """
-- 👩‍💻 Programming: Python (Scikit-learn, Pandas, etc), SQL
-- 📊 Data Visulization: Google Sheets, Google Studio, Matplotlib, Seaborn 
-- 📚 Modeling: MLP , Logistic regression, linear regression, decition trees, k-nearest neighbors, Langchain
-- 🗄️ Databases: Goolge sheets, MySQL, Google Data Studio, SQL Server Management Studio.
-"""
+    - 👩‍💻 Programming: Python (Scikit-learn, Pandas, TensorFlow, Transformers / LLMs, etc), SQL
+    - 📊 Data Visualization: Google Sheets, Google Studio, Matplotlib, Seaborn, Data Pipeline, Web Scraping
+    - 📚 Modeling: MLP, Logistic regression, linear regression, decision trees, k-nearest neighbors, Langchain, Neural Network Architectures, Vector Databases, Machine Learning Algorithms
+    - 🗄️ Databases: Google sheets, MySQL, Google Data Studio, SQL Server Management Studio, API Web App / Streamlit
+    """
+)
+
+# --- PERSONAL PROJECTS ---
+st.subheader("Personal Projects")
+st.write(
+    """
+    - TrackML Particle Tracking Challenge (Kaggle, 2022)
+    - Development of a Seq2Seq Transformer model
+    """
 )
 ###------------------------------------------------------------------------------------------------------------###
 # --- EDUCATION  ---
@@ -96,12 +117,13 @@ st.write("Date: 09/2019 - 08/2022")
 st.write("Relevant Courses")
 st.write(
     """
-- ► Modeling and Analysis of Data.
-- ► Computer science for physicists 
-- ► Numerical Methods in Physics
-- ► Statistical physics
-- ►Mathematics for physicists 1, 2 and 3
-"""
+    - Modeling and Analysis of Data
+    - Computer science for physicists 
+    - Numerical Methods in Physics
+    - Statistical physics
+    - Mathematics for physicists 1, 2 and 3
+    - Bachelor Thesis: "Analysing the use of Graph Neural Networks for particle track reconstruction"
+    """
 )
 ###------------------------------------------------------------------------------------------------------------###
 ## Links
