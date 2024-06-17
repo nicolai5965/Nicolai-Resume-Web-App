@@ -93,7 +93,30 @@ os.environ["LANGCHAIN_PROJECT"] = "Company_Course_Teacher"
 os.environ["LANGCHAIN_ENDPOINT"] = "https://api.smith.langchain.com"
 ###------------------------------------------------------------------------------------------------------------###
 
+def read_and_exec_file(file_path):
+    try:
+        with open(file_path, 'r') as file:
+            content = file.read()
+        # Create a dictionary to execute the code within
+        local_vars = {}
+        # Parsing the file content into variables
+        exec(content, {}, local_vars)
+        # Print all variable names created by the exec statement
+        print("Variable names created by exec:")
+        for var_name in local_vars.keys():
+            print(var_name)
+        # Update the global namespace with the new variables
+        globals().update(local_vars)
+    except SyntaxError as e:
+        print(f"SyntaxError: {e}")
+    except Exception as e:
+        print(f"Error: {e}")
 
+# Call the function for the first file
+read_and_exec_file('pages/SmartCourseAI_Files/Ai_Company_Course_LLM_Prompts.txt')
+
+# Call the function for the second file
+read_and_exec_file('pages/SmartCourseAI_Files/Course_Material_And_QA.txt')
 
 ###------------------------------------------------------------------------------------------------------------###
 
