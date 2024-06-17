@@ -1,0 +1,18 @@
+[
+    [
+        {
+            "course_question": "What are the primary advantages of Python that contribute to its popularity across various domains such as web development, data analysis, and machine learning?",
+            "answer": "Python is popular due to its simplicity, readability, and versatility. It is used in web development, data analysis, and machine learning.",
+            "rating": "8/10",
+            "feedback": "Your response provides a good overview of Python's key strengths, including its simplicity, readability, and versatility across web development, data analysis, and machine learning. To further strengthen your answer, consider adding more specific examples of Python's applications in these domains."
+        }
+    ],
+    [
+        {
+            "course_question": "Explain the difference between list comprehensions and generator expressions in Python. Provide an example of each.",
+            "answer": "List comprehensions create lists and are evaluated immediately. Generator expressions produce generators, which are evaluated lazily and are more memory-efficient. Example of list comprehension: [x**2 for x in range(10)]. Example of generator expression: (x**2 for x in range(10))",
+            "rating": "9/10",
+            "feedback": "Your response demonstrates a strong grasp of the key differences between list comprehensions and generator expressions. The examples provided clearly illustrate the distinct behaviors of these two constructs, showing your solid understanding of the course material."
+        }
+    ]
+]
