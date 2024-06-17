@@ -12,7 +12,6 @@ from typing import AsyncGenerator, List, Sequence
 import nest_asyncio
 import openai
 import streamlit as st
-from google.colab import userdata
 from langchain.chains import LLMChain
 from langchain.memory import ConversationBufferMemory
 from langchain.output_parsers.pydantic import PydanticOutputParser
