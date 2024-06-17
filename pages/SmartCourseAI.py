@@ -664,8 +664,31 @@ if st.button("Aggregate Feedback"):
         # Get the final feedback
         final_feedback = aggregator.aggregate_feedback(ttj_output["summarized_rating"], ttj_output["collcted_feedback"]) 
         # Display the final feedback
-        st.write("Final Feedback:")
-        st.write(final_feedback)
+        # Display the final feedback
+        with st.container():
+            st.header("Final Feedback")
+
+            # Display the pass/fail status
+            pass_fail_container = st.container()
+            with pass_fail_container:
+                pass_fail_label = st.markdown(f"<span style='font-weight: bold; font-size: 18px;'>Pass/Fail Status:</span>", unsafe_allow_html=True)
+                if final_feedback.passed_or_failed == "Passed":
+                    pass_fail_status = st.markdown(f"<span style='color: green; font-weight: bold;'>{final_feedback.passed_or_failed}</span>", unsafe_allow_html=True)
+                else:
+                    pass_fail_status = st.markdown(f"<span style='color: red; font-weight: bold;'>{final_feedback.passed_or_failed}</span>", unsafe_allow_html=True)
+
+            # Display the total rating
+            rating_container = st.container()
+            with rating_container:
+                st.markdown(f"<span style='font-weight: bold; font-size: 18px;'>Total Rating:</span>", unsafe_allow_html=True)
+                st.markdown(f"<span style='font-size: 20px;'>{final_feedback.total_rating}</span>", unsafe_allow_html=True)
+
+            # Display the combined feedback
+            feedback_container = st.container()
+            with feedback_container:
+                st.markdown(f"<span style='font-weight: bold; font-size: 18px;'>Combined Feedback:</span>", unsafe_allow_html=True)
+                st.markdown(f"<div style='background-color: #f5f5f5; padding: 20px; border-radius: 5px; font-size: 16px;'>{final_feedback.combined_feedback}</div>", unsafe_allow_html=True)
+
     except (ValueError, KeyError) as e:
         st.write(f"Error: {e}")
 
