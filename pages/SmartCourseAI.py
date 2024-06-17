@@ -687,7 +687,7 @@ if st.button("Aggregate Feedback"):
             feedback_container = st.container()
             with feedback_container:
                 st.markdown(f"<span style='font-weight: bold; font-size: 18px;'>Combined Feedback:</span>", unsafe_allow_html=True)
-                st.markdown(f"<div style='background-color: #f5f5f5; padding: 20px; border-radius: 5px; font-size: 16px;'>{final_feedback.combined_feedback}</div>", unsafe_allow_html=True)
+                st.markdown(f"<div style='background-color: #000000; padding: 20px; border-radius: 5px; font-size: 16px;'>{final_feedback.combined_feedback}</div>", unsafe_allow_html=True)
 
     except (ValueError, KeyError) as e:
         st.write(f"Error: {e}")
