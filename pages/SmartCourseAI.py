@@ -85,9 +85,9 @@ st.write('\n')
 st.write("---")
 ###------------------------------------------------------------------------------------------------------------###
 # Configuring environment variables for API access and project identification
-os.environ['OPENAI_API_KEY'] = userdata.get('OpenAI_API_KEY')
-os.environ['LANGCHAIN_API_KEY'] = userdata.get('LANGCHAIN_API_KEY')
-os.environ['ANTHROPIC_API_KEY'] = userdata.get('ANTHROPIC_API_KEY')
+os.environ['OPENAI_API_KEY'] = = os.environ.get('OPENAI_API_KEY', None)
+os.environ['LANGCHAIN_API_KEY'] = os.environ.get('LANGCHAIN_API_KEY', None)
+os.environ['ANTHROPIC_API_KEY'] = os.environ.get('ANTHROPIC_API_KEY', None)
 os.environ["LANGCHAIN_TRACING_V2"] = "true"
 os.environ["LANGCHAIN_PROJECT"] = "Company_Course_Teacher"
 os.environ["LANGCHAIN_ENDPOINT"] = "https://api.smith.langchain.com"
