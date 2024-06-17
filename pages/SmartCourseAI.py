@@ -1,28 +1,41 @@
 ###------------------------------------------------------------------------------------------------------------###
 #Importing libraries
-from pathlib import Path
-import os
-import streamlit as st
-from langchain.text_splitter import RecursiveCharacterTextSplitter
-from langchain.embeddings.openai import OpenAIEmbeddings
-from langchain.vectorstores import FAISS
-from operator import itemgetter
-from langchain.chat_models.openai import ChatOpenAI
-from langchain.schema.runnable import RunnableMap, RunnablePassthrough, RunnableLambda
-from langchain.prompts import ChatPromptTemplate
-from langchain.schema.output_parser import StrOutputParser
-from langchain.schema import Document
-from langchain_experimental.data_anonymizer import PresidioReversibleAnonymizer
-import spacy
-import re
-import pprint
-import pandas as pd
-import logging
-from langchain.memory import ConversationBufferMemory
-from langchain.prompts import PromptTemplate
-import openai
+import asyncio
+import datetime
+import getpass
 import json
+import os
+import uuid
+from pathlib import Path
+from typing import AsyncGenerator, List, Sequence
+
+import nest_asyncio
+import openai
+import streamlit as st
+from google.colab import userdata
+from langchain.chains import LLMChain
+from langchain.memory import ConversationBufferMemory
+from langchain.output_parsers.pydantic import PydanticOutputParser
+from langchain.prompts import (
+    ChatPromptTemplate,
+    HumanMessagePromptTemplate,
+    MessagesPlaceholder,
+    PromptTemplate,
+    SystemMessagePromptTemplate
+)
+from langchain.schema import AIMessage, HumanMessage
+from langchain_core.messages import AIMessage, BaseMessage, HumanMessage
+from langchain_anthropic import ChatAnthropic
+from langchain_openai import ChatOpenAI
+from langgraph.graph import END, MessageGraph
 from PIL import Image
+from pydantic import BaseModel, Field
+
+# Apply nest_asyncio to allow nested event loops
+nest_asyncio.apply()
+
+# Generate a unique ID
+unique_id = uuid.uuid4().hex[0:8]
 
 os.environ['NUMEXPR_MAX_THREADS'] = '12'
 ###------------------------------------------------------------------------------------------------------------###
