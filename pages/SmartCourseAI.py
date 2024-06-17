@@ -588,6 +588,69 @@ def transform_to_json(final_results_list, max_rating=10):
 
 ###------------------------------------------------------------------------------------------------------------###
 
+# Path to the JSON file
+def read_json_file(file_path):
+    try:
+        with open(file_path, 'r') as f:
+            data = json.load(f)
+        return data
+    except Exception as e:
+        st.write(f"Error: {e}")
+        return None
+
+# Path to the JSON file
+file_path = 'pages/SmartCourseAI_Files/course_answers_feedback.json'
+
+# Read the JSON file
+data = read_json_file(file_path)
+
+# Display the data
+if data is not None:
+    st.write("JSON data:")
+    st.write(json.dumps(data, indent=4))
+
+# Define the Pydantic model for aggregated feedback
+class AggregateFeedback(BaseModel):
+    passed_or_failed: str = Field(description="If the rating is over 8 the course taker has passed, else failed.")
+    total_rating: float = Field(description="The total rating of all responses divided by the amount of ratings, including the rating range")  # Aggregated total rating
+    combined_feedback: str = Field(description="The summarized feedback from all responses, that the course taker will read at the end of the course. So this summarized feedback should guide the course taker in the future.")  # Aggregated feedback
+
+# Define the FeedbackAggregator class
+class FeedbackAggregator:
+    def __init__(self, llm_provider):
+        # Initialize the LLMHandler with the given provider
+        self.llm = LLMHandler(llm_provider=llm_provider, max_tokens=2000, temperature=0.1)
+
+        # Initialize the Pydantic parser with the AggregateFeedback model
+        self.parser = PydanticOutputParser(pydantic_object=AggregateFeedback)
+
+        # Define the prompt template for the LLM
+        self.prompt = PromptTemplate(
+            template="""Given the following final rating and feedback, provide an overall summary that integrates all feedback and guides the course taker for future improvement.
+            \nFinal Rating: {final_rating}
+            \nAll Feedback: {all_feedback}.
+            \nPlease provide a final overall feedback for the course taker based on the above information.
+            \n{format_instructions}\n""",
+            input_variables=["final_rating", "all_feedback"],  # Variables for user query
+            partial_variables={"format_instructions": self.parser.get_format_instructions()},  # Format instructions for the parser
+        )
+
+        # Combine the prompt, LLM, and parser into a processing chain
+        self.chain = self.prompt | self.llm.language_model | self.parser
+
+    def aggregate_feedback(self, summarized_rating, collected_feedback):
+        return self.chain.invoke({"final_rating": summarized_rating, "all_feedback": collected_feedback})
+
+
+# # Transform the data
+# ttj_output = transform_to_json(data, max_rating=10)
+
+# # Initialize the FeedbackAggregator
+# aggregator = FeedbackAggregator(llm_provider=llm_model)
+
+# # Get the final feedback
+# final_feedback = aggregator.aggregate_feedback(ttj_output["summarized_rating"], ttj_output["collcted_feedback"])
+
 
 
 
