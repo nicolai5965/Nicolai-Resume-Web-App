@@ -85,7 +85,7 @@ st.write('\n')
 st.write("---")
 ###------------------------------------------------------------------------------------------------------------###
 # Configuring environment variables for API access and project identification
-os.environ['OPENAI_API_KEY'] = = os.environ.get('OPENAI_API_KEY', None)
+os.environ['OPENAI_API_KEY'] = os.environ.get('OPENAI_API_KEY', None)
 os.environ['LANGCHAIN_API_KEY'] = os.environ.get('LANGCHAIN_API_KEY', None)
 os.environ['ANTHROPIC_API_KEY'] = os.environ.get('ANTHROPIC_API_KEY', None)
 os.environ["LANGCHAIN_TRACING_V2"] = "true"
