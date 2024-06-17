@@ -651,7 +651,24 @@ class FeedbackAggregator:
 # # Get the final feedback
 # final_feedback = aggregator.aggregate_feedback(ttj_output["summarized_rating"], ttj_output["collcted_feedback"])
 
+st.title("Feedback Aggregator")
 
+# Placeholder for the ttj_output
+ttj_output = transform_to_json(data, max_rating=10)
+
+if st.button("Aggregate Feedback"):
+    try:
+        # Initialize the FeedbackAggregator
+        aggregator = FeedbackAggregator(llm_provider="anthropic")
+
+        # Get the final feedback
+        final_feedback = aggregator.aggregate_feedback(ttj_output_dict["summarized_rating"], ttj_output_dict["collected_feedback"])
+
+        # Display the final feedback
+        st.write("Final Feedback:")
+        st.write(final_feedback.combined_feedback)
+    except (ValueError, KeyError) as e:
+        st.write(f"Error: {e}")
 
 
 ###------------------------------------------------------------------------------------------------------------###
