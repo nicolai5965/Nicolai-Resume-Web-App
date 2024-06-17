@@ -102,9 +102,9 @@ def read_and_exec_file(file_path):
         # Parsing the file content into variables
         exec(content, {}, local_vars)
         # Display variable names created by exec
-        st.write("Variable names created by exec:")
-        for var_name in local_vars.keys():
-            st.write(var_name)
+        #st.write("Variable names created by exec:")
+        #for var_name in local_vars.keys():
+        #    st.write(var_name)
         # Update the global namespace with the new variables
         globals().update(local_vars)
     except SyntaxError as e:
