@@ -107,28 +107,33 @@ st.write(Introduction)
 st.write('\n')
 st.write("---")
 
+# Define the text as a variable
+show_why_choose_smartcourseai = """
+### Why Choose SmartCourseAI?
+
+Traditional courses often rely on passive learning methods, such as reading materials and answering multiple-choice questions, which may not fully engage learners or address their individual needs. SmartCourseAI offers a more effective and interactive approach to learning and improvement. Here's why it's better:
+
+#### Personalized and Constructive Feedback
+Unlike traditional methods, our app provides detailed, personalized feedback on your answers. This helps you understand your strengths and pinpoint specific areas where you need improvement, rather than just indicating whether an answer is right or wrong.
+
+#### Iterative Learning Process
+With SmartCourseAI, learning is an ongoing process. The app engages you in multiple stages of feedback, reflection, and correction, ensuring a deeper understanding of the material. This iterative approach helps solidify your knowledge and improves retention.
+
+#### Strict and Accurate Evaluation
+Our language models are designed to evaluate responses strictly according to the course material, ensuring that you truly understand the content. This rigorous evaluation method ensures that passing the course is a genuine achievement.
+
+#### Interactive and Engaging
+SmartCourseAI makes learning interactive by involving you in a dynamic feedback loop. This engagement keeps you actively involved in the learning process, making it more enjoyable and effective than passive reading or static quizzes.
+
+#### Comprehensive Final Feedback
+At the end of the course, you receive a detailed summary of your performance, including a final rating and comprehensive feedback. This summary helps you understand your overall progress and provides clear guidance for future improvement.
+
+By using SmartCourseAI, you gain a deeper, more nuanced understanding of the course material, actively engage in your learning process, and receive constructive feedback tailored to your needs. This approach not only helps you pass the course but also ensures you truly grasp the concepts and can apply them effectively.
+"""
+
+# Add a button and display the text when the button is clicked
 if st.button("Why Choose SmartCourseAI?"):
-    st.markdown(f"""
-    <span style='font-weight: bold; font-size: 18px;'>Why Choose SmartCourseAI?</span>
-    <div style='background-color: #f0f0f0; padding: 20px; border-radius: 5px; font-size: 16px;'>
-        <p><b>Personalized and Constructive Feedback</b></p>
-        <p>Unlike traditional methods, our app provides detailed, personalized feedback on your answers. This helps you understand your strengths and pinpoint specific areas where you need improvement, rather than just indicating whether an answer is right or wrong.</p>
-        
-        <p><b>Iterative Learning Process</b></p>
-        <p>With SmartCourseAI, learning is an ongoing process. The app engages you in multiple stages of feedback, reflection, and correction, ensuring a deeper understanding of the material. This iterative approach helps solidify your knowledge and improves retention.</p>
-        
-        <p><b>Strict and Accurate Evaluation</b></p>
-        <p>Our language models are designed to evaluate responses strictly according to the course material, ensuring that you truly understand the content. This rigorous evaluation method ensures that passing the course is a genuine achievement.</p>
-        
-        <p><b>Interactive and Engaging</b></p>
-        <p>SmartCourseAI makes learning interactive by involving you in a dynamic feedback loop. This engagement keeps you actively involved in the learning process, making it more enjoyable and effective than passive reading or static quizzes.</p>
-        
-        <p><b>Comprehensive Final Feedback</b></p>
-        <p>At the end of the course, you receive a detailed summary of your performance, including a final rating and comprehensive feedback. This summary helps you understand your overall progress and provides clear guidance for future improvement.</p>
-        
-        <p>By using SmartCourseAI, you gain a deeper, more nuanced understanding of the course material, actively engage in your learning process, and receive constructive feedback tailored to your needs. This approach not only helps you pass the course but also ensures you truly grasp the concepts and can apply them effectively.</p>
-    </div>
-    """, unsafe_allow_html=True)
+    st.write(show_why_choose_smartcourseai)
 st.write('\n')
 st.write("---")
 ###------------------------------------------------------------------------------------------------------------###
