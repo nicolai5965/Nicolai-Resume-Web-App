@@ -651,7 +651,7 @@ class FeedbackAggregator:
 # # Get the final feedback
 # final_feedback = aggregator.aggregate_feedback(ttj_output["summarized_rating"], ttj_output["collcted_feedback"])
 
-st.title("Feedback Aggregator")
+st.title("Full course Feedback")
 
 # Placeholder for the ttj_output
 ttj_output = transform_to_json(data, max_rating=10)
