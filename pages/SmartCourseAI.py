@@ -68,19 +68,67 @@ st.sidebar.write("---")
 
 ###------------------------------------------------------------------------------------------------------------###
 ## Instroduction 
-st.header("Introduction:")
-Introduction = """Welcome to my project showcasing an anonymized chatbot interface! This page was created as part of my journey into learning how to build chatbots and use large language models (LLMs). The goal was to explore techniques for building a chatbot that can have natural conversations while protecting personal information.
+st.header("Welcome to the SmartCourseAI Feedback Assistant!:")
+Introduction = """
+This app leverages advanced language models to provide precise, actionable feedback on your course responses. By focusing strictly on the provided course material, it ensures that you receive guidance tailored to your learning needs. Here’s a comprehensive overview:
 
-The chatbot uses state-of-the-art LLMs from Anthropic to have engaging dialogs. To anonymize sensitive information, it leverages Presidio for entity recognition and Faker for data generation. The interface allows custom entity patterns and operators to be defined.
+## What Does This App Do?
+The SmartCourseAI Feedback Assistant is designed to:
+- **Evaluate Responses**: Assess your answers to course questions based on a thorough understanding of the material.
+- **Provide Ratings**: Offer a strict, accurate rating on a scale, currently from 1 to 10, to reflect your comprehension.
+- **Give Constructive Feedback**: Deliver detailed, actionable feedback to help you improve.
 
-After anonymization, original information can still be recovered using the reversible mapping. This project demonstrates how to balance utility and privacy when applying AI chatbots. The code is open source on GitHub to encourage experimentation.
+## Key Features:
+- **Initial Feedback**: Get immediate evaluation and feedback based on your submitted answers, adhering strictly to the course material.
+- **Reflection and Correction**: The app employs a rigorous reflection and correction process, refining feedback to ensure accuracy and completeness.
+- **Aggregated Feedback**: At the end of your course, receive a comprehensive summary of your performance and feedback, highlighting areas for improvement and reinforcing strengths.
 
-I'm excited to present this proof of concept for an anonymizing chatbot. An anonymizing chatbot can serve as an extra safeguard when handling personal and sensitive data. 
+## How Does It Work?
+- **Language Model Integration**: Utilizing state-of-the-art models suchs as OpenAI and Anthropic, the system processes and evaluates your responses with high precision.
+- **Dynamic and Strict Prompts**: The system generates prompts that strictly adhere to the course guidelines, ensuring that feedback is both relevant and constructive.
+- **Iterative Process**: Engage in a process that involves multiple stages of feedback refinement, enhancing your learning through continuous improvement.
 
-Please try it out and let me know your thoughts! Feel free to view the full report for additional details on the implementation.
+## Behavior Guidelines for Language Models:
+The language models follow stringent behavior guidelines to ensure the quality and relevance of feedback:
+- **Language and Specialization**: At the moment the models communicate only in English and are specialized in providing guidance strictly based on the course material. Although the language can be changed in the future. 
+- **Strict Rating Criteria**: At the moment the ratings are given on a scale of 1 to 10, with strict adherence to the rating guidelines to ensure only those who truly understand the material pass. The rating criteria and LLM behaviors can be changed compared to the courses mening. 
+- **Feedback Format**: Feedback is clear, concise, and directly related to the course material, ensuring you receive actionable insights.
+
+## Getting Started:
+1. **Submit Your Answers**: Answer the course questions as prompted.
+2. **Receive Initial Feedback**: Review the immediate feedback provided.
+3. **Engage in Reflection and Correction**: Participate in the iterative feedback process to refine your understanding.
+4. **Review Final Summary**: At the end of the session, access a detailed summary of your performance, including ratings and comprehensive feedback.
+
+By following these steps, you can enhance your understanding of the course material and improve your performance through targeted feedback. Let’s embark on this journey of learning and improvement together!
 """
 st.write(Introduction)
 
+st.write('\n')
+st.write("---")
+
+if st.button("Why Choose SmartCourseAI?"):
+    st.markdown(f"""
+    <span style='font-weight: bold; font-size: 18px;'>Why Choose SmartCourseAI?</span>
+    <div style='background-color: #f0f0f0; padding: 20px; border-radius: 5px; font-size: 16px;'>
+        <p><b>Personalized and Constructive Feedback</b></p>
+        <p>Unlike traditional methods, our app provides detailed, personalized feedback on your answers. This helps you understand your strengths and pinpoint specific areas where you need improvement, rather than just indicating whether an answer is right or wrong.</p>
+        
+        <p><b>Iterative Learning Process</b></p>
+        <p>With SmartCourseAI, learning is an ongoing process. The app engages you in multiple stages of feedback, reflection, and correction, ensuring a deeper understanding of the material. This iterative approach helps solidify your knowledge and improves retention.</p>
+        
+        <p><b>Strict and Accurate Evaluation</b></p>
+        <p>Our language models are designed to evaluate responses strictly according to the course material, ensuring that you truly understand the content. This rigorous evaluation method ensures that passing the course is a genuine achievement.</p>
+        
+        <p><b>Interactive and Engaging</b></p>
+        <p>SmartCourseAI makes learning interactive by involving you in a dynamic feedback loop. This engagement keeps you actively involved in the learning process, making it more enjoyable and effective than passive reading or static quizzes.</p>
+        
+        <p><b>Comprehensive Final Feedback</b></p>
+        <p>At the end of the course, you receive a detailed summary of your performance, including a final rating and comprehensive feedback. This summary helps you understand your overall progress and provides clear guidance for future improvement.</p>
+        
+        <p>By using SmartCourseAI, you gain a deeper, more nuanced understanding of the course material, actively engage in your learning process, and receive constructive feedback tailored to your needs. This approach not only helps you pass the course but also ensures you truly grasp the concepts and can apply them effectively.</p>
+    </div>
+    """, unsafe_allow_html=True)
 st.write('\n')
 st.write("---")
 ###------------------------------------------------------------------------------------------------------------###
