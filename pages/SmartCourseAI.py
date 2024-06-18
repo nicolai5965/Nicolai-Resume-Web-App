@@ -718,15 +718,6 @@ class FeedbackAggregator:
         return self.chain.invoke({"final_rating": summarized_rating, "all_feedback": collected_feedback})
 
 
-# # Transform the data
-# ttj_output = transform_to_json(data, max_rating=10)
-
-# # Initialize the FeedbackAggregator
-# aggregator = FeedbackAggregator(llm_provider=llm_model)
-
-# # Get the final feedback
-# final_feedback = aggregator.aggregate_feedback(ttj_output["summarized_rating"], ttj_output["collcted_feedback"])
-
 st.title("Full course Feedback")
 
 # Placeholder for the ttj_output
@@ -739,7 +730,6 @@ if st.button("Aggregate Feedback"):
 
         # Get the final feedback
         final_feedback = aggregator.aggregate_feedback(ttj_output["summarized_rating"], ttj_output["collcted_feedback"]) 
-        # Display the final feedback
         # Display the final feedback
         with st.container():
             st.header("Final Feedback")
