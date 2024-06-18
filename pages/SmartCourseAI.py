@@ -136,13 +136,12 @@ By following these steps, you can enhance your understanding of the course mater
 """
 
 # Add a button to toggle the visibility of the introduction text
-if st.markdown('<button class="big-button">Learn More About SmartCourseAI</button>', unsafe_allow_html=True):
+if st.button("Learn More About SmartCourseAI"):
     st.session_state.show_intro = not st.session_state.show_intro
 
 # Display the introduction text if the button has been clicked
 if st.session_state.show_intro:
     st.markdown(introduction_text)
-
 st.write('\n')
 st.write("---")
 
