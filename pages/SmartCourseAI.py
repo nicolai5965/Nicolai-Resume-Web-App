@@ -67,6 +67,32 @@ st.sidebar.download_button(
 st.sidebar.write("---")
 
 ###------------------------------------------------------------------------------------------------------------###
+# Add custom CSS to style the buttons
+st.markdown("""
+    <style>
+    .big-button {
+        display: inline-block;
+        padding: 15px 25px;
+        font-size: 24px;
+        cursor: pointer;
+        text-align: center;
+        text-decoration: none;
+        outline: none;
+        color: #fff;
+        background-color: #4CAF50;
+        border: none;
+        border-radius: 15px;
+        box-shadow: 0 9px #999;
+    }
+    .big-button:hover {background-color: #3e8e41}
+    .big-button:active {
+      background-color: #3e8e41;
+      box-shadow: 0 5px #666;
+      transform: translateY(4px);
+    }
+    </style>
+    """, unsafe_allow_html=True)
+
 # Add the header
 st.header("Welcome to the SmartCourseAI Feedback Assistant!")
 
@@ -105,8 +131,8 @@ The language models follow stringent behavior guidelines to ensure the quality a
 By following these steps, you can enhance your understanding of the course material and improve your performance through targeted feedback. Let’s embark on this journey of learning and improvement together!
 """
 
-# Add a button and display the text when the button is clicked
-if st.button("Learn More About SmartCourseAI"):
+# Add a button with the custom class and display the text when the button is clicked
+if st.markdown('<button class="big-button">Learn More About SmartCourseAI</button>', unsafe_allow_html=True):
     st.write(introduction_text)
 
 st.write('\n')
