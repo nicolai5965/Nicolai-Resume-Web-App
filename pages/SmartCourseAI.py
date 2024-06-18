@@ -67,36 +67,6 @@ st.sidebar.download_button(
 st.sidebar.write("---")
 
 ###------------------------------------------------------------------------------------------------------------###
-# Add custom CSS to style the buttons
-st.markdown("""
-    <style>
-    .big-button {
-        display: inline-block;
-        padding: 15px 25px;
-        font-size: 24px;
-        cursor: pointer;
-        text-align: center;
-        text-decoration: none;
-        outline: none;
-        color: #fff;
-        background-color: #4CAF50;
-        border: none;
-        border-radius: 15px;
-        box-shadow: 0 9px #999;
-    }
-    .big-button:hover {background-color: #3e8e41}
-    .big-button:active {
-      background-color: #3e8e41;
-      box-shadow: 0 5px #666;
-      transform: translateY(4px);
-    }
-    </style>
-    """, unsafe_allow_html=True)
-
-# Initialize the session state for controlling the visibility of the introduction text
-if "show_intro" not in st.session_state:
-    st.session_state.show_intro = False
-
 # Add the header
 st.header("Welcome to the SmartCourseAI Feedback Assistant!")
 
@@ -135,13 +105,19 @@ The language models follow stringent behavior guidelines to ensure the quality a
 By following these steps, you can enhance your understanding of the course material and improve your performance through targeted feedback. Let’s embark on this journey of learning and improvement together!
 """
 
-# Add a button to toggle the visibility of the introduction text
-if st.button("Learn More About SmartCourseAI"):
-    st.session_state.show_intro = not st.session_state.show_intro
+# Initialize the session state if not already initialized
+if 'show_introduction' not in st.session_state:
+    st.session_state.show_introduction = False
 
-# Display the introduction text if the button has been clicked
-if st.session_state.show_intro:
-    st.markdown(introduction_text)
+# Add a button to toggle the introduction text
+if st.button("Learn More About SmartCourseAI"):
+    st.session_state.show_introduction = not st.session_state.show_introduction
+
+# Display the introduction text if the session state is set to True
+if st.session_state.show_introduction:
+    st.write(introduction_text)
+
+
 st.write('\n')
 st.write("---")
 
