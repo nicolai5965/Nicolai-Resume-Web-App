@@ -93,6 +93,10 @@ st.markdown("""
     </style>
     """, unsafe_allow_html=True)
 
+# Initialize the session state for controlling the visibility of the introduction text
+if "show_intro" not in st.session_state:
+    st.session_state.show_intro = False
+
 # Add the header
 st.header("Welcome to the SmartCourseAI Feedback Assistant!")
 
@@ -131,8 +135,12 @@ The language models follow stringent behavior guidelines to ensure the quality a
 By following these steps, you can enhance your understanding of the course material and improve your performance through targeted feedback. Let’s embark on this journey of learning and improvement together!
 """
 
-# Add a button with the custom class and display the text when the button is clicked
-if st.markdown('<button class="big-button">Learn More About SmartCourseAI</button>', unsafe_allow_html=True):
+# Add a button to toggle the visibility of the introduction text
+if st.button("Learn More About SmartCourseAI"):
+    st.session_state.show_intro = not st.session_state.show_intro
+
+# Display the introduction text if the button has been clicked
+if st.session_state.show_intro:
     st.write(introduction_text)
 
 st.write('\n')
