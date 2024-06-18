@@ -67,15 +67,17 @@ st.sidebar.download_button(
 st.sidebar.write("---")
 
 ###------------------------------------------------------------------------------------------------------------###
-## Instroduction 
-st.header("Welcome to the SmartCourseAI Feedback Assistant!:")
-Introduction = """
+# Add the header
+st.header("Welcome to the SmartCourseAI Feedback Assistant!")
+
+# Define the introduction text as a variable
+introduction_text = """
 This app leverages advanced language models to provide precise, actionable feedback on your course responses. By focusing strictly on the provided course material, it ensures that you receive guidance tailored to your learning needs. Here’s a comprehensive overview:
 
 ## What Does This App Do?
 The SmartCourseAI Feedback Assistant is designed to:
 - **Evaluate Responses**: Assess your answers to course questions based on a thorough understanding of the material.
-- **Provide Ratings**: Offer a strict, accurate rating on a scale, currently from 1 to 10, to reflect your comprehension.
+- **Provide Ratings**: Offer a strict, accurate rating on a scale from 1 to 10 to reflect your comprehension.
 - **Give Constructive Feedback**: Deliver detailed, actionable feedback to help you improve.
 
 ## Key Features:
@@ -84,14 +86,14 @@ The SmartCourseAI Feedback Assistant is designed to:
 - **Aggregated Feedback**: At the end of your course, receive a comprehensive summary of your performance and feedback, highlighting areas for improvement and reinforcing strengths.
 
 ## How Does It Work?
-- **Language Model Integration**: Utilizing state-of-the-art models suchs as OpenAI and Anthropic, the system processes and evaluates your responses with high precision.
+- **Language Model Integration**: Utilizing state-of-the-art models such as OpenAI and Anthropic, the system processes and evaluates your responses with high precision.
 - **Dynamic and Strict Prompts**: The system generates prompts that strictly adhere to the course guidelines, ensuring that feedback is both relevant and constructive.
 - **Iterative Process**: Engage in a process that involves multiple stages of feedback refinement, enhancing your learning through continuous improvement.
 
 ## Behavior Guidelines for Language Models:
 The language models follow stringent behavior guidelines to ensure the quality and relevance of feedback:
-- **Language and Specialization**: At the moment the models communicate only in English and are specialized in providing guidance strictly based on the course material. Although the language can be changed in the future. 
-- **Strict Rating Criteria**: At the moment the ratings are given on a scale of 1 to 10, with strict adherence to the rating guidelines to ensure only those who truly understand the material pass. The rating criteria and LLM behaviors can be changed compared to the courses mening. 
+- **Language and Specialization**: At the moment, the models communicate only in English and are specialized in providing guidance strictly based on the course material, although the language can be changed in the future.
+- **Strict Rating Criteria**: Ratings are given on a scale of 1 to 10, with strict adherence to the rating guidelines to ensure only those who truly understand the material pass. The rating criteria and LLM behaviors can be changed according to the course's meaning.
 - **Feedback Format**: Feedback is clear, concise, and directly related to the course material, ensuring you receive actionable insights.
 
 ## Getting Started:
@@ -102,14 +104,17 @@ The language models follow stringent behavior guidelines to ensure the quality a
 
 By following these steps, you can enhance your understanding of the course material and improve your performance through targeted feedback. Let’s embark on this journey of learning and improvement together!
 """
-st.write(Introduction)
+
+# Add a button and display the text when the button is clicked
+if st.button("Learn More About SmartCourseAI"):
+    st.write(introduction_text)
 
 st.write('\n')
 st.write("---")
 
 # Define the text as a variable
 show_why_choose_smartcourseai = """
-### Why Choose SmartCourseAI?
+### Benefits of Using SmartCourseAI
 
 Traditional courses often rely on passive learning methods, such as reading materials and answering multiple-choice questions, which may not fully engage learners or address their individual needs. SmartCourseAI offers a more effective and interactive approach to learning and improvement. Here's why it's better:
 
