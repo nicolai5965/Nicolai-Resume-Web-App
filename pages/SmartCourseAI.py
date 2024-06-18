@@ -122,7 +122,7 @@ st.write('\n')
 st.write("---")
 
 # Define the text as a variable
-show_why_choose_smartcourseai = """
+why_choose_smartcourseai_text = """
 ### Benefits of Using SmartCourseAI
 
 Traditional courses often rely on passive learning methods, such as reading materials and answering multiple-choice questions, which may not fully engage learners or address their individual needs. SmartCourseAI offers a more effective and interactive approach to learning and improvement. Here's why it's better:
@@ -145,9 +145,18 @@ At the end of the course, you receive a detailed summary of your performance, in
 By using SmartCourseAI, you gain a deeper, more nuanced understanding of the course material, actively engage in your learning process, and receive constructive feedback tailored to your needs. This approach not only helps you pass the course but also ensures you truly grasp the concepts and can apply them effectively.
 """
 
-# Add a button and display the text when the button is clicked
+# Initialize the session state if not already initialized
+if 'show_why_choose' not in st.session_state:
+    st.session_state.show_why_choose = False
+
+# Add a button to toggle the text display
 if st.button("Why Choose SmartCourseAI?"):
-    st.write(show_why_choose_smartcourseai)
+    st.session_state.show_why_choose = not st.session_state.show_why_choose
+
+# Display the text if the session state is set to True
+if st.session_state.show_why_choose:
+    st.write(why_choose_smartcourseai_text)
+
 st.write('\n')
 st.write("---")
 ###------------------------------------------------------------------------------------------------------------###
