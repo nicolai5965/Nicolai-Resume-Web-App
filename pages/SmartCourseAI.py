@@ -134,7 +134,7 @@ Unlike traditional methods, our app provides detailed, personalized feedback on 
 With SmartCourseAI, learning is an ongoing process. The app engages you in multiple stages of feedback, reflection, and correction, ensuring a deeper understanding of the material. This iterative approach helps solidify your knowledge and improves retention.
 
 #### Strict and Accurate Evaluation
-Our language models are designed to evaluate responses strictly according to the course material, ensuring that you truly understand the content. This rigorous evaluation method ensures that passing the course is a genuine achievement.
+The language models are designed to evaluate responses strictly according to the course material, ensuring that you truly understand the content. This rigorous evaluation method ensures that passing the course is a genuine achievement.
 
 #### Interactive and Engaging
 SmartCourseAI makes learning interactive by involving you in a dynamic feedback loop. This engagement keeps you actively involved in the learning process, making it more enjoyable and effective than passive reading or static quizzes.
