@@ -697,7 +697,7 @@ def process_course_questions(course_material_qa, course_material, initial_llm_be
         question_text = question_data['question']
 
         st.write(f"Question: {question_text}")
-        
+
         user_answer = st.text_input(f"Your answer to question {iteration_count + 1}", key=f"user_answer_{iteration_count}")
 
         if st.button(f"Submit Answer {iteration_count + 1}", key=f"submit_answer_{iteration_count}"):
@@ -738,6 +738,8 @@ course_material_qa = {
     '1': {'question': 'What is the capital of France?'},
     '2': {'question': 'Explain the theory of relativity.'},
 }
+
+
 process_course_questions(course_material_qa, course_material, initial_llm_behavior_guidelines_new, max_words, llm_model, max_iterations)
 
 
