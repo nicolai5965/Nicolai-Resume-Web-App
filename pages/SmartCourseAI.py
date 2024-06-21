@@ -48,7 +48,7 @@ SOCIAL_MEDIA = {
 ###------------------------------------------------------------------------------------------------------------###
 ### Sidebar
 st.sidebar.write('\n')
-
+resume_file = "pages/Nicolai's Resume.pdf"
 LinkedIn_link = '[My LinkedIn](https://www.linkedin.com/in/nicolai-s%C3%B8derberg-907680238/)'
 st.sidebar.markdown(LinkedIn_link, unsafe_allow_html=True)
 
@@ -61,7 +61,7 @@ with open(resume_file, "rb") as pdf_file:
 st.sidebar.download_button(
     label = "Download Resume 👈",
     data = PDFbyte_CV,
-    file_name = "Resume/CV.pdf",
+    file_name = resume_file,
     mime ="application/octet-stream",)
 
 st.sidebar.write("---")
