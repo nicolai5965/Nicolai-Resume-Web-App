@@ -663,6 +663,25 @@ def transform_to_json(final_results_list, max_rating=10):
     return output
 
 ###------------------------------------------------------------------------------------------------------------###
+# Initialize session state for toggling course material display
+if 'show_course_material' not in st.session_state:
+    st.session_state.show_course_material = False
+
+# Input parameters
+max_words = st.number_input('Max Words', min_value=1, max_value=1000, value=45)
+llm_model = st.selectbox('LLM Model', ['openai', 'anthropic'])
+max_iterations = st.number_input('Max Iterations', min_value=1, max_value=10, value=2)
+
+# Add a button to toggle the display of course material
+if st.button("Show/Hide Course Material"):
+    st.session_state.show_course_material = not st.session_state.show_course_material
+
+# Display course material if toggled on
+if st.session_state.show_course_material:
+    st.write(course_material)
+
+
+###------------------------------------------------------------------------------------------------------------###
 
 # Path to the JSON file
 def read_json_file(file_path):
@@ -680,10 +699,10 @@ file_path = 'pages/SmartCourseAI_Files/course_answers_feedback.json'
 # Read the JSON file
 data = read_json_file(file_path)
 
-# Display the data
-if data is not None:
-    st.write("JSON data:")
-    st.write(json.dumps(data, indent=4))
+# # Display the data
+# if data is not None:
+#     st.write("JSON data:")
+#     st.write(json.dumps(data, indent=4))
 
 # Define the Pydantic model for aggregated feedback
 class AggregateFeedback(BaseModel):
