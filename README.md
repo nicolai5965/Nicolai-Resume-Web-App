@@ -14,4 +14,4 @@ Streamlit offers a seamless way to turn data scripts into shareable web apps. Gi
 
 ## Visit the Website
 
-Feel free to explore the website and get to know more about my professional journey: [Nicolai's Resume Website](https://nicolai-resume-website.streamlit.app/)https://nicolai-resume-website.streamlit.app/
+Feel free to explore the website and get to know more about my professional journey: https://nicolai-resume-website.streamlit.app/ 
