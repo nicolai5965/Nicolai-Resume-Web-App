@@ -126,18 +126,23 @@ st.write(
     """
 )
 ###------------------------------------------------------------------------------------------------------------###
-## Links
-
+### Sidebar
+st.sidebar.write('\n')
+resume_file = "pages/Nicolai's Resume.pdf"
 LinkedIn_link = '[My LinkedIn](https://www.linkedin.com/in/nicolai-s%C3%B8derberg-907680238/)'
 st.sidebar.markdown(LinkedIn_link, unsafe_allow_html=True)
 
 GitHub_link = '[My GitHub repo](https://github.com/nicolai5965)'
 st.sidebar.markdown(GitHub_link, unsafe_allow_html=True)
 
+with open(resume_file, "rb") as pdf_file:
+    PDFbyte_CV = pdf_file.read()
+    
 st.sidebar.download_button(
     label = "Download Resume 👈",
-    data = PDFbyte,
-    file_name = "Resume/CV.pdf",
-    mime = "application/octet-stream",
-)
+    data = PDFbyte_CV,
+    file_name = resume_file,
+    mime ="application/octet-stream",)
+
+st.sidebar.write("---")
 ###------------------------------------------------------------------------------------------------------------###
