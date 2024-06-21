@@ -567,7 +567,7 @@ class QuestionFeedbackTracker:
 
 ###------------------------------------------------------------------------------------------------------------###
 
-def process_course_questions(course_material_qa, course_material, initial_llm_behavior_guidelines_new, max_words=45, llm_model="anthropic", max_iterations=2, test_mode=False):
+def process_course_questions2(course_material_qa, course_material, initial_llm_behavior_guidelines_new, max_words=45, llm_model="anthropic", max_iterations=2, test_mode=False):
     output_list = []
     json_output_list = []
     final_results_list = []
@@ -679,6 +679,66 @@ if st.button("Show/Hide Course Material"):
 # Display course material if toggled on
 if st.session_state.show_course_material:
     st.write(course_material)
+
+
+###------------------------------------------------------------------------------------------------------------###
+def process_course_questions(course_material_qa, course_material, initial_llm_behavior_guidelines_new, max_words=45, llm_model="anthropic", max_iterations=2, test_mode=False):
+    output_list = []
+    json_output_list = []
+    final_results_list = []
+
+    iteration_count = 0
+    max_test_iterations = 2 if test_mode else len(course_material_qa)
+
+    for question_key, question_data in course_material_qa.items():
+        if iteration_count >= max_test_iterations:
+            break
+
+        question_text = question_data['question']
+
+        st.write(f"Question: {question_text}")
+        
+        user_answer = st.text_input(f"Your answer to question {iteration_count + 1}", key=f"user_answer_{iteration_count}")
+
+        if st.button(f"Submit Answer {iteration_count + 1}", key=f"submit_answer_{iteration_count}"):
+            try:
+                # Process the question with your backend logic
+                output = asyncio.run(run_feedback_assistant(course_material, question_text, initial_llm_behavior_guidelines_new, user_answer, max_words, llm_model, max_iterations))
+                output_json = convert_to_json(output)
+
+                # Extract feedback using your existing logic
+                que_feed_track = QuestionFeedbackTracker()
+                que_feed_track.parse_feedback_information(question_text, output_json)
+                final_results = que_feed_track.get_results()
+
+                st.write(f"Rating: {final_results[0]['rating']}")
+                st.write(f"Feedback: {final_results[0]['feedback']}")
+
+                st.write('-----------------------------------------------------------------------')
+
+                output_list.append(output)
+                json_output_list.append(output_json)
+                final_results_list.append(final_results)
+
+                iteration_count += 1
+
+            except KeyError as e:
+                st.write(f"An error occurred while processing: {e}")
+                # Optionally, continue to the next iteration or break based on your preference
+                continue
+            except TypeError as e:
+                st.write(f"Type error during processing: {e}")
+                # Handle other potential TypeErrors gracefully
+                continue
+
+    return output_list, json_output_list, final_results_list, iteration_count
+
+# Sample call to the process_course_questions function
+course_material_qa = {
+    '1': {'question': 'What is the capital of France?'},
+    '2': {'question': 'Explain the theory of relativity.'},
+}
+process_course_questions(course_material_qa, course_material, initial_llm_behavior_guidelines_new, max_words, llm_model, max_iterations)
 
 
 ###------------------------------------------------------------------------------------------------------------###
