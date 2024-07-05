@@ -669,7 +669,7 @@ if 'show_course_material' not in st.session_state:
 
 # Input parameters
 max_words = st.number_input('Max Words', min_value=1, max_value=1000, value=45)
-llm_model = st.selectbox('LLM Model', ['openai', 'anthropic'])
+llm_model = st.selectbox('LLM Model', ['anthropic', 'openai'])
 max_iterations = st.number_input('Max Iterations', min_value=1, max_value=10, value=2)
 
 # Add a button to toggle the display of course material
