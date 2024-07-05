@@ -733,12 +733,6 @@ def process_course_questions(course_material_qa, course_material, initial_llm_be
 
     return output_list, json_output_list, final_results_list, iteration_count
 
-# Sample call to the process_course_questions function
-course_material_qa = {
-    '1': {'question': 'What is the capital of France?'},
-    '2': {'question': 'Explain the theory of relativity.'},
-}
-
 
 process_course_questions(course_material_qa, course_material, initial_llm_behavior_guidelines_new, max_words, llm_model, max_iterations)
 
