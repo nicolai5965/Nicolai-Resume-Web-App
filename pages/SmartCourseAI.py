@@ -775,26 +775,9 @@ output_list, json_output_list, final_results_list, iteration_count = process_cou
 
 ###------------------------------------------------------------------------------------------------------------###
 
-# Path to the JSON file
-def read_json_file(file_path):
-    try:
-        with open(file_path, 'r') as f:
-            data = json.load(f)
-        return data
-    except Exception as e:
-        st.write(f"Error: {e}")
-        return None
 
-# Path to the JSON file
-file_path = 'pages/SmartCourseAI_Files/course_answers_feedback.json'
-
-# Read the JSON file
-data = read_json_file(file_path)
-
-# # Display the data
-# if data is not None:
-#     st.write("JSON data:")
-#     st.write(json.dumps(data, indent=4))
+# Check if all questions have been answered
+all_questions_answered = len(st.session_state.answered_questions) == len(course_material_qa)
 
 # Define the Pydantic model for aggregated feedback
 class AggregateFeedback(BaseModel):
@@ -828,47 +811,49 @@ class FeedbackAggregator:
     def aggregate_feedback(self, summarized_rating, collected_feedback):
         return self.chain.invoke({"final_rating": summarized_rating, "all_feedback": collected_feedback})
 
-
 st.title("Full course Feedback")
 
-# Placeholder for the ttj_output
-ttj_output = transform_to_json(final_results_list, max_rating=10)
-st.write(ttj_output)
-if st.button("Aggregate Feedback"):
-    try:
-        # Initialize the FeedbackAggregator
-        aggregator = FeedbackAggregator(llm_provider="anthropic")
+if all_questions_answered:
+    # Placeholder for the ttj_output
+    ttj_output = transform_to_json(final_results_list, max_rating=10)
+    st.write(ttj_output)
+    if st.button("Aggregate Feedback"):
+        try:
+            # Initialize the FeedbackAggregator
+            aggregator = FeedbackAggregator(llm_provider="anthropic")
 
-        # Get the final feedback
-        final_feedback = aggregator.aggregate_feedback(ttj_output["summarized_rating"], ttj_output["collcted_feedback"]) 
-        # Display the final feedback
-        with st.container():
-            st.header("Final Feedback")
+            # Get the final feedback
+            final_feedback = aggregator.aggregate_feedback(ttj_output["summarized_rating"], ttj_output["collected_feedback"]) 
+            # Display the final feedback
+            with st.container():
+                st.header("Final Feedback")
 
-            # Display the pass/fail status
-            pass_fail_container = st.container()
-            with pass_fail_container:
-                pass_fail_label = st.markdown(f"<span style='font-weight: bold; font-size: 18px;'>Pass/Fail Status:</span>", unsafe_allow_html=True)
-                if final_feedback.passed_or_failed == "Passed":
-                    pass_fail_status = st.markdown(f"<span style='color: green; font-weight: bold;'>{final_feedback.passed_or_failed}</span>", unsafe_allow_html=True)
-                else:
-                    pass_fail_status = st.markdown(f"<span style='color: red; font-weight: bold;'>{final_feedback.passed_or_failed}</span>", unsafe_allow_html=True)
+                # Display the pass/fail status
+                pass_fail_container = st.container()
+                with pass_fail_container:
+                    pass_fail_label = st.markdown(f"<span style='font-weight: bold; font-size: 18px;'>Pass/Fail Status:</span>", unsafe_allow_html=True)
+                    if final_feedback.passed_or_failed == "Passed":
+                        pass_fail_status = st.markdown(f"<span style='color: green; font-weight: bold;'>{final_feedback.passed_or_failed}</span>", unsafe_allow_html=True)
+                    else:
+                        pass_fail_status = st.markdown(f"<span style='color: red; font-weight: bold;'>{final_feedback.passed_or_failed}</span>", unsafe_allow_html=True)
 
-            # Display the total rating
-            rating_container = st.container()
-            with rating_container:
-                st.markdown(f"<span style='font-weight: bold; font-size: 18px;'>Total Rating:</span>", unsafe_allow_html=True)
-                st.markdown(f"<span style='font-size: 20px;'>{final_feedback.total_rating}</span>", unsafe_allow_html=True)
+                # Display the total rating
+                rating_container = st.container()
+                with rating_container:
+                    st.markdown(f"<span style='font-weight: bold; font-size: 18px;'>Total Rating:</span>", unsafe_allow_html=True)
+                    st.markdown(f"<span style='font-size: 20px;'>{final_feedback.total_rating}</span>", unsafe_allow_html=True)
 
-            # Display the combined feedback
-            feedback_container = st.container()
-            with feedback_container:
-                st.markdown(f"<span style='font-weight: bold; font-size: 18px;'>Combined Feedback:</span>", unsafe_allow_html=True)
-                st.markdown(f"<div style='background-color: #000000; padding: 20px; border-radius: 5px; font-size: 16px;'>{final_feedback.combined_feedback}</div>", unsafe_allow_html=True)
+                # Display the combined feedback
+                feedback_container = st.container()
+                with feedback_container:
+                    st.markdown(f"<span style='font-weight: bold; font-size: 18px;'>Combined Feedback:</span>", unsafe_allow_html=True)
+                    st.markdown(f"<div style='background-color: #000000; padding: 20px; border-radius: 5px; font-size: 16px;'>{final_feedback.combined_feedback}</div>", unsafe_allow_html=True)
 
-    except (ValueError, KeyError) as e:
-        st.write(f"Error: {e}")
-
+        except (ValueError, KeyError) as e:
+            st.write(f"Error: {e}")
+else:
+    st.write("Please answer all the questions before aggregating the feedback.")
+]
 
 ###------------------------------------------------------------------------------------------------------------###
 
