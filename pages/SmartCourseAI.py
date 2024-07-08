@@ -900,7 +900,7 @@ else:
     st.write("Please answer all the questions before aggregating the feedback.")
 
 
-st.sidebar.write("---")
+st.write("---")
 ###------------------------------------------------------------------------------------------------------------###
 
 # Initialize session states
