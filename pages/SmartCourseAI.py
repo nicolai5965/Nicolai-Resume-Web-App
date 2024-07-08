@@ -770,7 +770,7 @@ def process_course_questions(course_material_qa, course_material, initial_llm_be
 
     return output_list, json_output_list, final_results_list, iteration_count
 
-output_list, json_output_list, final_results_list, iteration_count = process_course_questions(course_material_qa, course_material, initial_llm_behavior_guidelines_new, max_words, llm_model, max_iterations)
+output_list, json_output_list, final_results_list, iteration_count = process_course_questions(course_material_qa, course_material, initial_llm_behavior_guidelines_new, max_words, llm_model, max_iterations, test_mode=True)
 
 
 ###------------------------------------------------------------------------------------------------------------###
