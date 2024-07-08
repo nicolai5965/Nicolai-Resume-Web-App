@@ -767,7 +767,14 @@ def process_course_questions(course_material_qa, course_material, initial_llm_be
 
     return output_list, json_output_list, final_results_list, iteration_count
 
-output_list, json_output_list, final_results_list, iteration_count = process_course_questions(course_material_qa, course_material, initial_llm_behavior_guidelines_new, max_words, llm_model, max_iterations)
+# Add a checkbox to toggle test mode
+test_mode = st.checkbox('Test Mode', value=False)
+
+# Process course questions with the selected test mode
+output_list, json_output_list, final_results_list, iteration_count = process_course_questions(
+    course_material_qa, course_material, initial_llm_behavior_guidelines_new, max_words, llm_model, max_iterations, test_mode=test_mode
+)
+
 
 # Check if all questions have been answered
 all_questions_answered = len(st.session_state.answered_questions) == len(course_material_qa)
