@@ -710,43 +710,43 @@ def process_course_questions(course_material_qa, course_material, initial_llm_be
         # Check if this question has been answered
         question_answered = f"question_{question_key}" in st.session_state.answered_questions
 
-        # Create a submit button, disabled if the question has been answered
-        submit_button_key = f"submit_answer_{question_key}"
-        submit_button = st.button(
-            f"Submit Answer {iteration_count + 1}",
-            key=submit_button_key,
-            disabled=question_answered
-        )
+        if not question_answered:
+            # Create a submit button, only show if the question has not been answered
+            submit_button_key = f"submit_answer_{question_key}"
+            submit_button = st.button(
+                f"Submit Answer {iteration_count + 1}",
+                key=submit_button_key,
+            )
 
-        if submit_button and not question_answered:
-            try:
-                # Process the question with your backend logic
-                output = asyncio.run(run_feedback_assistant(course_material, question_text, initial_llm_behavior_guidelines_new, user_answer, max_words, llm_model, max_iterations))
-                output_json = convert_to_json(output)
+            if submit_button:
+                try:
+                    # Process the question with your backend logic
+                    output = asyncio.run(run_feedback_assistant(course_material, question_text, initial_llm_behavior_guidelines_new, user_answer, max_words, llm_model, max_iterations))
+                    output_json = convert_to_json(output)
 
-                # Extract feedback using your existing logic
-                que_feed_track = QuestionFeedbackTracker()
-                que_feed_track.parse_feedback_information(question_text, output_json)
-                final_results = que_feed_track.get_results()
+                    # Extract feedback using your existing logic
+                    que_feed_track = QuestionFeedbackTracker()
+                    que_feed_track.parse_feedback_information(question_text, output_json)
+                    final_results = que_feed_track.get_results()
 
-                st.write(f"Rating: {final_results[0]['rating']}")
-                st.write(f"Feedback: {final_results[0]['feedback']}")
+                    st.write(f"Rating: {final_results[0]['rating']}")
+                    st.write(f"Feedback: {final_results[0]['feedback']}")
 
-                st.write('-----------------------------------------------------------------------')
+                    st.write('-----------------------------------------------------------------------')
 
-                output_list.append(output)
-                json_output_list.append(output_json)
-                final_results_list.append(final_results)
+                    output_list.append(output)
+                    json_output_list.append(output_json)
+                    final_results_list.append(final_results)
 
-                # Mark this question as answered
-                st.session_state.answered_questions.add(f"question_{question_key}")
+                    # Mark this question as answered
+                    st.session_state.answered_questions.add(f"question_{question_key}")
 
-            except KeyError as e:
-                st.write(f"An error occurred while processing: {e}")
-                continue
-            except TypeError as e:
-                st.write(f"Type error during processing: {e}")
-                continue
+                except KeyError as e:
+                    st.write(f"An error occurred while processing: {e}")
+                    continue
+                except TypeError as e:
+                    st.write(f"Type error during processing: {e}")
+                    continue
 
         iteration_count += 1
 
