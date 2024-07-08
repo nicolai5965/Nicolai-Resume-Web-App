@@ -708,14 +708,14 @@ def process_course_questions(course_material_qa, course_material, initial_llm_be
 
         st.write(f"Question {iteration_count + 1}: {question_text}")
 
-        # Unique key generation for text input
-        user_answer_key = f"user_answer_{question_key}"
-        user_answer = st.text_input(f"Your answer to question {iteration_count + 1}", key=user_answer_key)
-
         # Check if this question has been answered
         question_answered = f"question_{question_key}" in st.session_state.answered_questions
 
         if not question_answered:
+            # Unique key generation for text input
+            user_answer_key = f"user_answer_{question_key}"
+            user_answer = st.text_input(f"Your answer to question {iteration_count + 1}", key=user_answer_key)
+
             # Create a submit button, only show if the question has not been answered
             submit_button_key = f"submit_answer_{question_key}"
             submit_button = st.button(
