@@ -8,6 +8,7 @@ import os
 import uuid
 from pathlib import Path
 from typing import AsyncGenerator, List, Sequence
+import pyperclip
 
 import nest_asyncio
 import openai
@@ -901,6 +902,29 @@ else:
 
 ###------------------------------------------------------------------------------------------------------------###
 
+pythonCopyimport streamlit as st
+import pyperclip
+
+# Your course material dictionary
+course_material_qa = {
+    "question1": {
+        "question": "What are the primary advantages of Python that contribute to its popularity across various domains such as web development, data analysis, and machine learning?",
+        "answers": {
+            "minimal": "Python is popular because it's easy and versatile.",
+            "moderate": "Python is popular due to its simplicity, readability, and versatility. It is used in web development, data analysis, and machine learning.",
+            "good_to_excellent": "Python's primary advantages include its simplicity, readability, and versatility. These features, along with its support for multiple programming paradigms and a vast ecosystem of libraries, make it popular in various domains such as web development, data analysis, machine learning, and automation."
+        }
+    },
+    "question2": {
+        "question": "Describe the basic syntax for defining a function in Python. Provide an example.",
+        "answers": {
+            "minimal": "Use def to make a function. Example: def func(): pass",
+            "moderate": "Functions in Python are defined using the def keyword, followed by the function name and parentheses. The body is indented. Example: def greet(name): return f'Hello, {name}!'",
+            "good_to_excellent": "In Python, a function is defined using the def keyword, followed by the function name and parentheses which may include parameters. The function body is indented and can return a value using the return keyword. Example: def greet(name): return f'Hello, {name}!' Functions should have descriptive names and concise bodies."
+        }
+    }
+}
+
 # Initialize session states
 if 'show_qa_section' not in st.session_state:
     st.session_state.show_qa_section = False
@@ -912,13 +936,18 @@ if 'show_answers' not in st.session_state:
 def toggle_answer(question_key):
     st.session_state.show_answers[question_key] = not st.session_state.show_answers[question_key]
 
-# Toggle button for the entire Q&A section
-if st.button("Toggle Q&A Section"):
+# Function to copy text to clipboard
+def copy_to_clipboard(text):
+    pyperclip.copy(text)
+    st.success("Answer copied to clipboard!")
+
+# Toggle button for the entire Pre Made Answers section
+if st.button("Toggle Pre Made Answers Section"):
     st.session_state.show_qa_section = not st.session_state.show_qa_section
 
-# Display Q&A section if toggled on
+# Display Pre Made Answers section if toggled on
 if st.session_state.show_qa_section:
-    st.write("## Q&A Section")
+    st.write("## Pre Made Answers")
     
     # Display questions and answers
     for q_key, q_data in course_material_qa.items():
@@ -931,11 +960,17 @@ if st.session_state.show_qa_section:
             answer_level = st.selectbox(f"Select answer level for {q_key}", 
                                         ["minimal", "moderate", "good_to_excellent"],
                                         key=f"select_{q_key}")
-            st.write(f"**Answer:** {q_data['answers'][answer_level]}")
+            
+            answer = q_data['answers'][answer_level]
+            st.write(f"**Answer:** {answer}")
+            
+            # Add a copy button for the answer
+            if st.button(f"Copy Answer for {q_key}", key=f"copy_{q_key}"):
+                copy_to_clipboard(answer)
 
         st.write("---")
 else:
-    st.write("Click the button above to show the Q&A section.")
+    st.write("Click the button above to show the Pre Made Answers section.")
 
 
 ###------------------------------------------------------------------------------------------------------------###
