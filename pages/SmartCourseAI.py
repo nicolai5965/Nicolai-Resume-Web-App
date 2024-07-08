@@ -604,7 +604,7 @@ def transform_to_json(final_results_list, max_rating=10):
     # Prepare the output dictionary with formatted rating and range
     output = {
         "summarized_rating": f"{average_rating:.1f}/{max_rating}",  # Format to one decimal place and include rating range
-        "collcted_feedback": feedback_list,
+        "collected_feedback": feedback_list,
         "rating_range": max_rating
     }
 
