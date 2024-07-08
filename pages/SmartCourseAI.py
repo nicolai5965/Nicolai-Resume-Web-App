@@ -725,8 +725,11 @@ output_list, json_output_list, final_results_list, iteration_count = process_cou
 )
 
 
-# Check if all questions have been answered
-all_questions_answered = len(st.session_state.answered_questions) == len(course_material_qa)
+# Check if all questions have been answered, considering test mode
+if test_mode:
+    all_questions_answered = len(st.session_state.answered_questions) == 2
+else:
+    all_questions_answered = len(st.session_state.answered_questions) == len(course_material_qa)
 
 # Define the Pydantic model for aggregated feedback
 class AggregateFeedback(BaseModel):
