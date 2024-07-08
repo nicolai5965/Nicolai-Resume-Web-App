@@ -854,17 +854,21 @@ st.title("Full course Feedback")
 if all_questions_answered:
     if st.button("Aggregate Feedback"):
         # Placeholder for the ttj_output
-        #st.write(final_results_list)
         ttj_output = transform_to_json(final_results_list, max_rating=10)
-        st.write(ttj_output)
-        
+        st.write("TTJ Output:", ttj_output)
+
         try:
+            # Ensure ttj_output contains the expected keys
+            if "summarized_rating" not in ttj_output or "collected_feedback" not in ttj_output:
+                raise KeyError("summarized_rating or collected_feedback key not found in ttj_output")
+
             # Initialize the FeedbackAggregator
             aggregator = FeedbackAggregator(llm_provider="anthropic")
 
             # Get the final feedback
-            final_feedback = aggregator.aggregate_feedback(ttj_output["summarized_rating"], ttj_output["collected_feedback"]) 
-            st.write(final_feedback)
+            final_feedback = aggregator.aggregate_feedback(ttj_output["summarized_rating"], ttj_output["collected_feedback"])
+            st.write("Final Feedback:", final_feedback)
+
             # Display the final feedback
             with st.container():
                 st.header("Final Feedback")
@@ -888,7 +892,7 @@ if all_questions_answered:
                 feedback_container = st.container()
                 with feedback_container:
                     st.markdown(f"<span style='font-weight: bold; font-size: 18px;'>Combined Feedback:</span>", unsafe_allow_html=True)
-                    st.markdown(f"<div style='background-color: #000000; padding: 20px; border-radius: 5px; font-size: 16px;'>{final_feedback.combined_feedback}</div>", unsafe_allow_html=True)
+                    st.markdown(f"<span style='font-size: 16px;'>{final_feedback.combined_feedback}</span>", unsafe_allow_html=True)
 
         except (ValueError, KeyError) as e:
             st.write(f"Error: {e}")
