@@ -8,7 +8,6 @@ import os
 import uuid
 from pathlib import Path
 from typing import AsyncGenerator, List, Sequence
-import pyperclip
 
 import nest_asyncio
 import openai
@@ -900,6 +899,8 @@ if all_questions_answered:
 else:
     st.write("Please answer all the questions before aggregating the feedback.")
 
+
+st.sidebar.write("---")
 ###------------------------------------------------------------------------------------------------------------###
 
 # Initialize session states
