@@ -683,6 +683,7 @@ if st.session_state.show_course_material:
 
 ###------------------------------------------------------------------------------------------------------------###
 
+
 def process_course_questions(course_material_qa, course_material, initial_llm_behavior_guidelines_new, max_words=45, llm_model="anthropic", max_iterations=2, test_mode=False):
     output_list = []
     json_output_list = []
@@ -741,12 +742,20 @@ def process_course_questions(course_material_qa, course_material, initial_llm_be
                     # Mark this question as answered
                     st.session_state.answered_questions.add(f"question_{question_key}")
 
+                    # Rerun the script to update the state and refresh the page
+                    st.experimental_rerun()
+
                 except KeyError as e:
                     st.write(f"An error occurred while processing: {e}")
                     continue
                 except TypeError as e:
                     st.write(f"Type error during processing: {e}")
                     continue
+
+        else:
+            st.write(f"Rating: {final_results[iteration_count][0]['rating']}")
+            st.write(f"Feedback: {final_results[iteration_count][0]['feedback']}")
+            st.write('-----------------------------------------------------------------------')
 
         iteration_count += 1
 
