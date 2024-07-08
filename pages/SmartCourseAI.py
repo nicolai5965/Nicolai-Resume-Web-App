@@ -464,16 +464,18 @@ class FeedbackAssistant:
 
 ###------------------------------------------------------------------------------------------------------------###
 
-async def run_feedback_assistant(course_material: str, course_question: str, behavior_guidelines: str, user_answer: str, max_words: int, llm_provider: str, max_iterations: int):
+async def run_feedback_assistant(course_material: str, course_question: str, behavior_guidelines: str, user_answer: str, max_words: int, llm_provider: str, max_iterations: int, test_mode: bool):
     # Initialize the LLMHandler
     llm_handler = LLMHandler(llm_provider=llm_provider, max_tokens=2000, temperature=0.1)
+    # Conditionally set max_iterations
+    effective_max_iterations = 2 if test_mode else max_iterations
 
     # Instantiate FeedbackAssistant with specified model and prompts
     assistant = FeedbackAssistant(
         llm_handler=llm_handler,
         reflection_prompt_template=reflection_prompt_template_single_shot,
         correction_prompt_template=correction_prompt_template_single_shot,
-        max_iterations=max_iterations
+        max_iterations=effective_max_iterations
     )
 
     # Run the feedback graph and get results
@@ -629,7 +631,6 @@ if st.session_state.show_course_material:
 
 
 ###------------------------------------------------------------------------------------------------------------###
-
 def process_course_questions(course_material_qa, course_material, initial_llm_behavior_guidelines_new, max_words=45, llm_model="anthropic", max_iterations=2, test_mode=False):
     output_list = []
     json_output_list = []
@@ -670,7 +671,7 @@ def process_course_questions(course_material_qa, course_material, initial_llm_be
             if submit_button:
                 try:
                     # Process the question with your backend logic
-                    output = asyncio.run(run_feedback_assistant(course_material, question_text, initial_llm_behavior_guidelines_new, user_answer, max_words, llm_model, max_iterations))
+                    output = asyncio.run(run_feedback_assistant(course_material, question_text, initial_llm_behavior_guidelines_new, user_answer, max_words, llm_model, len(course_material_qa), test_mode))
                     output_json = convert_to_json(output)
 
                     # Extract feedback using your existing logic
@@ -713,6 +714,7 @@ def process_course_questions(course_material_qa, course_material, initial_llm_be
         iteration_count += 1
 
     return output_list, json_output_list, final_results_list, iteration_count
+
 
 # Add a checkbox to toggle test mode
 test_mode = st.checkbox('Test Mode', value=False)
