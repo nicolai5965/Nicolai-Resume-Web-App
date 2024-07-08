@@ -625,9 +625,9 @@ if llm_model == 'openai':
         """
         <div style="background-color: #f0f0f0; padding: 10px; border-radius: 5px; margin-top: 10px;">
         <p style="color: #1e90ff; font-style: italic;">
-        🤔 Psst! Have you considered giving Anthropic a try? It's not just easier on your wallet, 
+        🤔 Psst! Have you considered giving Anthropic a try? It's not just easier on my wallet, 
         but it might just surprise you with its stellar performance! Why not take it for a spin? 
-        Your AI adventures (and your budget) might thank you! 😉
+        Your AI adventures (and my budget) might thank you! 😉
         </p>
         </div>
         """,
