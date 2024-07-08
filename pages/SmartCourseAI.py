@@ -913,11 +913,6 @@ if 'show_answers' not in st.session_state:
 def toggle_answer(question_key):
     st.session_state.show_answers[question_key] = not st.session_state.show_answers[question_key]
 
-# Function to copy text to clipboard
-def copy_to_clipboard(text):
-    pyperclip.copy(text)
-    st.success("Answer copied to clipboard!")
-
 # Toggle button for the entire Pre Made Answers section
 if st.button("Toggle Pre Made Answers Section"):
     st.session_state.show_qa_section = not st.session_state.show_qa_section
@@ -939,11 +934,11 @@ if st.session_state.show_qa_section:
                                         key=f"select_{q_key}")
             
             answer = q_data['answers'][answer_level]
-            st.write(f"**Answer:** {answer}")
+            st.write(f"**Answer:**")
             
-            # Add a copy button for the answer
-            if st.button(f"Copy Answer for {q_key}", key=f"copy_{q_key}"):
-                copy_to_clipboard(answer)
+            # Display the answer in a text area for easy copying
+            st.text_area("Copy this answer:", value=answer, height=100, key=f"textarea_{q_key}")
+            st.info("You can copy the answer from the text area above.")
 
         st.write("---")
 else:
