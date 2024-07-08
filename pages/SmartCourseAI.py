@@ -619,7 +619,20 @@ if 'show_course_material' not in st.session_state:
 # Input parameters
 max_words = st.number_input('Max Words', min_value=1, max_value=1000, value=45)
 llm_model = st.selectbox('LLM Model', ['anthropic', 'openai'])
-# max_iterations = st.number_input('Max Iterations', min_value=1, max_value=10, value=2)
+
+if llm_model == 'openai':
+    st.markdown(
+        """
+        <div style="background-color: #f0f0f0; padding: 10px; border-radius: 5px; margin-top: 10px;">
+        <p style="color: #1e90ff; font-style: italic;">
+        🤔 Psst! Have you considered giving Anthropic a try? It's not just easier on your wallet, 
+        but it might just surprise you with its stellar performance! Why not take it for a spin? 
+        Your AI adventures (and your budget) might thank you! 😉
+        </p>
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
 
 # Add a button to toggle the display of course material
 if st.button("Show/Hide Course Material"):
