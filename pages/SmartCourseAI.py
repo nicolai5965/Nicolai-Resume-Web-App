@@ -685,6 +685,7 @@ if st.session_state.show_course_material:
 
 
 
+
 def process_course_questions(course_material_qa, course_material, initial_llm_behavior_guidelines_new, max_words=45, llm_model="anthropic", max_iterations=2, test_mode=False):
     output_list = []
     json_output_list = []
@@ -693,9 +694,11 @@ def process_course_questions(course_material_qa, course_material, initial_llm_be
     iteration_count = 0
     max_test_iterations = 2 if test_mode else len(course_material_qa)
 
-    # Initialize session state for answered questions if not exists
+    # Initialize session state for answered questions and feedback if not exists
     if 'answered_questions' not in st.session_state:
         st.session_state.answered_questions = set()
+    if 'feedback' not in st.session_state:
+        st.session_state.feedback = {}
 
     for question_key, question_data in course_material_qa.items():
         if iteration_count >= max_test_iterations:
@@ -740,6 +743,9 @@ def process_course_questions(course_material_qa, course_material, initial_llm_be
                     json_output_list.append(output_json)
                     final_results_list.append(final_results)
 
+                    # Store feedback in session state
+                    st.session_state.feedback[f"question_{question_key}"] = final_results
+
                     # Mark this question as answered
                     st.session_state.answered_questions.add(f"question_{question_key}")
 
@@ -754,9 +760,10 @@ def process_course_questions(course_material_qa, course_material, initial_llm_be
                     continue
 
         else:
-            if final_results_list:
-                st.write(f"Rating: {final_results_list[-1][0]['rating']}")
-                st.write(f"Feedback: {final_results_list[-1][0]['feedback']}")
+            feedback = st.session_state.feedback.get(f"question_{question_key}")
+            if feedback:
+                st.write(f"Rating: {feedback[0]['rating']}")
+                st.write(f"Feedback: {feedback[0]['feedback']}")
                 st.write('-----------------------------------------------------------------------')
 
         iteration_count += 1
