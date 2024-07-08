@@ -750,7 +750,7 @@ def process_course_questions(course_material_qa, course_material, initial_llm_be
                     st.session_state.answered_questions.add(f"question_{question_key}")
 
                     # Rerun the script to update the state and refresh the page
-                    st.experimental_rerun()
+                    st.rerun()
 
                 except KeyError as e:
                     st.write(f"An error occurred while processing: {e}")
