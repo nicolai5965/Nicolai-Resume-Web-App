@@ -770,7 +770,7 @@ def process_course_questions(course_material_qa, course_material, initial_llm_be
 
     return output_list, json_output_list, final_results_list, iteration_count
 
-process_course_questions(course_material_qa, course_material, initial_llm_behavior_guidelines_new, max_words, llm_model, max_iterations)
+output_list, json_output_list, final_results_list, iteration_count = process_course_questions(course_material_qa, course_material, initial_llm_behavior_guidelines_new, max_words, llm_model, max_iterations)
 
 
 ###------------------------------------------------------------------------------------------------------------###
@@ -832,7 +832,7 @@ class FeedbackAggregator:
 st.title("Full course Feedback")
 
 # Placeholder for the ttj_output
-ttj_output = transform_to_json(data, max_rating=10)
+ttj_output = transform_to_json(final_results_list, max_rating=10)
 st.write(ttj_output)
 if st.button("Aggregate Feedback"):
     try:
