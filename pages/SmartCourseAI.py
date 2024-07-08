@@ -733,6 +733,75 @@ if st.session_state.show_course_material:
 
 #     return output_list, json_output_list, final_results_list, iteration_count
 
+# def process_course_questions(course_material_qa, course_material, initial_llm_behavior_guidelines_new, max_words=45, llm_model="anthropic", max_iterations=2, test_mode=False):
+#     output_list = []
+#     json_output_list = []
+#     final_results_list = []
+
+#     iteration_count = 0
+#     max_test_iterations = 2 if test_mode else len(course_material_qa)
+
+#     # Initialize session state for answered questions if not exists
+#     if 'answered_questions' not in st.session_state:
+#         st.session_state.answered_questions = set()
+
+#     for question_key, question_data in course_material_qa.items():
+#         if iteration_count >= max_test_iterations:
+#             break
+
+#         question_text = question_data['question']
+
+#         st.write(f"Question: {question_text}")
+
+#         user_answer = st.text_input(f"Your answer to question {iteration_count + 1}", key=f"user_answer_{iteration_count}")
+
+#         # Check if this question has been answered
+#         question_answered = f"question_{iteration_count}" in st.session_state.answered_questions
+
+#         # Create a submit button, disabled if the question has been answered
+#         submit_button = st.button(
+#             f"Submit Answer {iteration_count + 1}",
+#             key=f"submit_answer_{iteration_count}",
+#             disabled=question_answered
+#         )
+
+#         if submit_button and not question_answered:
+#             try:
+#                 # Process the question with your backend logic
+#                 output = asyncio.run(run_feedback_assistant(course_material, question_text, initial_llm_behavior_guidelines_new, user_answer, max_words, llm_model, max_iterations))
+#                 output_json = convert_to_json(output)
+
+#                 # Extract feedback using your existing logic
+#                 que_feed_track = QuestionFeedbackTracker()
+#                 que_feed_track.parse_feedback_information(question_text, output_json)
+#                 final_results = que_feed_track.get_results()
+
+#                 st.write(f"Rating: {final_results[0]['rating']}")
+#                 st.write(f"Feedback: {final_results[0]['feedback']}")
+
+#                 st.write('-----------------------------------------------------------------------')
+
+#                 output_list.append(output)
+#                 json_output_list.append(output_json)
+#                 final_results_list.append(final_results)
+
+#                 # Mark this question as answered
+#                 st.session_state.answered_questions.add(f"question_{iteration_count}")
+
+#                 iteration_count += 1
+
+#             except KeyError as e:
+#                 st.write(f"An error occurred while processing: {e}")
+#                 continue
+#             except TypeError as e:
+#                 st.write(f"Type error during processing: {e}")
+#                 continue
+
+#     return output_list, json_output_list, final_results_list, iteration_count
+
+
+# process_course_questions(course_material_qa, course_material, initial_llm_behavior_guidelines_new, max_words, llm_model, max_iterations)
+
 def process_course_questions(course_material_qa, course_material, initial_llm_behavior_guidelines_new, max_words=45, llm_model="anthropic", max_iterations=2, test_mode=False):
     output_list = []
     json_output_list = []
@@ -753,15 +822,18 @@ def process_course_questions(course_material_qa, course_material, initial_llm_be
 
         st.write(f"Question: {question_text}")
 
-        user_answer = st.text_input(f"Your answer to question {iteration_count + 1}", key=f"user_answer_{iteration_count}")
+        # Unique key generation for text input
+        user_answer_key = f"user_answer_{question_key}"
+        user_answer = st.text_input(f"Your answer to question {iteration_count + 1}", key=user_answer_key)
 
         # Check if this question has been answered
-        question_answered = f"question_{iteration_count}" in st.session_state.answered_questions
+        question_answered = f"question_{question_key}" in st.session_state.answered_questions
 
         # Create a submit button, disabled if the question has been answered
+        submit_button_key = f"submit_answer_{question_key}"
         submit_button = st.button(
             f"Submit Answer {iteration_count + 1}",
-            key=f"submit_answer_{iteration_count}",
+            key=submit_button_key,
             disabled=question_answered
         )
 
@@ -786,7 +858,7 @@ def process_course_questions(course_material_qa, course_material, initial_llm_be
                 final_results_list.append(final_results)
 
                 # Mark this question as answered
-                st.session_state.answered_questions.add(f"question_{iteration_count}")
+                st.session_state.answered_questions.add(f"question_{question_key}")
 
                 iteration_count += 1
 
