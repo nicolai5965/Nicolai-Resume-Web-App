@@ -684,6 +684,7 @@ if st.session_state.show_course_material:
 ###------------------------------------------------------------------------------------------------------------###
 
 
+
 def process_course_questions(course_material_qa, course_material, initial_llm_behavior_guidelines_new, max_words=45, llm_model="anthropic", max_iterations=2, test_mode=False):
     output_list = []
     json_output_list = []
@@ -753,14 +754,14 @@ def process_course_questions(course_material_qa, course_material, initial_llm_be
                     continue
 
         else:
-            st.write(f"Rating: {final_results[iteration_count][0]['rating']}")
-            st.write(f"Feedback: {final_results[iteration_count][0]['feedback']}")
-            st.write('-----------------------------------------------------------------------')
+            if final_results_list:
+                st.write(f"Rating: {final_results_list[-1][0]['rating']}")
+                st.write(f"Feedback: {final_results_list[-1][0]['feedback']}")
+                st.write('-----------------------------------------------------------------------')
 
         iteration_count += 1
 
     return output_list, json_output_list, final_results_list, iteration_count
-
 
 process_course_questions(course_material_qa, course_material, initial_llm_behavior_guidelines_new, max_words, llm_model, max_iterations)
 
