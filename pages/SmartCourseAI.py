@@ -721,7 +721,7 @@ test_mode = st.checkbox('Test Mode', value=False)
 
 # Process course questions with the selected test mode
 output_list, json_output_list, final_results_list, iteration_count = process_course_questions(
-    course_material_qa, course_material, initial_llm_behavior_guidelines_new, max_words, llm_model, max_iterations, test_mode=test_mode
+    course_material_qa, course_material, initial_llm_behavior_guidelines_new, max_words, llm_model, test_mode=test_mode
 )
 
 
