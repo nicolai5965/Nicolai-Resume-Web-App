@@ -855,7 +855,7 @@ if all_questions_answered:
     if st.button("Aggregate Feedback"):
         # Placeholder for the ttj_output
         ttj_output = transform_to_json(final_results_list, max_rating=10)
-        st.write("TTJ Output:", ttj_output)
+        #st.write("TTJ Output:", ttj_output)
 
         try:
             # Ensure ttj_output contains the expected keys
@@ -867,7 +867,7 @@ if all_questions_answered:
 
             # Get the final feedback
             final_feedback = aggregator.aggregate_feedback(ttj_output["summarized_rating"], ttj_output["collected_feedback"])
-            st.write("Final Feedback:", final_feedback)
+            #st.write("Final Feedback:", final_feedback)
 
             # Display the final feedback
             with st.container():
