@@ -901,7 +901,28 @@ else:
 
 ###------------------------------------------------------------------------------------------------------------###
 
+# Initialize session state for showing answers
+if 'show_answers' not in st.session_state:
+    st.session_state.show_answers = {q: False for q in course_material_qa.keys()}
 
+# Function to toggle answer visibility
+def toggle_answer(question_key):
+    st.session_state.show_answers[question_key] = not st.session_state.show_answers[question_key]
+
+# Display questions and answers
+for q_key, q_data in course_material_qa.items():
+    st.write(f"**Question:** {q_data['question']}")
+    
+    if st.button(f"Toggle Answer for {q_key}", key=f"toggle_{q_key}"):
+        toggle_answer(q_key)
+    
+    if st.session_state.show_answers[q_key]:
+        answer_level = st.selectbox(f"Select answer level for {q_key}", 
+                                    ["minimal", "moderate", "good_to_excellent"],
+                                    key=f"select_{q_key}")
+        st.write(f"**Answer:** {q_data['answers'][answer_level]}")
+
+    st.write("---")
 
 
 ###------------------------------------------------------------------------------------------------------------###
