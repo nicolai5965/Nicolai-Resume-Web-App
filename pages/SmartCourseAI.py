@@ -864,6 +864,7 @@ if all_questions_answered:
 
             # Get the final feedback
             final_feedback = aggregator.aggregate_feedback(ttj_output["summarized_rating"], ttj_output["collected_feedback"]) 
+            st.write(final_feedback)
             # Display the final feedback
             with st.container():
                 st.header("Final Feedback")
