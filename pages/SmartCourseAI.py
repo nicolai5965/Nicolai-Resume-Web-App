@@ -683,9 +683,6 @@ if st.session_state.show_course_material:
 
 ###------------------------------------------------------------------------------------------------------------###
 
-
-
-
 def process_course_questions(course_material_qa, course_material, initial_llm_behavior_guidelines_new, max_words=45, llm_model="anthropic", max_iterations=2, test_mode=False):
     output_list = []
     json_output_list = []
@@ -770,11 +767,7 @@ def process_course_questions(course_material_qa, course_material, initial_llm_be
 
     return output_list, json_output_list, final_results_list, iteration_count
 
-output_list, json_output_list, final_results_list, iteration_count = process_course_questions(course_material_qa, course_material, initial_llm_behavior_guidelines_new, max_words, llm_model, max_iterations, test_mode=True)
-
-
-###------------------------------------------------------------------------------------------------------------###
-
+output_list, json_output_list, final_results_list, iteration_count = process_course_questions(course_material_qa, course_material, initial_llm_behavior_guidelines_new, max_words, llm_model, max_iterations)
 
 # Check if all questions have been answered
 all_questions_answered = len(st.session_state.answered_questions) == len(course_material_qa)
@@ -814,10 +807,11 @@ class FeedbackAggregator:
 st.title("Full course Feedback")
 
 if all_questions_answered:
-    # Placeholder for the ttj_output
-    ttj_output = transform_to_json(final_results_list, max_rating=10)
-    st.write(ttj_output)
     if st.button("Aggregate Feedback"):
+        # Placeholder for the ttj_output
+        ttj_output = transform_to_json(final_results_list, max_rating=10)
+        st.write(ttj_output)
+        
         try:
             # Initialize the FeedbackAggregator
             aggregator = FeedbackAggregator(llm_provider="anthropic")
@@ -853,7 +847,6 @@ if all_questions_answered:
             st.write(f"Error: {e}")
 else:
     st.write("Please answer all the questions before aggregating the feedback.")
-]
 
 ###------------------------------------------------------------------------------------------------------------###
 
