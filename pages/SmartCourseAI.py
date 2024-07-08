@@ -768,8 +768,9 @@ st.title("Full course Feedback")
 if all_questions_answered:
     if st.button("Aggregate Feedback"):
         # Placeholder for the ttj_output
-        ttj_output = transform_to_json(final_results_list, max_rating=10)
-        st.write(ttj_output)
+        st.write(final_results_list)
+        # ttj_output = transform_to_json(final_results_list, max_rating=10)
+        # st.write(ttj_output)
         
         # try:
         #     # Initialize the FeedbackAggregator
