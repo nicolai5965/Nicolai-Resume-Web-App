@@ -212,7 +212,7 @@ class LLMHandler:
         if llm_provider == "openai":
             # Use OpenAI's model with additional tags and metadata
             self.language_model = ChatOpenAI(
-                model_name='gpt-3.5-turbo-0125',
+                model_name='gpt-4o-mini',
                 max_tokens=max_tokens,
                 temperature=temperature,
                 tags=common_tags,
@@ -620,19 +620,19 @@ if 'show_course_material' not in st.session_state:
 max_words = st.number_input('Max Words', min_value=1, max_value=1000, value=45)
 llm_model = st.selectbox('LLM Model', ['anthropic', 'openai'])
 
-if llm_model == 'openai':
-    st.markdown(
-        """
-        <div style="background-color: #f0f0f0; padding: 10px; border-radius: 5px; margin-top: 10px;">
-        <p style="color: #1e90ff; font-style: italic;">
-        🤔 Psst! Have you considered giving Anthropic a try? It's not just easier on my wallet, 
-        but it might just surprise you with its stellar performance! Why not take it for a spin? 
-        Your AI adventures (and my budget) might thank you! 😉
-        </p>
-        </div>
-        """,
-        unsafe_allow_html=True
-    )
+# if llm_model == 'openai':
+#     st.markdown(
+#         """
+#         <div style="background-color: #f0f0f0; padding: 10px; border-radius: 5px; margin-top: 10px;">
+#         <p style="color: #1e90ff; font-style: italic;">
+#         🤔 Psst! Have you considered giving Anthropic a try? It's not just easier on my wallet, 
+#         but it might just surprise you with its stellar performance! Why not take it for a spin? 
+#         Your AI adventures (and my budget) might thank you! 😉
+#         </p>
+#         </div>
+#         """,
+#         unsafe_allow_html=True
+#     )
 
 # Add a button to toggle the display of course material
 if st.button("Show/Hide Course Material"):
@@ -644,7 +644,7 @@ if st.session_state.show_course_material:
 
 
 ###------------------------------------------------------------------------------------------------------------###
-def process_course_questions(course_material_qa, course_material, initial_llm_behavior_guidelines_new, max_words=45, llm_model="anthropic", max_iterations=2, test_mode=False):
+def process_course_questions(course_material_qa, course_material, initial_llm_behavior_guidelines_new, max_words=45, llm_model="openai", max_iterations=2, test_mode=False):
     output_list = []
     json_output_list = []
 
