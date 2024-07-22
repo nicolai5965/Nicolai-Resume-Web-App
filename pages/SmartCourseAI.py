@@ -618,7 +618,7 @@ if 'show_course_material' not in st.session_state:
 
 # Input parameters
 max_words = st.number_input('Max Words', min_value=1, max_value=1000, value=45)
-llm_model = st.selectbox('LLM Model', ['anthropic', 'openai'])
+llm_model = st.selectbox('LLM Model', ['openai', 'anthropic'])
 
 # if llm_model == 'openai':
 #     st.markdown(
