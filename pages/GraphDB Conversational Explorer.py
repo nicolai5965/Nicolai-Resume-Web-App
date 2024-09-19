@@ -79,7 +79,7 @@ graph = Neo4jGraph(
 
 # Verify connection
 try:
-    graph.verify_connection()
+    result = graph.query("RETURN 1")
     st.write("Connected to Neo4j database!")
 except Exception as e:
     st.write(f"Error connecting to Neo4j database: {e}")
