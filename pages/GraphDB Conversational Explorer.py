@@ -72,7 +72,8 @@ st.header("Welcome to the SmartCourseAI Feedback Assistant!")
 
 # Try to connect to the Neo4j database
 try:
-    graph = Graph(NEO4J_URI, auth=(NEO4J_USERNAME, NEO4J_PASSWORD))
+    # Use neo4j.GraphDatabase.driver to create a Driver instance
+    driver = GraphDatabase.driver(NEO4J_URI, auth=(NEO4J_USERNAME, NEO4J_PASSWORD))
     st.write("Connected to Neo4j database!")
 except Exception as e:
     st.write(f"Error connecting to Neo4j database: {e}")
@@ -164,9 +165,6 @@ class LLMHandler:
 # Initialize the language model handler
 llm = LLMHandler("openai")
 
-# Optional: Show settings
-# st.write(llm.show_settings())
-
 # Define the chat prompt
 chat_prompt = ChatPromptTemplate.from_messages(
     [
@@ -189,7 +187,7 @@ tools = [
 
 # Define memory using Neo4j
 def get_memory(session_id):
-    return Neo4jChatMessageHistory(session_id=session_id, graph=graph)
+    return Neo4jChatMessageHistory(session_id=session_id, driver=driver)
 
 # Create the agent
 agent_prompt = hub.pull("hwchase17/react-chat")
@@ -256,7 +254,7 @@ def handle_submit():
         st.session_state.user_input = ''
 
 # Streamlit UI
-st.title("Movie Expert Chatbot")
+st.title("GraphDB Conversational Explorer")
 
 # Chat interface
 if 'messages' not in st.session_state:
