@@ -16,6 +16,7 @@ from langchain_core.prompts import ChatPromptTemplate
 from langchain.schema import StrOutputParser
 from langchain.tools import Tool
 from langchain_community.chat_message_histories import Neo4jChatMessageHistory
+from langchain_community.graphs import Neo4jGraph
 from langchain.agents import AgentExecutor, create_react_agent
 from langchain_core.runnables.history import RunnableWithMessageHistory
 from langchain import hub
@@ -69,11 +70,16 @@ st.sidebar.write("---")
 # Add the header
 st.header("Welcome to the SmartCourseAI Feedback Assistant!")
 
+# Initialize Neo4jGraph
+graph = Neo4jGraph(
+    url=st.secrets["NEO4J_URI"],
+    username=st.secrets["NEO4J_USERNAME"],
+    password=st.secrets["NEO4J_PASSWORD"],
+)
 
-# Try to connect to the Neo4j database
+# Verify connection
 try:
-    # Use neo4j.GraphDatabase.driver to create a Driver instance
-    driver = GraphDatabase.driver(NEO4J_URI, auth=(NEO4J_USERNAME, NEO4J_PASSWORD))
+    graph.verify_connection()
     st.write("Connected to Neo4j database!")
 except Exception as e:
     st.write(f"Error connecting to Neo4j database: {e}")
@@ -185,9 +191,9 @@ tools = [
     )
 ]
 
-# Define memory using Neo4j
+# Define memory using Neo4jChatMessageHistory and the Neo4jGraph
 def get_memory(session_id):
-    return Neo4jChatMessageHistory(session_id=session_id, driver=driver)
+    return Neo4jChatMessageHistory(session_id=session_id, graph=graph)
 
 # Create the agent
 agent_prompt = hub.pull("hwchase17/react-chat")
