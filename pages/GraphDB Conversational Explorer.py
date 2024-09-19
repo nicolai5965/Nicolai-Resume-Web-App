@@ -67,9 +67,6 @@ st.sidebar.download_button(
 st.sidebar.write("---")
 
 ###------------------------------------------------------------------------------------------------------------###
-# Add the header
-st.header("Welcome to the SmartCourseAI Feedback Assistant!")
-
 # Initialize Neo4jGraph
 graph = Neo4jGraph(
     url=st.secrets["NEO4J_URI"],
