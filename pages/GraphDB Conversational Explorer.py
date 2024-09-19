@@ -77,12 +77,17 @@ graph = Neo4jGraph(
     password=st.secrets["NEO4J_PASSWORD"],
 )
 
-# Verify connection
+# Verify connection using a simple query
 try:
     result = graph.query("RETURN 1")
-    st.write("Connected to Neo4j database!")
+    connection_status = "Connected to Neo4j database!"
 except Exception as e:
-    st.write(f"Error connecting to Neo4j database: {e}")
+    connection_status = f"Error connecting to Neo4j database: {e}"
+
+# Streamlit UI
+st.title("GraphDB Conversational Explorer")
+
+st.write(connection_status)  # Display connection status below the title
 
 class LLMHandler:
     """
@@ -248,10 +253,10 @@ def handle_submit():
     """
     user_input = st.session_state.get('user_input', '')
     if user_input:
-        # Display user message
+        # Save user message
         write_message('user', user_input)
 
-        # Generate and display assistant response
+        # Generate and save assistant response
         with st.spinner('Thinking...'):
             response = generate_response(user_input)
             write_message('assistant', response)
@@ -259,8 +264,6 @@ def handle_submit():
         # Clear the input box
         st.session_state.user_input = ''
 
-# Streamlit UI
-st.title("GraphDB Conversational Explorer")
 
 # Chat interface
 if 'messages' not in st.session_state:
