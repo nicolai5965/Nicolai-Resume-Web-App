@@ -81,11 +81,6 @@ try:
 except Exception as e:
     connection_status = f"Error connecting to Neo4j database: {e}"
 
-# Streamlit UI
-st.title("GraphDB Conversational Explorer")
-
-st.write(connection_status)  # Display connection status below the title
-
 class LLMHandler:
     """
     A handler for managing language models from different providers.
