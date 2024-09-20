@@ -194,7 +194,8 @@ tools = [
         name="General Chat",
         description="For general movie chat not covered by other tools",
         func=movie_chat.invoke,
-    )
+    ),
+    movie_plot_tool
 ]
 
 # Define memory using Neo4jChatMessageHistory and the Neo4jGraph
@@ -307,14 +308,27 @@ def handle_submit():
 
 #---------------------------------------------------------------------------------------------------------
 
-neo4jvector = Neo4jVector.from_existing_index(
-    embeddings,                              # (1)
-    graph=graph,                             # (2)
-    index_name="moviePlots",                 # (3)
-    node_label="Movie",                      # (4)
-    text_node_property="plot",               # (5)
-    embedding_node_property="plotEmbedding", # (6)
-    retrieval_query="""
+def create_movie_plot_tool(embeddings, graph, llm):
+    """
+    Creates the 'Movie Plot Search' tool for the agent.
+
+    Parameters:
+    - embeddings: The embedding model to use.
+    - graph: The Neo4j graph instance.
+    - llm: The language model handler instance.
+
+    Returns:
+    - Tool: The 'Movie Plot Search' tool to add to the agent's tools list.
+    """
+    # Initialize the Neo4jVector
+    neo4jvector = Neo4jVector.from_existing_index(
+        embeddings,                              # (1)
+        graph=graph,                             # (2)
+        index_name="moviePlots",                 # (3)
+        node_label="Movie",                      # (4)
+        text_node_property="plot",               # (5)
+        embedding_node_property="plotEmbedding", # (6)
+        retrieval_query="""
 RETURN
     node.plot AS text,
     score,
@@ -326,7 +340,47 @@ RETURN
         source: 'https://www.themoviedb.org/movie/'+ node.tmdbId
     } AS metadata
 """
-)
+    )
+
+    # Create the retriever
+    retriever = neo4jvector.as_retriever()
+
+    # Define the prompt instructions
+    instructions = (
+        "Use the given context to answer the question. "
+        "If you don't know the answer, say you don't know. "
+        "Context: {context}"
+    )
+
+    # Create the chat prompt template
+    prompt = ChatPromptTemplate.from_messages(
+        [
+            ("system", instructions),
+            ("human", "{input}"),
+        ]
+    )
+
+    # Create the question-answer chain
+    question_answer_chain = create_stuff_documents_chain(llm.language_model, prompt)
+    plot_retriever = create_retrieval_chain(
+        retriever, 
+        question_answer_chain
+    )
+
+    # Define the function that will be used by the tool
+    def get_movie_plot(input):
+        response = plot_retriever.invoke({"input": input})
+        return response['output']
+
+    # Create and return the Tool object
+    movie_plot_tool = Tool.from_function(
+        name="Movie Plot Search",
+        description="For when you need to find information about movies based on a plot",
+        func=get_movie_plot,
+    )
+
+    return movie_plot_tool
+
 
 #---------------------------------------------------------------------------------------------------------
 
