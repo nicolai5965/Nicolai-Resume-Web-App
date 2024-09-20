@@ -276,10 +276,29 @@ RETURN
     def get_movie_plot(input):
         try:
             response = plot_retriever.invoke({"input": input})
-            return response  # Return response directly
+            st.write("Debug - Response from plot_retriever.invoke():", response)
+            st.write("Debug - Type of response:", type(response))
+            
+            if isinstance(response, dict) and 'output' in response:
+                return response['output']
+            elif isinstance(response, str):
+                try:
+                    response_dict = json.loads(response)
+                    if 'output' in response_dict:
+                        return response_dict['output']
+                    else:
+                        st.error("Parsed response does not contain 'output' key.")
+                        return "Sorry, I couldn't retrieve the movie plot."
+                except json.JSONDecodeError:
+                    st.error("Failed to parse response as JSON.")
+                    return response
+            else:
+                st.error("Unexpected response format.")
+                return "Sorry, I couldn't retrieve the movie plot."
         except Exception as e:
             st.error(f"An error occurred in get_movie_plot: {e}")
             return "Sorry, I couldn't retrieve the movie plot."
+
 
 
     # Create and return the Tool object
@@ -400,7 +419,14 @@ def generate_response(user_input):
             {"configurable": {"session_id": get_session_id()}}
         )
         st.write("Debug - Response from chat_agent.invoke():", response)
-        return response  # Return response directly
+        st.write("Debug - Type of response:", type(response))
+        
+        # Check if response is a dictionary and contains 'output'
+        if isinstance(response, dict) and 'output' in response:
+            return response['output']
+        else:
+            st.error("Response does not contain 'output' key.")
+            return "Sorry, I couldn't process your request."
     except Exception as e:
         st.error(f"An error occurred: {e}")
         st.write("Debug - Exception details:", e)
