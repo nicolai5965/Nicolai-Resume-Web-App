@@ -105,7 +105,7 @@ class LLMHandler:
 
         # Set default model names if not provided
         if self.llm_provider == "openai":
-            default_model_name = 'gpt-4'
+            default_model_name = 'gpt-4o-mini-2024-07-18'
             model_name = model_name or default_model_name
 
             # Initialize OpenAI's Chat model
