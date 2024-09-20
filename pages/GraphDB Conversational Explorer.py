@@ -72,6 +72,20 @@ st.sidebar.download_button(
 st.sidebar.write("---")
 
 ###------------------------------------------------------------------------------------------------------------###
+# Import Statements
+import uuid
+import datetime
+import streamlit as st
+from streamlit.runtime.scriptrunner import get_script_run_ctx
+
+# Include any other necessary imports here
+# from langchain_community.graphs import Neo4jGraph
+# from langchain.embeddings import OpenAIEmbeddings
+# ... (Add other imports as needed)
+
+# --------------------------------------------------------------------------------
+# 1. Initialize Neo4jGraph and Embeddings
+
 # Initialize Neo4jGraph
 graph = Neo4jGraph(
     url=st.secrets["NEO4J_URI"],
@@ -91,6 +105,9 @@ try:
     connection_status = "Connected to Neo4j database!"
 except Exception as e:
     connection_status = f"Error connecting to Neo4j database: {e}"
+
+# --------------------------------------------------------------------------------
+# 2. Define LLMHandler Class
 
 class LLMHandler:
     """
@@ -179,6 +196,9 @@ class LLMHandler:
 # Initialize the language model handler
 llm = LLMHandler("openai")
 
+# --------------------------------------------------------------------------------
+# 3. Define Chat Prompt and Movie Chat Chain
+
 # Define the chat prompt
 chat_prompt = ChatPromptTemplate.from_messages(
     [
@@ -190,125 +210,8 @@ chat_prompt = ChatPromptTemplate.from_messages(
 # Create the movie chat chain
 movie_chat = chat_prompt | llm.language_model | StrOutputParser()
 
-# Define tools
-tools = [
-    Tool.from_function(
-        name="General Chat",
-        description="For general movie chat not covered by other tools",
-        func=movie_chat.invoke,
-    ),
-    movie_plot_tool
-]
-
-# Define memory using Neo4jChatMessageHistory and the Neo4jGraph
-def get_memory(session_id):
-    return Neo4jChatMessageHistory(session_id=session_id, graph=graph)
-
-# Create the agent
-# agent_prompt = hub.pull("hwchase17/react-chat")
-
-agent_prompt = PromptTemplate.from_template("""
-You are a movie expert providing information about movies.
-Be as helpful as possible and return as much information as possible.
-Do not answer any questions that do not relate to movies, actors or directors.
-
-Do not answer any questions using your pre-trained knowledge, only use the information provided in the context.
-
-TOOLS:
-------
-
-You have access to the following tools:
-
-{tools}
-
-To use a tool, please use the following format:
-
-```
-Thought: Do I need to use a tool? Yes
-Action: the action to take, should be one of [{tool_names}]
-Action Input: the input to the action
-Observation: the result of the action
-```
-
-When you have a response to say to the Human, or if you do not need to use a tool, you MUST use the format:
-
-```
-Thought: Do I need to use a tool? No
-Final Answer: [your response here]
-```
-
-Begin!
-
-Previous conversation history:
-{chat_history}
-
-New input: {input}
-{agent_scratchpad}
-""")
-
-agent = create_react_agent(llm.language_model, tools, agent_prompt)
-agent_executor = AgentExecutor(
-    agent=agent,
-    tools=tools,
-    verbose=True
-)
-
-# Create the chat agent with message history
-chat_agent = RunnableWithMessageHistory(
-    agent_executor,
-    get_memory,
-    input_messages_key="input",
-    history_messages_key="chat_history",
-)
-
-def write_message(role, content):
-    """
-    Helper function to save a message to the session state.
-    """
-    if 'messages' not in st.session_state:
-        st.session_state.messages = []
-
-    st.session_state.messages.append({"role": role, "content": content})
-
-def get_session_id():
-    ctx = get_script_run_ctx()
-    if ctx is None:
-        return None
-    return ctx.session_id
-
-def generate_response(user_input):
-    """
-    Generate a response using the conversational agent.
-    """
-    try:
-        response = chat_agent.invoke(
-            {"input": user_input},
-            {"configurable": {"session_id": get_session_id()}}
-        )
-        return response['output']
-    except Exception as e:
-        st.error(f"An error occurred: {e}")
-        return "Sorry, I couldn't process your request."
-
-def handle_submit():
-    """
-    Submit handler to process user input and display assistant response.
-    """
-    user_input = st.session_state.get('user_input', '')
-    if user_input:
-        # Save user message
-        write_message('user', user_input)
-
-        # Generate assistant response
-        with st.spinner('Thinking...'):
-            response = generate_response(user_input)
-            # Save assistant message
-            write_message('assistant', response)
-
-        # Clear the input box
-        st.session_state.user_input = ''
-
-#---------------------------------------------------------------------------------------------------------
+# --------------------------------------------------------------------------------
+# 4. Define Movie Plot Tool Function
 
 def create_movie_plot_tool(embeddings, graph, llm):
     """
@@ -383,19 +286,138 @@ RETURN
 
     return movie_plot_tool
 
+# Create the 'Movie Plot Search' tool
+movie_plot_tool = create_movie_plot_tool(embeddings, graph, llm)
 
-#---------------------------------------------------------------------------------------------------------
+# --------------------------------------------------------------------------------
+# 5. Define Tools
 
+# Define tools
+tools = [
+    Tool.from_function(
+        name="General Chat",
+        description="For general movie chat not covered by other tools",
+        func=movie_chat.invoke,
+    ),
+    movie_plot_tool  # Add the new tool here
+]
 
-#---------------------------------------------------------------------------------------------------------
+# --------------------------------------------------------------------------------
+# 6. Define Memory Function
 
+# Define memory using Neo4jChatMessageHistory and the Neo4jGraph
+def get_memory(session_id):
+    return Neo4jChatMessageHistory(session_id=session_id, graph=graph)
 
-#---------------------------------------------------------------------------------------------------------
+# --------------------------------------------------------------------------------
+# 7. Create the Agent
+
+# agent_prompt = hub.pull("hwchase17/react-chat")
+agent_prompt = PromptTemplate.from_template("""
+You are a movie expert providing information about movies.
+Be as helpful as possible and return as much information as possible.
+Do not answer any questions that do not relate to movies, actors or directors.
+
+Do not answer any questions using your pre-trained knowledge, only use the information provided in the context.
+
+TOOLS:
+------
+
+You have access to the following tools:
+
+{tools}
+
+To use a tool, please use the following format:
+Thought: Do I need to use a tool? Yes Action: the action to take, should be one of [{tool_names}] 
+
+Action Input: the input to the action 
+
+Observation: the result of the action when you have a response to say to the Human, or if you do not need to use a tool, you MUST use the format:
+
+Thought: Do I need to use a tool? No Final Answer: [your response here]
+
+Begin!
+
+Previous conversation history:
+{chat_history}
+
+New input: {input}
+{agent_scratchpad}
+""")
+
+agent = create_react_agent(llm.language_model, tools, agent_prompt)
+agent_executor = AgentExecutor(
+    agent=agent,
+    tools=tools,
+    verbose=True
+)
+
+# Create the chat agent with message history
+chat_agent = RunnableWithMessageHistory(
+    agent_executor,
+    get_memory,
+    input_messages_key="input",
+    history_messages_key="chat_history",
+)
+
+# --------------------------------------------------------------------------------
+# 8. Define Helper Functions
+
+def write_message(role, content):
+    """
+    Helper function to save a message to the session state.
+    """
+    if 'messages' not in st.session_state:
+        st.session_state.messages = []
+
+    st.session_state.messages.append({"role": role, "content": content})
+
+def get_session_id():
+    ctx = get_script_run_ctx()
+    if ctx is None:
+        return None
+    return ctx.session_id
+
+def generate_response(user_input):
+    """
+    Generate a response using the conversational agent.
+    """
+    try:
+        response = chat_agent.invoke(
+            {"input": user_input},
+            {"configurable": {"session_id": get_session_id()}}
+        )
+        return response['output']
+    except Exception as e:
+        st.error(f"An error occurred: {e}")
+        return "Sorry, I couldn't process your request."
+
+def handle_submit():
+    """
+    Submit handler to process user input and display assistant response.
+    """
+    user_input = st.session_state.get('user_input', '')
+    if user_input:
+        # Save user message
+        write_message('user', user_input)
+
+        # Generate assistant response
+        with st.spinner('Thinking...'):
+            response = generate_response(user_input)
+            # Save assistant message
+            write_message('assistant', response)
+
+        # Clear the input box
+        st.session_state.user_input = ''
+
+# --------------------------------------------------------------------------------
+# 9. Streamlit UI Code
+
 # Streamlit UI
 st.title("GraphDB Conversational Explorer")
 
 # Display connection status
-st.write("Connected to Neo4j database!")
+st.write(connection_status)
 
 # User input
 st.text_input("You:", key='user_input', on_change=handle_submit)
@@ -408,3 +430,5 @@ if 'messages' not in st.session_state:
 for message in st.session_state.messages:
     with st.chat_message(message["role"]):
         st.markdown(message["content"])
+
+
