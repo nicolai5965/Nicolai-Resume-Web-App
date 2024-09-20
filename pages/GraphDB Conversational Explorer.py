@@ -20,6 +20,7 @@ from langchain_community.graphs import Neo4jGraph
 from langchain.agents import AgentExecutor, create_react_agent
 from langchain_core.runnables.history import RunnableWithMessageHistory
 from langchain import hub
+from langchain_core.prompts import PromptTemplate
 from streamlit.runtime.scriptrunner import get_script_run_ctx
 
 # Set environment variables using Streamlit secrets
