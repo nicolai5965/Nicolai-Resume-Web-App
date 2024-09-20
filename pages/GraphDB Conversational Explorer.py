@@ -72,18 +72,6 @@ st.sidebar.download_button(
 st.sidebar.write("---")
 
 ###------------------------------------------------------------------------------------------------------------###
-# Import Statements
-import uuid
-import datetime
-import streamlit as st
-from streamlit.runtime.scriptrunner import get_script_run_ctx
-
-# Include any other necessary imports here
-# from langchain_community.graphs import Neo4jGraph
-# from langchain.embeddings import OpenAIEmbeddings
-# ... (Add other imports as needed)
-
-# --------------------------------------------------------------------------------
 # 1. Initialize Neo4jGraph and Embeddings
 
 # Initialize Neo4jGraph
@@ -277,27 +265,19 @@ RETURN
         try:
             response = plot_retriever.invoke({"input": input})
             st.write("Debug - Response from plot_retriever.invoke():", response)
-            st.write("Debug - Type of response:", type(response))
-            
-            if isinstance(response, dict) and 'output' in response:
-                return response['output']
-            elif isinstance(response, str):
-                try:
-                    response_dict = json.loads(response)
-                    if 'output' in response_dict:
-                        return response_dict['output']
-                    else:
-                        st.error("Parsed response does not contain 'output' key.")
-                        return "Sorry, I couldn't retrieve the movie plot."
-                except json.JSONDecodeError:
-                    st.error("Failed to parse response as JSON.")
-                    return response
+            if isinstance(response, dict):
+                if 'answer' in response:
+                    return response['answer']
+                else:
+                    st.error("Response does not contain 'answer' key.")
+                    return "Sorry, I couldn't retrieve the movie plot."
             else:
-                st.error("Unexpected response format.")
+                st.error("Unexpected response format from plot_retriever.")
                 return "Sorry, I couldn't retrieve the movie plot."
         except Exception as e:
             st.error(f"An error occurred in get_movie_plot: {e}")
             return "Sorry, I couldn't retrieve the movie plot."
+
 
 
 
