@@ -274,8 +274,13 @@ RETURN
 
     # Define the function that will be used by the tool
     def get_movie_plot(input):
-        response = plot_retriever.invoke({"input": input})
-        return response['output']
+        try:
+            response = plot_retriever.invoke({"input": input})
+            return response  # Return response directly
+        except Exception as e:
+            st.error(f"An error occurred in get_movie_plot: {e}")
+            return "Sorry, I couldn't retrieve the movie plot."
+
 
     # Create and return the Tool object
     movie_plot_tool = Tool.from_function(
