@@ -214,18 +214,14 @@ chat_agent = RunnableWithMessageHistory(
     history_messages_key="chat_history",
 )
 
-def write_message(role, content, save=True):
+def write_message(role, content):
     """
-    Helper function to save a message to the session state and write it to the UI.
+    Helper function to save a message to the session state.
     """
     if 'messages' not in st.session_state:
         st.session_state.messages = []
 
-    if save:
-        st.session_state.messages.append({"role": role, "content": content})
-
-    with st.chat_message(role):
-        st.markdown(content)
+    st.session_state.messages.append({"role": role, "content": content})
 
 def get_session_id():
     ctx = get_script_run_ctx()
@@ -237,13 +233,16 @@ def generate_response(user_input):
     """
     Generate a response using the conversational agent.
     """
-    response = chat_agent.invoke(
-        {"input": user_input},
-        {"configurable": {"session_id": get_session_id()}}
-    )
-    return response['output']
+    try:
+        response = chat_agent.invoke(
+            {"input": user_input},
+            {"configurable": {"session_id": get_session_id()}}
+        )
+        return response['output']
+    except Exception as e:
+        st.error(f"An error occurred: {e}")
+        return "Sorry, I couldn't process your request."
 
-# Handle user input and generate responses
 def handle_submit():
     """
     Submit handler to process user input and display assistant response.
@@ -253,21 +252,29 @@ def handle_submit():
         # Save user message
         write_message('user', user_input)
 
-        # Generate and save assistant response
+        # Generate assistant response
         with st.spinner('Thinking...'):
             response = generate_response(user_input)
+            # Save assistant message
             write_message('assistant', response)
 
         # Clear the input box
         st.session_state.user_input = ''
 
+# Streamlit UI
+st.title("GraphDB Conversational Explorer")
+
+# Display connection status
+st.write("Connected to Neo4j database!")
+
+# User input
+st.text_input("You:", key='user_input', on_change=handle_submit)
 
 # Chat interface
 if 'messages' not in st.session_state:
     st.session_state.messages = []
 
+# Render messages
 for message in st.session_state.messages:
-    write_message(message["role"], message["content"], save=False)
-
-# User input
-st.text_input("You:", key='user_input', on_change=handle_submit)
+    with st.chat_message(message["role"]):
+        st.markdown(message["content"])
