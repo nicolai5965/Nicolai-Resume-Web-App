@@ -394,9 +394,11 @@ def generate_response(user_input):
             {"input": user_input},
             {"configurable": {"session_id": get_session_id()}}
         )
+        st.write("Debug - Response from chat_agent.invoke():", response)
         return response['output']
     except Exception as e:
         st.error(f"An error occurred: {e}")
+        st.write("Debug - Exception details:", e)
         return "Sorry, I couldn't process your request."
 
 def handle_submit():
