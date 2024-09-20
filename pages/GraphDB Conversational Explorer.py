@@ -11,7 +11,7 @@ from py2neo import Graph
 
 from langchain_anthropic import ChatAnthropic
 from langchain_openai import ChatOpenAI
-
+from langchain_openai import OpenAIEmbeddings
 from langchain_core.prompts import ChatPromptTemplate
 from langchain.schema import StrOutputParser
 from langchain.tools import Tool
@@ -76,8 +76,6 @@ graph = Neo4jGraph(
 )
 
 # Create the Embedding model
-from langchain_openai import OpenAIEmbeddings
-
 embeddings = OpenAIEmbeddings(
     openai_api_key=st.secrets["OPENAI_API_KEY"],
     model="text-embedding-3-small"
