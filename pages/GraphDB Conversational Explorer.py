@@ -75,6 +75,14 @@ graph = Neo4jGraph(
     password=st.secrets["NEO4J_PASSWORD"],
 )
 
+# Create the Embedding model
+from langchain_openai import OpenAIEmbeddings
+
+embeddings = OpenAIEmbeddings(
+    openai_api_key=st.secrets["OPENAI_API_KEY"],
+    model="text-embedding-3-small"
+)
+
 # Verify connection using a simple query
 try:
     result = graph.query("RETURN 1")
