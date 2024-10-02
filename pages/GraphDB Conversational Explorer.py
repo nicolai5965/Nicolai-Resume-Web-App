@@ -300,24 +300,27 @@ RETURN
     # Define the function that will be used by the tool
     def get_movie_plot(input):
         response = plot_retriever.invoke({"input": input})
-        # Use an expander to display the input and context
-        with st.expander("Show Retrieved Context"):
-            # Display the input
-            st.write(f"**Input:** {response.get('input', '')}")
-            
-            # Display the context documents
-            st.write("**Context Documents:**")
-            context_documents = response.get('context', [])
-            for idx, doc in enumerate(context_documents, start=1):
-                st.write(f"**Document {idx}:**")
-                st.write(f"- **Title:** {doc.metadata.get('title', 'N/A')}")
-                st.write(f"- **Text:**")
-                with st.expander(f"Show Text of Document {idx}"):
-                    st.write(doc.page_content)
-                st.write(f"- **Metadata:**")
-                for key, value in doc.metadata.items():
-                    st.write(f"    - **{key.capitalize()}:** {value}")
-                st.write("---")
+            # Use an expander to display the input and context
+            with st.expander("Show Retrieved Context"):
+                # Display the input
+                st.write(f"**Input:** {response.get('input', '')}")
+                
+                # Display the context documents using tabs
+                context_documents = response.get('context', [])
+                if context_documents:
+                    # Create a tab for each document
+                    tab_titles = [f"Document {idx}" for idx in range(1, len(context_documents) + 1)]
+                    tabs = st.tabs(tab_titles)
+                    for idx, (tab, doc) in enumerate(zip(tabs, context_documents), start=1):
+                        with tab:
+                            st.write(f"### Document {idx}")
+                            st.write(f"**Title:** {doc.metadata.get('title', 'N/A')}")
+                            st.write(f"**Text:** {doc.page_content}")
+                            st.write(f"**Metadata:**")
+                            for key, value in doc.metadata.items():
+                                st.write(f"- **{key.capitalize()}:** {value}")
+                else:
+                    st.write("No context documents retrieved.")
         return response
 
     # Create and return the Tool object
