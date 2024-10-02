@@ -206,7 +206,7 @@ def generate_response(user_input):
             {"input": user_input},
             {"configurable": {"session_id": get_session_id()}}
         )
-        return response #['output']
+        return response['output']
     except Exception as e:
         st.error(f"An error occurred: {e}")
         return "Sorry, I couldn't process your request."
@@ -293,7 +293,9 @@ RETURN
     # Define the function that will be used by the tool
     def get_movie_plot(input):
         response = plot_retriever.invoke({"input": input})
-        return response['output']
+        st.write(f"Response type: {type(response)}")
+        st.write(f"Response content: {response}")
+        return response
 
     # Create and return the Tool object
     movie_plot_tool = Tool.from_function(
