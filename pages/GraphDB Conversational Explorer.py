@@ -72,7 +72,8 @@ st.sidebar.download_button(
 st.sidebar.write("---")
 
 ###------------------------------------------------------------------------------------------------------------###
-###------------------------------------------------------------------------------------------------------------###
+### Section 1: Initialize Neo4jGraph and Embeddings ###
+
 # Initialize Neo4jGraph
 graph = Neo4jGraph(
     url=st.secrets["NEO4J_URI"],
@@ -92,6 +93,9 @@ try:
     connection_status = "Connected to Neo4j database!"
 except Exception as e:
     connection_status = f"Error connecting to Neo4j database: {e}"
+
+###---------------------------------------------------------------------------------------------------------
+### Section 2: Define LLMHandler Class ###
 
 class LLMHandler:
     """
@@ -177,6 +181,8 @@ class LLMHandler:
         }
         return settings
 
+###---------------------------------------------------------------------------------------------------------
+### Section 3: Define Utility Functions ###
 
 # Define memory using Neo4jChatMessageHistory and the Neo4jGraph
 def get_memory(session_id):
@@ -229,7 +235,8 @@ def handle_submit():
         # Clear the input box
         st.session_state.user_input = ''
 
-#---------------------------------------------------------------------------------------------------------
+###---------------------------------------------------------------------------------------------------------
+### Section 4: Create Movie Plot Search Tool ###
 
 def create_movie_plot_tool(embeddings, graph, llm):
     """
@@ -306,6 +313,9 @@ RETURN
 
     return movie_plot_tool
 
+###---------------------------------------------------------------------------------------------------------
+### Section 5: Initialize Language Model Handler and Chat Chain ###
+
 # Initialize the language model handler
 llm = LLMHandler("openai")
 
@@ -320,12 +330,13 @@ chat_prompt = ChatPromptTemplate.from_messages(
 # Create the movie chat chain
 movie_chat = chat_prompt | llm.language_model | StrOutputParser()
 
-#---------------------------------------------------------------------------------------------------------
+###---------------------------------------------------------------------------------------------------------
+### Section 6: Create Tools List ###
 
 # Call the function to create movie_plot_tool
 movie_plot_tool = create_movie_plot_tool(embeddings, graph, llm)
 
-# Now define tools including movie_plot_tool
+# Define tools including movie_plot_tool
 tools = [
     Tool.from_function(
         name="General Chat",
@@ -335,11 +346,10 @@ tools = [
     movie_plot_tool
 ]
 
-#---------------------------------------------------------------------------------------------------------
-
-
-# Create the agent
-# agent_prompt = hub.pull("hwchase17/react-chat")
+###---------------------------------------------------------------------------------------------------------
+### Section 7: Create Conversational Agent ###
+# Define the agent prompt
+# agent_prompt = hub.pull("hwchase17/react-chat") #old pre made prompt
 
 agent_prompt = PromptTemplate.from_template("""
 You are a movie expert providing information about movies.
@@ -380,6 +390,7 @@ New input: {input}
 {agent_scratchpad}
 """)
 
+# Create the agent
 agent = create_react_agent(llm.language_model, tools, agent_prompt)
 agent_executor = AgentExecutor(
     agent=agent,
@@ -396,7 +407,9 @@ chat_agent = RunnableWithMessageHistory(
 )
 
 
-#---------------------------------------------------------------------------------------------------------
+###---------------------------------------------------------------------------------------------------------
+### Section 8: Streamlit User Interface ###
+
 # Streamlit UI
 st.title("GraphDB Conversational Explorer")
 
