@@ -191,15 +191,6 @@ chat_prompt = ChatPromptTemplate.from_messages(
 # Create the movie chat chain
 movie_chat = chat_prompt | llm.language_model | StrOutputParser()
 
-# Define tools
-tools = [
-    Tool.from_function(
-        name="General Chat",
-        description="For general movie chat not covered by other tools",
-        func=movie_chat.invoke,
-    ),
-    movie_plot_tool
-]
 
 # Define memory using Neo4jChatMessageHistory and the Neo4jGraph
 def get_memory(session_id):
@@ -387,6 +378,18 @@ RETURN
 
 #---------------------------------------------------------------------------------------------------------
 
+# Call the function to create movie_plot_tool
+movie_plot_tool = create_movie_plot_tool(embeddings, graph, llm)
+
+# Now define tools including movie_plot_tool
+tools = [
+    Tool.from_function(
+        name="General Chat",
+        description="For general movie chat not covered by other tools",
+        func=movie_chat.invoke,
+    ),
+    movie_plot_tool
+]
 
 #---------------------------------------------------------------------------------------------------------
 
