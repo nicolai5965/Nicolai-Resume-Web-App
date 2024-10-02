@@ -206,7 +206,7 @@ def generate_response(user_input):
             {"input": user_input},
             {"configurable": {"session_id": get_session_id()}}
         )
-        return response['output']
+        return response #['output']
     except Exception as e:
         st.error(f"An error occurred: {e}")
         return "Sorry, I couldn't process your request."
