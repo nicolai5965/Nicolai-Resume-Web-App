@@ -356,7 +356,8 @@ movie_chat = chat_prompt | llm.language_model | StrOutputParser()
 cypher_qa = GraphCypherQAChain.from_llm(
     llm.language_model,
     graph=graph,
-    verbose=True
+    verbose=True,
+    allow_dangerous_requests=True
 )
 
 
