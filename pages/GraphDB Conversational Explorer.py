@@ -102,7 +102,7 @@ graph = Neo4jGraph(
 # Create the Embedding model
 embeddings = OpenAIEmbeddings(
     openai_api_key=st.secrets["OPENAI_API_KEY"],
-    model="text-embedding-ada-002" #text-embedding-ada-002
+    #model="text-embedding-ada-002" #text-embedding-ada-002
 )
 
 # Verify connection using a simple query
