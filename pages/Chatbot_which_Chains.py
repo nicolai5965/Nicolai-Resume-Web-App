@@ -78,7 +78,7 @@ class TextInterpreter_SingleChain:
         """
 
         # Initialize LangChain's OpenAI model with the provided API key
-        self.chat = ChatOpenAI(model='gpt-3.5-turbo-0613', openai_api_key=openai_key, temperature=0)
+        self.chat = ChatOpenAI(model='gpt-4o-mini-2024-07-18', openai_api_key=openai_key, temperature=0)
 
     def interpret(self, text):
         # Create a ChatPromptTemplate using the template
