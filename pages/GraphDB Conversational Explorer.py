@@ -257,6 +257,12 @@ def handle_submit():
         st.session_state.user_input = ''
 
 ###---------------------------------------------------------------------------------------------------------
+### Section 4: Initialize Language Model Handler ###
+
+# Initialize the language model handler
+llm = LLMHandler("openai")
+
+###---------------------------------------------------------------------------------------------------------
 ### Section 4: Create Tools ###
 
 def create_movie_plot_tool(embeddings, graph, llm):
@@ -335,19 +341,7 @@ RETURN
 
     return movie_plot_tool
 
-### Text to Cypher Tool
-cypher_qa = GraphCypherQAChain.from_llm(
-    llm,
-    graph=graph,
-    verbose=True
-)
-
-###---------------------------------------------------------------------------------------------------------
-### Section 5: Initialize Language Model Handler and Chat Chain ###
-
-# Initialize the language model handler
-llm = LLMHandler("openai")
-
+###-------- General Chat Tool
 # Define the chat prompt
 chat_prompt = ChatPromptTemplate.from_messages(
     [
@@ -355,9 +349,17 @@ chat_prompt = ChatPromptTemplate.from_messages(
         ("human", "{input}"),
     ]
 )
-
 # Create the movie chat chain
 movie_chat = chat_prompt | llm.language_model | StrOutputParser()
+
+### Text to Cypher Tool
+cypher_qa = GraphCypherQAChain.from_llm(
+    llm.language_model,
+    graph=graph,
+    verbose=True
+)
+
+
 
 ###---------------------------------------------------------------------------------------------------------
 ### Section 6: Create Tools List ###
