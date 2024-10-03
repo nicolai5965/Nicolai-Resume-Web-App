@@ -76,7 +76,7 @@ st.sidebar.write("---")
 st.sidebar.write("### Pre-made Questions")
 
 pre_made_questions = [
-    "What is the plot of Inception?",
+    "What is the plot of Matrix?",
     "Who directed The Matrix?",
     "List movies starring Leonardo DiCaprio.",
     "Find movies directed by Christopher Nolan.",
@@ -92,7 +92,6 @@ st.sidebar.text_area("Question:", selected_question, height=100)
 
 ###------------------------------------------------------------------------------------------------------------###
 ### Section 1: Initialize Neo4jGraph and Embeddings ###
-
 # Initialize Neo4jGraph
 graph = Neo4jGraph(
     url=st.secrets["NEO4J_URI"],
@@ -433,7 +432,6 @@ agent = create_react_agent(llm.language_model, tools, agent_prompt)
 agent_executor = AgentExecutor(
     agent=agent,
     tools=tools,
-    max_iterations=1,
     verbose=True
 )
 
