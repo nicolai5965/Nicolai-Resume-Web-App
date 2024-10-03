@@ -433,7 +433,7 @@ agent = create_react_agent(llm.language_model, tools, agent_prompt)
 agent_executor = AgentExecutor(
     agent=agent,
     tools=tools,
-    max_interations=3,
+    max_iterations=3,
     verbose=True
 )
 
