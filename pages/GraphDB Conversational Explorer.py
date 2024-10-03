@@ -24,6 +24,7 @@ from langchain_core.prompts import PromptTemplate
 from langchain_community.vectorstores.neo4j_vector import Neo4jVector
 from langchain.chains.combine_documents import create_stuff_documents_chain
 from langchain.chains import create_retrieval_chain
+from langchain_community.chains.graph_qa.cypher import GraphCypherQAChain
 
 from streamlit.runtime.scriptrunner import get_script_run_ctx
 
@@ -256,7 +257,7 @@ def handle_submit():
         st.session_state.user_input = ''
 
 ###---------------------------------------------------------------------------------------------------------
-### Section 4: Create Movie Plot Search Tool ###
+### Section 4: Create Tools ###
 
 def create_movie_plot_tool(embeddings, graph, llm):
     """
@@ -334,6 +335,13 @@ RETURN
 
     return movie_plot_tool
 
+### Text to Cypher Tool
+cypher_qa = GraphCypherQAChain.from_llm(
+    llm,
+    graph=graph,
+    verbose=True
+)
+
 ###---------------------------------------------------------------------------------------------------------
 ### Section 5: Initialize Language Model Handler and Chat Chain ###
 
@@ -364,7 +372,12 @@ tools = [
         description="For general movie chat not covered by other tools",
         func=movie_chat.invoke,
     ),
-    movie_plot_tool
+    movie_plot_tool,
+    Tool.from_function(
+        name="Movie information",
+        description="Provide information about movies questions using Cypher",
+        func = cypher_qa
+    )
 ]
 
 ###---------------------------------------------------------------------------------------------------------
