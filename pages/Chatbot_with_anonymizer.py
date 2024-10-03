@@ -37,6 +37,12 @@ SOCIAL_MEDIA = {
     "LinkedIn": "https://www.linkedin.com/in/nicolai-s%C3%B8derberg-907680238/",
     "GitHub": "https://github.com/nicolai5965",
 }
+
+os.environ['LANGCHAIN_API_KEY'] = st.secrets["LANGCHAIN_API_KEY"]
+os.environ["LANGCHAIN_TRACING_V2"] = "true"
+os.environ["LANGCHAIN_PROJECT"] = "Chatbot_anonymizer"
+os.environ["LANGCHAIN_ENDPOINT"] = "https://api.smith.langchain.com"
+
 ###------------------------------------------------------------------------------------------------------------###
 ### Sidebar
 st.sidebar.write('\n')
@@ -231,7 +237,7 @@ class ChatbotMemory:
 
     def setup_embeddings(self):
         # Initializes the embeddings for OpenAI.
-        self.embeddings = OpenAIEmbeddings(openai_api_key=self.openai_key)
+        self.embeddings = OpenAIEmbeddings(openai_api_key=self.openai_key, model="text-embedding-3-small")
 
     def setup_retriever(self):
         # Initializes the document retriever.
@@ -251,7 +257,7 @@ class ChatbotMemory:
         self.prompt = PromptTemplate(
             input_variables=["chat_history", "human_input", "context"], template=template
         )
-        self.model = ChatOpenAI(openai_api_key=self.openai_key, temperature=0)
+        self.model = ChatOpenAI(openai_api_key=self.openai_key, temperature=0, model='gpt-4o-mini-2024-07-18')
         self.memory = ConversationBufferMemory(memory_key="chat_history", input_key="human_input")
 
     def setup_anonymizer_chain(self):
