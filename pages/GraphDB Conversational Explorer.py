@@ -241,6 +241,8 @@ def handle_submit():
     """
     user_input = st.session_state.get('user_input', '')
     if user_input:
+        # Clear previous retrieved context
+        st.session_state['retrieved_context'] = []
         # Save user message
         write_message('user', user_input)
 
@@ -465,7 +467,25 @@ for message in st.session_state.messages:
     with st.chat_message(message["role"]):
         st.markdown(message["content"])
 
-
+# After rendering messages, display the retrieved context
+if 'retrieved_context' in st.session_state and st.session_state['retrieved_context']:
+    with st.expander("Show Retrieved Context"):
+        context_documents = st.session_state['retrieved_context']
+        # Display the context documents using tabs
+        if context_documents:
+            # Create a tab for each document
+            tab_titles = [f"Document {idx}" for idx in range(1, len(context_documents) + 1)]
+            tabs = st.tabs(tab_titles)
+            for idx, (tab, doc) in enumerate(zip(tabs, context_documents), start=1):
+                with tab:
+                    st.write(f"### Document {idx}")
+                    st.write(f"**Title:** {doc.metadata.get('title', 'N/A')}")
+                    st.write(f"**Text:** {doc.page_content}")
+                    st.write(f"**Metadata:**")
+                    for key, value in doc.metadata.items():
+                        st.write(f"- **{key.capitalize()}:** {value}")
+        else:
+            st.write("No context documents retrieved.")
 ###------------------------------------------------------------------------------------------------------------###
 
 
