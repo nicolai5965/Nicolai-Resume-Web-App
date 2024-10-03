@@ -62,14 +62,33 @@ st.sidebar.markdown(GitHub_link, unsafe_allow_html=True)
 
 with open(resume_file, "rb") as pdf_file:
     PDFbyte_CV = pdf_file.read()
-    
+
 st.sidebar.download_button(
-    label = "Download Resume 👈",
-    data = PDFbyte_CV,
-    file_name = resume_file,
-    mime ="application/octet-stream",)
+    label="Download Resume 👈",
+    data=PDFbyte_CV,
+    file_name=resume_file,
+    mime="application/octet-stream",
+)
 
 st.sidebar.write("---")
+
+# Add pre-made questions
+st.sidebar.write("### Pre-made Questions")
+
+pre_made_questions = [
+    "What is the plot of Inception?",
+    "Who directed The Matrix?",
+    "List movies starring Leonardo DiCaprio.",
+    "Find movies directed by Christopher Nolan.",
+    "Tell me about the movie 'Interstellar'."
+]
+
+selected_question = st.sidebar.selectbox("Select a pre-made question:", pre_made_questions)
+
+st.sidebar.write("Copy and paste the question into the input box below:")
+
+st.sidebar.text_area("Question:", selected_question, height=100)
+
 
 ###------------------------------------------------------------------------------------------------------------###
 ### Section 1: Initialize Neo4jGraph and Embeddings ###
