@@ -536,10 +536,6 @@ I developed a sophisticated chatbot that provides movie recommendations and info
 This project highlights my capability to develop complex AI-driven applications by integrating multiple technologies. It reflects my proficiency in Python, database management with Neo4j, natural language processing, and web development with Streamlit. Through this project, I have demonstrated strong problem-solving skills and the ability to create user-centric solutions that leverage advanced AI models.
 """
 
-
-# Project Description 
-project_description = """[Your existing project description string]"""
-
 # Use an expander to hide the detailed description
 with st.expander("Read more about this project"):
     st.markdown(project_description)
