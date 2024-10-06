@@ -478,6 +478,73 @@ chat_agent = RunnableWithMessageHistory(
 # Streamlit UI
 st.title("GraphDB Conversational Explorer")
 
+# Project Description
+project_description = """
+**Project Title:** Neo4j-Backed Movie Recommendation Chatbot
+
+---
+
+**Project Description:**
+
+I developed a sophisticated chatbot that provides movie recommendations and information by leveraging a Neo4j graph database, Langchain, and Streamlit. This project involved creating an interactive chat interface where users can ask complex questions about movies, actors, and directors. The chatbot intelligently interprets user queries and retrieves accurate information from the Neo4j database, enriched with the capabilities of advanced language models like OpenAI's GPT-4 and Anthropic's Claude.
+
+**Key Features:**
+
+- **Interactive Chat Interface:** Built with Streamlit, the interface allows users to engage in natural language conversations with the chatbot.
+- **Complex Query Handling:** Capable of understanding and answering intricate questions such as:
+  - *"How many movies has Tom Hanks acted in?"*
+  - *"What is the most popular movie in the database?"*
+  - *"Can you recommend a movie for fans of The Matrix and Casino?"*
+- **Conversational Memory:** Utilizes Neo4j to maintain conversation history, allowing for context-aware interactions.
+- **Retrieval Augmented Generation (RAG):** Implements RAG to enhance the chatbot's responses with relevant information from the database.
+- **Custom Tools and Agents:** Developed specialized tools for movie plot searches and Cypher query generation to interact with the Neo4j database effectively.
+
+**Skills Demonstrated:**
+
+- **Python Programming:** Extensive use of Python for backend development and integration of various libraries and APIs.
+- **Graph Databases (Neo4j):** Proficient in setting up, querying, and managing data within a Neo4j graph database.
+- **Natural Language Processing (NLP):** Integrated language models to understand and generate human-like responses.
+- **Web Development with Streamlit:** Created a user-friendly web interface for seamless interaction with the chatbot.
+- **API Integration:** Worked with OpenAI and Anthropic APIs to incorporate advanced language models.
+- **Data Retrieval and Processing:** Implemented techniques like RAG and developed custom retrieval functions.
+- **Conversational AI:** Built agents with memory and context handling capabilities using Langchain.
+
+**Technologies and Tools Used:**
+
+- **Programming Language:** Python
+- **Databases:** Neo4j Graph Database
+- **Frameworks and Libraries:**
+  - **Langchain:** For building chains and agents that interact with language models.
+  - **OpenAI API:** Accessed GPT-4 models for language understanding.
+  - **Anthropic API:** Utilized Claude models for advanced NLP tasks.
+  - **Streamlit:** Developed the front-end chat interface.
+  - **Py2neo and Neo4j Drivers:** For connecting and executing queries on the Neo4j database.
+- **AI Models:** GPT-4, Claude
+- **Additional Libraries:**
+  - **Neo4jGraph and Neo4jVector:** For graph data handling and vector storage.
+  - **Chat Message Histories:** Managed conversation histories within Neo4j.
+  - **Prompt Templates:** Crafted custom prompts for language models.
+
+**Project Outcomes:**
+
+- Successfully created a functional chatbot that can handle complex movie-related queries.
+- Demonstrated the integration of a graph database with state-of-the-art language models.
+- Showcased the ability to build full-stack applications involving database management, backend logic, and frontend interfaces.
+
+---
+
+This project highlights my capability to develop complex AI-driven applications by integrating multiple technologies. It reflects my proficiency in Python, database management with Neo4j, natural language processing, and web development with Streamlit. Through this project, I have demonstrated strong problem-solving skills and the ability to create user-centric solutions that leverage advanced AI models.
+"""
+
+
+# Project Description 
+project_description = """[Your existing project description string]"""
+
+# Use an expander to hide the detailed description
+with st.expander("Read more about this project"):
+    st.markdown(project_description)
+
+
 # Display connection status
 st.write("Connected to Neo4j database!")
 
