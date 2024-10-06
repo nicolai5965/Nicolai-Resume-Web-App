@@ -111,7 +111,7 @@ try:
     result = graph.query("RETURN 1")
     connection_status = "Connected to Neo4j database!"
 except Exception as e:
-    connection_status = f"Error connecting to Neo4j database: {e}"
+    connection_status = f"Error connecting to Neo4j database: {e}, pleace contact Nicolai if you want to see the project work. This is only a demo!"
 
 ###---------------------------------------------------------------------------------------------------------
 ### Section 2: Define LLMHandler Class ###
