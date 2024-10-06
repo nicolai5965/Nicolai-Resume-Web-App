@@ -478,9 +478,6 @@ chat_agent = RunnableWithMessageHistory(
 # Streamlit UI
 st.title("GraphDB Conversational Explorer")
 
-# Display the architecture diagram outside the expander
-image_path = "pages/Images/neo4j_chatbot_architecture.png"
-st.image(image_path, caption="Architecture Diagram of the Neo4j-Backed Chatbot", use_column_width=True)
 
 # Project Description
 project_description = """
@@ -543,6 +540,10 @@ This project highlights my capability to develop complex AI-driven applications 
 # Use an expander to hide the detailed description
 with st.expander("Read more about this project"):
     st.markdown(project_description)
+    # Display the architecture diagram inside the expander
+    image_path = "pages/Images/neo4j_chatbot_architecture.png"
+    st.image(image_path, caption="Architecture Diagram of the Neo4j-Backed Chatbot", use_column_width=True)
+
 
 # User input
 st.text_input("You:", key='user_input', on_change=handle_submit)
