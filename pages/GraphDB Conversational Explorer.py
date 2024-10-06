@@ -548,6 +548,8 @@ with st.expander("Read more about this project"):
 # User input
 st.text_input("You:", key='user_input', on_change=handle_submit)
 
+st.write(connection_status )
+
 # Chat interface
 if 'messages' not in st.session_state:
     st.session_state.messages = []
